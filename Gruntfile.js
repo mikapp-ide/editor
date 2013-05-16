@@ -88,7 +88,12 @@ module.exports = function(grunt) {
 		},
 
 		clean: {
-			production: ['<%= pkg.dest %>/production/*'],
+			production: [
+				'<%= pkg.dest %>/production/*',
+				'!<%= pkg.dest %>/production/node_modules',
+				'!<%= pkg.dest %>/production/iisnode.yml',
+				'!<%= pkg.dest %>/production/web.config'
+			],
 			development: ['<%= pkg.dest %>/development/']
 		},
 
