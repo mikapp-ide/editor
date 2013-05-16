@@ -87,7 +87,7 @@
 			}, defaultData);
 		};
 
-	/*app.get('/project', function(req, res) {
+	app.get('/api/project', function(req, res) {
 		var username = req.headers["access-token"];
 
 		async.waterfall([
@@ -141,7 +141,7 @@
 				res.send(403, generateError(300, "Invalid user access token provided"));
 			}
 		});
-	});*/
+	});
 
 	app.get('/api/projects', function(req, res) {
 		var username = req.headers["access-token"],
@@ -185,7 +185,7 @@
 		});
 	});
 
-	app.post('/project', function(req, res) {
+	app.post('/api/project', function(req, res) {
 		var username = req.headers["access-token"],
 			data = req.body;//.param("data", null);
 
