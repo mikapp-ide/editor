@@ -1,6 +1,8 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
+	grunt.loadTasks("build/tasks");
+
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -94,7 +96,15 @@ module.exports = function(grunt) {
 				'!<%= pkg.dest %>/production/iisnode.yml',
 				'!<%= pkg.dest %>/production/web.config'
 			],
-			development: ['<%= pkg.dest %>/development/']
+			post_production: [
+				'<%= pkg.dest %>/production/public/css/**',
+				'!<%= pkg.dest %>/production/public/css/index.css',
+				'<%= pkg.dest %>/production/public/index.tmpl'
+			],
+			development: ['<%= pkg.dest %>/development/'],
+			post_development:[
+				'<%= pkg.dest %>/development/public/index.tmpl'
+			]
 		},
 
 		copy: {
@@ -180,6 +190,17 @@ module.exports = function(grunt) {
 			development: {
 				options: '<%= development_requirejs_options %>'
 			}
+		},
+
+		index: {
+			production: {
+				src: '<%= pkg.src %>/public/index.tmpl',
+				dest: '<%= pkg.dest %>/production/public/index.html'
+			},
+			development: {
+				src: '<%= pkg.src %>/public/index.tmpl',
+				dest: '<%= pkg.dest %>/development/public/index.html'
+			}
 		}
 	});
 
@@ -190,8 +211,25 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
 
+	// Production setup
+	grunt.registerTask('build', 'Build task', function(environment) {
+		// set some global flags that all tasks can access
+		grunt.config('environment', environment);
+
+		// run tasks
+		grunt.task.run([
+			'clean:' + environment,
+			'jshint',
+			'copy:' + environment,
+			'requirejs:' + environment,
+			'less:' + environment,
+			'index:' + environment,
+			'clean:post_' + environment
+		]);
+	});
+
+/*
 	// Default task.
 	grunt.registerTask('default', ['jshint', 'requirejs', 'less:production']);
-	grunt.registerTask('production', ['clean:production', 'jshint', 'copy:production', 'requirejs:production', 'less:production']);
-	grunt.registerTask('test', ['jshint', 'jasmine']);
+	grunt.registerTask('test', ['jshint', 'jasmine']);*/
 };

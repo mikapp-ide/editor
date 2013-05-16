@@ -1,0 +1,95 @@
+<article class="page page-project-details">
+	<header class="main">
+		<img src="/img/logo.png" alt="Mikapp"><span>alpha</span>
+		<button class="go-to-dashboard">Dashboard</button>
+		<a href="http://localhost:3333/api/compile/71928b1e-b9e2-10fc-b12f-fe1a3cce2b86" download>Compile and download</a>
+	</header>
+	<section class="workspace">
+		<aside class="toolbox">
+			<tabs>
+				<pane heading="Toolbox" classes="mk-icon mk-icon-toolbox">
+					<section>
+						<h4>Toolbox</h4>
+						<accordion>
+							<accordion-group ng-repeat="group in toolBox" heading="{{group.label}}">
+								<ul>
+									<li ng-repeat="component in group.items" mk-draggable="component">
+										<span class="{{component.meta.type}} mk-icon"></span>
+										{{component.meta.label}}
+									</li>
+								</ul>
+							</accordion-group>
+						</accordion>
+					</section>
+				</pane>
+				<pane heading="Pages" classes="mk-icon mk-icon-page"><section>
+					<h4>Pages</h4>
+					<accordion>
+						<accordion-group heading="Application Pages">
+							<ul>
+								<li class="list-item" ng-repeat="page in project.pages">
+									<a class="mk-icon mk-icon-page" href="#" ng-click="openPage(page)">{{page.name}}</a>
+								</li>
+								<li><a href="#" ng-click="addApplicationPage()">+ Add new page</a> </li>
+							</ul>
+						</accordion-group>
+						<accordion-group heading="Setting pages">
+							<ul>
+								<li class="list-item"><a class="mk-icon mk-icon-settings" href="#">About</a></li>
+								<li class="list-item"><a class="mk-icon mk-icon-settings" href="#">Privacy Settings</a></li>
+								<li><a href="#">+ Add new settings page</a> </li>
+							</ul>
+						</accordion-group>
+					</accordion>
+				</section></pane>
+				<pane heading="Data Sources" classes="mk-icon mk-icon-datasource"><section>
+					<h4>Data Sources</h4>
+					<accordion>
+						<accordion-group heading="Predefined sources">
+							<ul>
+								<li ng-repeat="source in project.sources.predefined" class="list-item">
+									<a class="mk-icon mk-icon-page" href="#">{{source.name}}</a>
+								</li>
+								<li><a href="#" ng-click="addPredefinedDataSource()">+ Add new source</a> </li>
+							</ul>
+						</accordion-group>
+						<accordion-group heading="Dynamic sources">
+							<ul>
+								<li><a href="#" ng-click="addPredefinedDataSource()">+ Add new source</a> </li>
+							</ul>
+						</accordion-group>
+						<accordion-group heading="Feeds">
+							<ul>
+								<li class="list-item"><a class="mk-icon mk-icon-settings" href="#">Twitter</a></li>
+								<li class="list-item"><a class="mk-icon mk-icon-settings" href="#">Eventbrite</a></li>
+								<li><a href="#">+ Add new source</a> </li>
+							</ul>
+						</accordion-group>
+					</accordion>
+				</section></pane>
+			</tabs>
+		</aside>
+		<section class="editor" mk-drop-target>
+			<div class="editor-light-gradient">
+				<header>
+					<div class="left-action-panel">
+						<span class="mk-icon mk-icon-page">{{activePage.name}}</span>
+					</div>
+
+					<div class="tablet-camera"></div>
+
+					<div class="right-action-panel"></div>
+				</header>
+				<section class="editor-content">
+					<div ng-repeat="comp in activePage.components" mk-component="comp"></div>
+				</section>
+
+				<footer>
+					<div class="tablet-start"></div>
+				</footer>
+			</div>
+		</section>
+
+
+	</section>
+</article>
