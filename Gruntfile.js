@@ -97,7 +97,7 @@ module.exports = function(grunt) {
 				'!<%= pkg.dest %>/production/web.config'
 			],
 			post_production: [
-				'<%= pkg.dest %>/production/public/css/**',
+				'<%= pkg.dest %>/production/public/css/*',
 				'!<%= pkg.dest %>/production/public/css/index.css',
 				'<%= pkg.dest %>/production/public/index.tmpl'
 			],
