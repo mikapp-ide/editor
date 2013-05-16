@@ -1,0 +1,41 @@
+<div class="modal-header">
+	<h3>{{ title }}</h3>
+</div>
+<div class="modal-body" ng-switch="mode">
+	<form novalidate class="simple-form user-form" ng-switch-when="create_source">
+		<label for="name">DataSource Name</label>
+		<input id="name" type="text" ng-model="data_source.name" required />
+		<label>Item Fields</label>
+		<div ng-repeat="field in data_source.fields" class="composite-field">
+			<input type="text" placeholder="Field Name" ng-model="field.name" />
+			<select ng-model="field.type" ng-options="type.id as type.label for type in data_types"></select>
+		</div>
+		<a href="#" ng-click="addNewField()">+ Add new field</a>
+	</form>
+	<div ng-switch-when="view_source_items" class="data-table">
+		<table>
+			<tr>
+				<th ng-repeat="field in data_source.fields">{{field.name}}</th>
+			</tr>
+			<tr ng-repeat="item in data_source.items">
+				<td ng-repeat="field in data_source.fields">{{(field.type == 'image') && 'Image' || item[field.name]}}</td>
+			</tr>
+		</table>
+		<a href="#" ng-click="addNewItem()">+ Add new item</a>
+	</div>
+	<form novalidate class="simple-form user-form" ng-switch-when="create_source_item">
+		<div ng-repeat="field in data_source.fields">
+			<label>{{field.name}}</label>
+			<ng-switch on="field.type">
+				<input ng-switch-when="string" type="text" ng-model="newItem[field.name]" />
+				<input ng-switch-when="number" type="number" ng-model="newItem[field.name]" />
+				<mk-input-file-control ng-switch-when="image" input-model="newItem[field.name]"></mk-input-file-control>
+			</ng-switch>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button ng-repeat="btn in buttons" ng-click="close(btn.result, model)" class=btn ng-class="btn.cssClass">{{ btn.label }}</button>
+	<!--<button ng-switch-when="view_source_items" ng-repeat="btn in buttons.view_source_items" ng-click="close(btn.result, model)" class=btn ng-class="btn.cssClass">{{ btn.label }}</button>
+	<button ng-switch-when="create_source_item" ng-repeat="btn in buttons.create_source_item" ng-click="close(btn.result, model)" class=btn ng-class="btn.cssClass">{{ btn.label }}</button>
+--></div>

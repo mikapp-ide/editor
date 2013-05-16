@@ -1,0 +1,16 @@
+{
+	"name": "mika-node",
+	"description": "Mika Node REST JSON Service",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"express": "3.x",
+		"lodash": "1.x",
+		"mongodb":  "1.2.x",
+		"async":  "0.x"
+	},
+	"engines": {
+		"node": "0.8.x",
+		"npm":  "1.1.x"
+	}
+}

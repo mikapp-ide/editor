@@ -1,0 +1,137 @@
+.editor {
+	// Chrome bug we should have this intermediate flex-box set
+	.flex-box;
+
+	margin: 0;
+	background: #000;
+	border: 1px solid #868381;
+
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+
+/*	* {
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		-o-user-select: none;
+		user-select: none;
+	}*/
+
+	.editor-light-gradient {
+		.flex-item(1);
+
+		.flex-box;
+		.flex-direction(column);
+
+		padding: 0 60px 0 60px;
+
+		background: -webkit-linear-gradient(-155deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.075) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 100%);
+		background:    -moz-linear-gradient(-155deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.075) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 100%);
+		background:     -ms-linear-gradient(-155deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.075) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 100%);
+		background:      -o-linear-gradient(-155deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.075) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 100%);
+		background:         linear-gradient(-155deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.075) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 100%);
+		overflow: hidden;
+
+		header {
+			height: 60px;
+
+			.flex-box;
+			.flex-justify-content(space-between);
+			.flex-align-items(center);
+
+			.tablet-camera {
+				width: 17px;
+				height: 17px;
+				overflow: hidden;
+				-webkit-border-radius: 20px;
+				-moz-border-radius: 20px;
+				border-radius: 20px;
+				background: -webkit-radial-gradient(35% 35%, ellipse closest-side, rgba(26,26,27,0.1), rgba(44,43,45,0.1) 300%);
+				background:    -moz-radial-gradient(35% 35%, ellipse closest-side, rgba(26,26,27,0.1), rgba(44,43,45,0.1) 300%);
+				background:     -ms-radial-gradient(35% 35%, ellipse closest-side, rgba(26,26,27,0.1), rgba(44,43,45,0.1) 300%);
+				background:      -o-radial-gradient(35% 35%, ellipse closest-side, rgba(26,26,27,0.1), rgba(44,43,45,0.1) 300%);
+				background:         radial-gradient(35% 35%, ellipse closest-side, rgba(26,26,27,0.1), rgba(44,43,45,0.1) 300%);
+				-webkit-box-shadow: inset rgba(255,255,255,0.05) 0 0 3px 1px, inset rgba(0,0,0,0.2) 1px 1px 2px, inset rgba(255,255,255,0.07) -2px -2px 1px;
+				-moz-box-shadow: inset rgba(255,255,255,0.05) 0 0 3px 1px, inset rgba(0,0,0,0.2) 1px 1px 2px, inset rgba(255,255,255,0.07) -2px -2px 1px;
+				box-shadow: inset rgba(255,255,255,0.05) 0 0 3px 1px, inset rgba(0,0,0,0.2) 1px 1px 2px, inset rgba(255,255,255,0.07) -2px -2px 1px;
+
+				&:after {
+					content: '';
+				/*position: absolute;*/
+					display: block;
+					width: 7px;
+					height: 7px;
+				/*	top: 5px;
+					left: 5px;*/
+					-webkit-border-radius: 10px;
+					-moz-border-radius: 10px;
+					border-radius: 10px;
+					background: -webkit-radial-gradient(35% 35%, ellipse closest-side, rgba(5, 29, 49, 0.5), rgba(43, 93, 144, 0.5) 300%);
+					background:    -moz-radial-gradient(35% 35%, ellipse closest-side, rgba(5, 29, 49, 0.5), rgba(43, 93, 144, 0.5) 300%);
+					background:     -ms-radial-gradient(35% 35%, ellipse closest-side, rgba(5, 29, 49, 0.5), rgba(43, 93, 144, 0.5) 300%);
+					background:      -o-radial-gradient(35% 35%, ellipse closest-side, rgba(5, 29, 49, 0.5), rgba(43, 93, 144, 0.5) 300%);
+					background:         radial-gradient(35% 35%, ellipse closest-side, rgba(5, 29, 49, 0.5), rgba(43, 93, 144, 0.5) 300%);
+					-webkit-box-shadow:rgba(0,0,0,0.01) 0 0 0 3px;
+					-moz-box-shadow:rgba(0,0,0,0.01) 0 0 0 3px;
+					box-shadow:rgba(0,0,0,0.01) 0 0 0 3px;
+				}
+
+				&:before {
+					content: '';
+				/*position: absolute;*/
+					display: block;
+					width: 2px;
+					height: 2px;
+				/*	top: 7px;
+					left: 9px;*/
+					-webkit-border-radius: 10px;
+					-moz-border-radius: 10px;
+					border-radius: 10px;
+					background: #2b5d90;
+					-webkit-box-shadow: #3c2b90 -1px -1px 1px, #2b5d90 -1px 1px 1px, #2b5d90 1px -1px 1px, rgba(0,0,0,0.3) -2px 0 0 3px;
+					-moz-box-shadow: #3c2b90 -1px -1px 1px, #2b5d90 -1px 1px 1px, #2b5d90 1px -1px 1px, rgba(0,0,0,0.3) -2px 0 0 3px;
+					box-shadow: #3c2b90 -1px -1px 1px, #2b5d90 -1px 1px 1px, #2b5d90 1px -1px 1px, rgba(0,0,0,0.3) -2px 0 0 3px;
+				}
+			}
+		}
+
+		.editor-content {
+			.flex-item(1);
+
+			overflow: hidden;
+
+			&.off {
+				background: #000;
+			}
+		}
+
+		footer {
+			height: 60px;
+			.flex-box-centered;
+
+			background: -webkit-radial-gradient(35% 35%, ellipse closest-side, rgba(26,26,27,0.1), rgba(44,43,45,0.1) 300%);
+			background:    -moz-radial-gradient(35% 35%, ellipse closest-side, rgba(26,26,27,0.1), rgba(44,43,45,0.1) 300%);
+			background:     -ms-radial-gradient(35% 35%, ellipse closest-side, rgba(26,26,27,0.1), rgba(44,43,45,0.1) 300%);
+			background:      -o-radial-gradient(35% 35%, ellipse closest-side, rgba(26,26,27,0.1), rgba(44,43,45,0.1) 300%);
+			background:         radial-gradient(35% 35%, ellipse closest-side, rgba(26,26,27,0.1), rgba(44,43,45,0.1) 300%);
+
+			.tablet-start {
+			/*	position: absolute;*/
+				width: 40px;
+				height: 40px;
+			/*	top: 685px;
+				left: 650px;*/
+				overflow: hidden;
+				cursor: pointer;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				border-radius: 10px;
+				-webkit-box-shadow: rgba(255,255,255,0.15) 0 0 0 1px, inset rgba(0,0,0,0.25) 0 0 0 1px, inset rgba(0,0,0,0.15) 0 0 20px 1px, inset rgba(255,255,255,0.25) 0 -60px 1px -42px;
+				-moz-box-shadow: rgba(255,255,255,0.15) 0 0 0 1px, inset rgba(0,0,0,0.25) 0 0 0 1px, inset rgba(0,0,0,0.15) 0 0 20px 1px, inset rgba(255,255,255,0.25) 0 -60px 1px -42px;
+				box-shadow: rgba(255,255,255,0.15) 0 0 0 1px, inset rgba(0,0,0,0.25) 0 0 0 1px, inset rgba(0,0,0,0.15) 0 0 20px 1px, inset rgba(255,255,255,0.25) 0 -60px 1px -42px;
+				box-shadow: rgba(255,255,255,0.15) 0 0 0 1px, inset rgba(0,0,0,0.25) 0 0 0 1px, inset rgba(0,0,0,0.15) 0 0 20px 1px, inset rgba(255,255,255,0.25) 0 -50px 2px -32px;
+			}
+		}
+	}
+}

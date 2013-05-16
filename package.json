@@ -1,0 +1,27 @@
+{
+  "name": "mikapp-editor",
+  "description": "Windows Store IDE",
+  "version": "1.0.0",
+  "author": "Aleh Zasypkin",
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:azasypkin/mikapp-editor.git"
+  },
+  "dest": "./build",
+  "src": "./src",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "grunt": "~0.4.x",
+    "grunt-contrib-jshint": "~0.4.x",
+    "grunt-contrib-clean": "~0.4.x",
+    "grunt-contrib-copy": "~0.4.x",
+    "grunt-contrib-requirejs": "~0.4.x",
+    "grunt-contrib-less": "~0.5.x",
+    "grunt-contrib-jasmine": "~0.4.x"
+  }
+}

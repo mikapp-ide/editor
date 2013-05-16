@@ -1,0 +1,12 @@
+<div class="modal-header">
+	<h3>{{ title }}</h3>
+</div>
+<div class="modal-body">
+	<form novalidate class="simple-form user-form">
+		<label for="name">Page Name</label>
+		<input id="name" type="text" ng-model="model.name" required />
+	</form>
+</div>
+<div class="modal-footer">
+	<button ng-repeat="btn in buttons" ng-click="close(btn.result, model)" class=btn ng-class="btn.cssClass">{{ btn.label }}</button>
+</div>
