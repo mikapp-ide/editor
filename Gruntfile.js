@@ -70,7 +70,7 @@ module.exports = function(grunt) {
 
 			removeCombined: true,
 
-			inlineText: false,
+			inlineText: true,
 
 			paths: {
 				angular: "libs/angular",
