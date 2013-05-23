@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
-var crypto = require("crypto"),
-	async = require("async"),
-	fs = require("fs");
+var crypto = require('crypto'),
+	async = require('async'),
+	fs = require('fs');
 
-var key = fs.readFileSync("privatekey.pem", "utf8").toString(),
+var key = fs.readFileSync('privatekey.pem', 'utf8').toString(),
 	keySize = 16,
 	iterationNumber = 10000;
 
@@ -37,13 +37,13 @@ exports.hash = function(options, hashCallback){
 };
 
 exports.encrypt = function(plainText){
-	var cipher = crypto.createCipher("aes-128-cbc", key);
+	var cipher = crypto.createCipher('aes-128-cbc', key);
 
 	return cipher.update(plainText, 'utf8', 'hex') + cipher.final('hex');
 };
 
 exports.decrypt = function(encryptedText) {
-	var decipher = crypto.createDecipher("aes-128-cbc", key);
+	var decipher = crypto.createDecipher('aes-128-cbc', key);
 
 	return decipher.update(encryptedText, 'hex', 'utf8') + decipher.final('utf8');
 };

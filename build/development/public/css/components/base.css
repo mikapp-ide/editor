@@ -1,0 +1,5 @@
+NameError: variable @font-color is undefined in D:\Projects\mikapp\editor\build\development\public\css\components\base.less:6:16
+5 @mk-text-background-color:			transparent;
+6 @mk-text-color: @font-color;
+7 
+

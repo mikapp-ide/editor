@@ -1,7 +1,8 @@
 /*global module:false*/
 module.exports = function(grunt) {
+	'use strict';
 
-	grunt.loadTasks("build/tasks");
+	grunt.loadTasks('build/tasks');
 
 	// Project configuration.
 	grunt.initConfig({
@@ -13,20 +14,20 @@ module.exports = function(grunt) {
 			baseUrl:'./js/',
 			dir:'<%= pkg.dest %>/production/public/',
 
-			optimize:"none",
+			optimize:'none',
 
-			optimizeCss:"standard.keepLines",
+			optimizeCss:'standard.keepLines',
 
 			removeCombined: true,
 
 			inlineText: true,
 
 			paths: {
-				angular: "libs/angular",
-				"ui-bootstrap": "libs/ui-bootstrap-0.2.0",
-				underscore: "libs/lodash.min",
-				rText: "libs/requirejs/plugins/text",
-				ri18n: "libs/requirejs/plugins/i18n"
+				angular: 'libs/angular',
+				'ui-bootstrap': 'libs/ui-bootstrap.min',
+				underscore: 'libs/lodash.min',
+				rText: 'libs/requirejs/plugins/text',
+				ri18n: 'libs/requirejs/plugins/i18n'
 			},
 
 			shim: {
@@ -36,9 +37,9 @@ module.exports = function(grunt) {
 			},
 
 			modules:[{
-				name:"libs/requirejs/require"
+				name:'libs/requirejs/require'
 			}, {
-				name:"bootstrap"
+				name:'bootstrap'
 			}],
 
 			preserveLicenseComments: false,
@@ -64,26 +65,32 @@ module.exports = function(grunt) {
 			baseUrl:'./js/',
 			dir:'<%= pkg.dest %>/development/public/',
 
-			optimize:"none",
+			optimize:'none',
 
-			optimizeCss:"none",
+			optimizeCss:'none',
 
 			removeCombined: true,
 
 			inlineText: true,
 
 			paths: {
-				angular: "libs/angular",
-				"ui-bootstrap": "libs/ui-bootstrap-0.2.0",
-				underscore: "libs/lodash.min",
-				rText: "libs/requirejs/plugins/text",
-				ri18n: "libs/requirejs/plugins/i18n"
+				angular: 'libs/angular',
+				'ui-bootstrap': 'libs/ui-bootstrap.min',
+				underscore: 'libs/lodash.min',
+				rText: 'libs/requirejs/plugins/text',
+				ri18n: 'libs/requirejs/plugins/i18n'
+			},
+
+			shim: {
+				angular: {
+					exports: 'angular'
+				}
 			},
 
 			modules:[{
-				name:"libs/requirejs/require"
+				name:'libs/requirejs/require'
 			}, {
-				name:"bootstrap"
+				name:'bootstrap'
 			}],
 
 			preserveLicenseComments: false
@@ -101,7 +108,10 @@ module.exports = function(grunt) {
 				'!<%= pkg.dest %>/production/public/css/index.css',
 				'<%= pkg.dest %>/production/public/index.tmpl'
 			],
-			development: ['<%= pkg.dest %>/development/'],
+			development: [
+				'<%= pkg.dest %>/development/*',
+				'!<%= pkg.dest %>/development/node_modules'
+			],
 			post_development:[
 				'<%= pkg.dest %>/development/public/index.tmpl'
 			]
@@ -166,19 +176,19 @@ module.exports = function(grunt) {
 		less: {
 			development: {
 				options: {
-					paths: ["<%= pkg.dest %>/development/public/css"]
+					paths: ['<%= pkg.dest %>/development/public/css']
 				},
 				files: {
-					"<%= pkg.dest %>/development/public/css/index.css": "<%= pkg.dest %>/development/public/css/index.less"
+					'<%= pkg.dest %>/development/public/css/index.css': '<%= pkg.dest %>/development/public/css/index.less'
 				}
 			},
 			production: {
 				options: {
-					paths: ["<%= pkg.dest %>/production/public/css"],
+					paths: ['<%= pkg.dest %>/production/public/css'],
 					yuicompress: true
 				},
 				files: {
-					"<%= pkg.dest %>/production/public/css/index.css": "<%= pkg.dest %>/production/public/css/index.less"
+					'<%= pkg.dest %>/production/public/css/index.css': '<%= pkg.dest %>/production/public/css/index.less'
 				}
 			}
 		},

@@ -1,9 +1,9 @@
-define(["angular", "app"], function(angular, app){
-	app.factory("config", function(){
+define(['angular', 'app'], function(angular, app){
+	app.factory('config', function(){
 		return {
 			services: {
-				data: "/api",
-				compile: "http://mika.compile"
+				data: '/api',
+				compile: 'http://mika.compile'
 			}
 		};
 	});

@@ -1,8 +1,8 @@
-﻿define(["app/utils/class"], function (ClassUtils) {
-	"use strict";
+﻿define(['app/utils/class'], function (ClassUtils) {
+	'use strict';
 
 	var BaseError = ClassUtils.derive(window.Error, function (message, code, originalError) {
-		this.message = message || "Unknown error";
+		this.message = message || 'Unknown error';
 		this.code = code;
 		this.originalError = originalError;
 	}, {}, {

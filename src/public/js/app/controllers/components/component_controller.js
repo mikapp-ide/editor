@@ -1,8 +1,8 @@
 define([
-	"angular",
-	"app"
+	'angular',
+	'app'
 ], function (angular, app) {
-	"use strict";
+	'use strict';
 
 	var setProperties = function(component, properties){
 		if(properties){
@@ -16,7 +16,7 @@ define([
 		}
 	};
 
-	return app.controller("ComponentController", ["$rootScope", "$scope", function ($rootScope, $scope) {
+	return app.controller('ComponentController', ['$rootScope', '$scope', function ($rootScope, $scope) {
 		$scope.component.setProperties = function(properties){
 			return setProperties(this, properties);
 		};
@@ -35,11 +35,11 @@ define([
 		};
 
 		$scope.defineProperty = function(name, type, label, configurable, value){
-			defineEntity("properties", name, type, label, configurable, value);
+			defineEntity('properties', name, type, label, configurable, value);
 		};
 
 		$scope.defineStyle = function(name, type, label, configurable, value){
-			defineEntity("styles", name, type, label, configurable, value);
+			defineEntity('styles', name, type, label, configurable, value);
 		};
 	}]);
 });

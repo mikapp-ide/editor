@@ -1,15 +1,15 @@
 define([
-	"angular",
-	"app",
-	"app/controllers/dialogs/create_application_page_controller",
-	"app/controllers/dialogs/create_predefined_data_source_controller"
+	'angular',
+	'app',
+	'app/controllers/dialogs/create_application_page_controller',
+	'app/controllers/dialogs/create_predefined_data_source_controller'
 ], function (angular, app, create_application_page_controller, create_predefined_data_source_controller) {
-	"use strict";
+	'use strict';
 
 	return app.controller(
-		"ProjectDetailsController",
+		'ProjectDetailsController',
 
-		["$rootScope", "$scope", "$location", "$dialog", "$routeParams", "config", "component_service", "project_service",
+		['$rootScope', '$scope', '$location', '$dialog', '$routeParams', 'config', 'component_service', 'project_service',
 
 		function ($rootScope, $scope, $location, $dialog, $routeParams, config, componentService, projectService) {
 
@@ -18,7 +18,7 @@ define([
 
 				$scope.activePage = $scope.project.pages[0];
 
-				$scope.downloadLink = config.services.compile + "/api/compile/" + $scope.project.id;
+				$scope.downloadLink = config.services.compile + '/api/compile/' + $scope.project.id;
 			});
 
 			$scope.toolBox = componentService.getComponents();

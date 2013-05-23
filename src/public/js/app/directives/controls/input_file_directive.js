@@ -1,22 +1,24 @@
-define(["angular", "app"], function(angular, app){
-	app.directive("mkInputFileControl", ["$compile", "$q", function($compile, $q){
+define(['angular', 'app'], function(angular, app){
+	'use strict';
+
+	app.directive('mkInputFileControl', ['$compile', '$q', function($compile, $q){
 		return {
 			restrict: 'E',
 
 			scope: {
-				inputModel: "="
+				inputModel: '='
 			},
 
-			template: "<input type='file' />",
+			template: '<input type="file" />',
 
 			replace: true,
 
 			link: function (scope, element, attrs) {
-				element.bind("change", function(e){
+				element.bind('change', function(e){
 					var reader = new FileReader();
 					reader.onload = function(e) {
 						scope.$apply(function(){
-							scope.inputModel = "url(" + e.target.result + ")";
+							scope.inputModel = 'url(' + e.target.result + ')';
 						});
 					};
 					reader.readAsDataURL(e.currentTarget.files[0]);

@@ -1,18 +1,20 @@
-define(["angular", "app"], function(angular, app){
-	app.directive("mkRectangleComponent", ["$compile", "$rootScope", "component_service", function($compile, $rootScope, componentService){
+define(['angular', 'app'], function(angular, app){
+	'use strict';
+
+	app.directive('mkRectangleComponent', ['$compile', '$rootScope', 'component_service', function($compile, $rootScope, componentService){
 		return {
-			restrict: "E",
+			restrict: 'E',
 
 			compile: function compile(template) {
 
 				var supportNestedComponent = function(component){
 					return component
-						&& component.type === "mk-rectangle-component"
-						|| component.type === "mk-text-component"
-						|| component.type === "mk-image-component"
-						|| component.type === "mk-button-component"
-						|| component.type === "mk-grid-view-component"
-						|| component.type === "mk-map-component";
+						&& component.type === 'mk-rectangle-component'
+						|| component.type === 'mk-text-component'
+						|| component.type === 'mk-image-component'
+						|| component.type === 'mk-button-component'
+						|| component.type === 'mk-grid-view-component'
+						|| component.type === 'mk-map-component';
 				};
 
 				return function (scope, element) {
@@ -23,7 +25,7 @@ define(["angular", "app"], function(angular, app){
 							return false;
 						},
 						onDragEnter = function(e){
-							e.currentTarget.classList.add("drag-enter");
+							e.currentTarget.classList.add('drag-enter');
 							return preventDefault(e);
 						},
 						onDragOver = function(e){
@@ -35,7 +37,7 @@ define(["angular", "app"], function(angular, app){
 							return false;
 						},
 						onDragLeave = function(e){
-							e.currentTarget.classList.remove("drag-enter");
+							e.currentTarget.classList.remove('drag-enter');
 
 							return preventDefault(e);
 						},
@@ -54,37 +56,37 @@ define(["angular", "app"], function(angular, app){
 								scope.component.children.push(newScope.component);
 							});
 
-							target.removeClass("drag-enter");
+							target.removeClass('drag-enter');
 
 					/*		scope.$apply(function(){
-								target.append($compile("<div mk-component='component' {type}></div>".replace("{type}", component.type))(newScope));
+								target.append($compile('<div mk-component='component' {type}></div>'.replace('{type}', component.type))(newScope));
 							});*/
 
-						/*	target.unbind("dragenter", onDragEnter);
-							target.unbind("dragover", onDragOver);
-							target.unbind("dragleave", onDragLeave);
-							target.unbind("drop", onDrop);*/
+						/*	target.unbind('dragenter', onDragEnter);
+							target.unbind('dragover', onDragOver);
+							target.unbind('dragleave', onDragLeave);
+							target.unbind('drop', onDrop);*/
 
 							return preventDefault(e);
 						}, onParentDragEnter = function(e, args){
 							if(!scope.inactive && supportNestedComponent(args.meta)){
-								element.addClass("drop-target");
+								element.addClass('drop-target');
 							}
 						}, onParentDragLeave = function(e, args){
 							if(!scope.inactive && supportNestedComponent(args.meta)){
-								element.removeClass("drop-target");
+								element.removeClass('drop-target');
 							}
 						};
 
 					// let's subscribe for parent events
-					scope.$on("drag:enter", onParentDragEnter);
+					scope.$on('drag:enter', onParentDragEnter);
 
-					scope.$on("drag:leave", onParentDragLeave);
+					scope.$on('drag:leave', onParentDragLeave);
 
-					element.bind("dragenter", onDragEnter);
-					element.bind("dragover", onDragOver);
-					element.bind("dragleave", onDragLeave);
-					element.bind("drop", onDrop);
+					element.bind('dragenter', onDragEnter);
+					element.bind('dragover', onDragOver);
+					element.bind('dragleave', onDragLeave);
+					element.bind('drop', onDrop);
 				};
 			}
 		};

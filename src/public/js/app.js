@@ -1,6 +1,6 @@
-define(["angular", "ui-bootstrap"], function (angular) {
-	"use strict";
+define(['angular', 'ui-bootstrap'], function (angular) {
+	'use strict';
 
-	return angular.module("MIKA", ["ui.bootstrap"]);
+	return angular.module('mikapp', ['ui.bootstrap']);
 });
 

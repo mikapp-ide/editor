@@ -1,14 +1,14 @@
 define([
-	"angular",
-	"app"
+	'angular',
+	'app'
 ], function (angular, app) {
-	"use strict";
+	'use strict';
 
-	return app.controller("GridViewComponentController", ["$scope", "project_service", function ($scope, projectService) {
+	return app.controller('GridViewComponentController', ['$scope', 'project_service', function ($scope, projectService) {
 		/*var project = projectService.getCurrentProject(),
 			dataSources = [{
 				id: -1,
-				label: "--- none ---"
+				label: '--- none ---'
 			}];*/
 
 		$scope.component.properties = {};
@@ -25,8 +25,8 @@ define([
 */
 
 		$scope.component.properties.data_source = {
-			type: "select",
-			label: "Data Source",
+			type: 'select',
+			label: 'Data Source',
 			value: -1,
 
 			options: []
@@ -38,7 +38,7 @@ define([
 
 		$scope.item_template_component = {
 			meta:{
-				type: "mk-rectangle-component"
+				type: 'mk-rectangle-component'
 			},
 
 			properties: {

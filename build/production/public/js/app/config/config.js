@@ -1,29 +1,29 @@
-define(["underscore", "ri18n!app/config/localization/nls/labels"], function (_, labels) {
+define(['underscore', 'ri18n!app/config/localization/nls/labels'], function (_, labels) {
 	
 
 	var config = {
-		mode: "development",
+		mode: 'development',
 
-		version: "1.0.2.0",
+		version: '1.0.2.0',
 
-		name: "EPIS Web UI",
+		name: 'EPIS Web UI',
 
 		author: {
-			company: "EPAM"
+			company: 'EPAM'
 		},
 
 		_labels: labels,
 
 		proxies: {
 			epis: {
-				url: "http://epis-json.aws.af.cm/rest/",
-				dataType: "json",
+				url: 'http://epis-json.aws.af.cm/rest/',
+				dataType: 'json',
 				timeout: 10000,
 				// one hour
 				cacheTimeout: 1000*60*60,
 
 				formats: {
-					date: "YYYY-MM-DD HH:mm ZZ"
+					date: 'YYYY-MM-DD HH:mm ZZ'
 				}
 			}
 		},
@@ -62,12 +62,12 @@ define(["underscore", "ri18n!app/config/localization/nls/labels"], function (_, 
 		},
 
 		state: {
-			storageKey: "epis_state.json"
+			storageKey: 'epis_state.json'
 		},
 
 		formats: {
-			date: "M/D/YY",
-			dateWithTime: "M/D/YY h:mm A"
+			date: 'M/D/YY',
+			dateWithTime: 'M/D/YY h:mm A'
 		},
 
 		getString: function(key){
@@ -75,8 +75,8 @@ define(["underscore", "ri18n!app/config/localization/nls/labels"], function (_, 
 		}
 	};
 
-	if(config.mode === "development"){
-		config.proxies.epis.url = "http://192.168.1.124:8080/pmc_json/rest/";
+	if(config.mode === 'development'){
+		config.proxies.epis.url = 'http://192.168.1.124:8080/pmc_json/rest/';
 	}
 
 	return config;

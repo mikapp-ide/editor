@@ -1,9 +1,11 @@
-define(["angular", "app"], function(angular, app){
-	app.directive("mkButtonComponent", ["$compile", "$rootScope", function($compile, $rootScope){
-		return {
-			restrict: "E",
+define(['angular', 'app'], function(angular, app){
+	'use strict';
 
-			template: "<button contenteditable='true' class='btn-primary'>{{component.properties.text.value}}</button>",
+	app.directive('mkButtonComponent', ['$compile', '$rootScope', function($compile, $rootScope){
+		return {
+			restrict: 'E',
+
+			template: '<button contenteditable="true" class="btn-primary">{{component.properties.text.value}}</button>',
 
 			replace: true
 		};

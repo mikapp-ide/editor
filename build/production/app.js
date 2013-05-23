@@ -1,12 +1,12 @@
 (function(){
-	"use strict";
+	'use strict';
 
 	var express = require('express'),
 		path = require('path'),
-		mongo = require("mongodb"),
-		async = require("async"),
-		security = require("./security"),
-		_ = require("lodash");
+		mongo = require('mongodb'),
+		async = require('async'),
+		security = require('./security'),
+		_ = require('lodash');
 
 	var app = express(),
 		port = process.env.port || 3001,
@@ -21,10 +21,10 @@
 		obj.port = (obj.port || 27017);
 		obj.db = (obj.db || 'test');
 		if(obj.username && obj.password){
-			return "mongodb://" + obj.username + ":" + obj.password + "@" + obj.hostname + ":" + obj.port + "/" + obj.db;
+			return 'mongodb://' + obj.username + ':' + obj.password + '@' + obj.hostname + ':' + obj.port + '/' + obj.db;
 		}
 		else{
-			return "mongodb://" + obj.hostname + ":" + obj.port + "/" + obj.db;
+			return 'mongodb://' + obj.hostname + ':' + obj.port + '/' + obj.db;
 		}
 	};
 
@@ -32,12 +32,12 @@
 		mongoDBConnectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI;
 	} else {
 		mongoDBConnectionString = generate_mongo_url({
-			hostname:"localhost",
+			hostname:'localhost',
 			port:27017,
-			username:"",
-			password:"",
-			name:"",
-			db:"mikadb"
+			username:'',
+			password:'',
+			name:'',
+			db:'mikadb'
 		});
 	}
 
@@ -48,19 +48,19 @@
 		app.use(express.bodyParser()),
 
 		/*app.use(function(req, res, next) {
-			res.header("Access-Control-Allow-Origin", "*");
-			res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-			res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With, access-token");
+			res.header('Access-Control-Allow-Origin', '*');
+			res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+			res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, access-token');
 
 			// intercept OPTIONS method
-			if ("OPTIONS" === req.method) {
+			if ('OPTIONS' === req.method) {
 				res.send(200);
 			}
 			else {
 				next();
 			}
 		});*/
-		app.use(express.static(path.join(__dirname, "public")));
+		app.use(express.static(path.join(__dirname, 'public')));
 		/*app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));*/
 	});
 
@@ -87,21 +87,21 @@
 			}, defaultData);
 		};
 
-	app.get('/api/project', function(req, res) {
-		var username = req.headers["access-token"];
+	/*app.get('/project', function(req, res) {
+		var username = req.headers['access-token'];
 
 		async.waterfall([
 			function(callback){
 				var decryptedUserName;
 				if(username){
 					try{
-						decryptedUserName = security.decrypt(req.headers["access-token"]);
+						decryptedUserName = security.decrypt(req.headers['access-token']);
 						callback(null, decryptedUserName);
 					} catch (e){
-						callback(generateError(300, "Invalid user access token provided"));
+						callback(generateError(300, 'Invalid user access token provided'));
 					}
 				} else {
-					callback(generateError(300, "Invalid user access token provided"));
+					callback(generateError(300, 'Invalid user access token provided'));
 				}
 			},
 			function(decryptedUserName, callback){
@@ -115,7 +115,7 @@
 				});
 			},
 			function(decryptedUserName, coll, callback){
-				coll.findOne({"_id": decryptedUserName}, function(err, item) {
+				coll.findOne({'_id': decryptedUserName}, function(err, item) {
 					callback(err ? generateError(303, err.message) : err, item);
 				});
 			}
@@ -125,7 +125,7 @@
 			if(err){
 				res.send(500, err);
 			} else if(user) {
-				clientTimestamp = req.param("timestamp", null);
+				clientTimestamp = req.param('timestamp', null);
 				// if user hasn't provided timestamp or timestamp is different from that on server
 				// we return entire data set
 				if(!clientTimestamp || clientTimestamp !== user.data.timestamp){
@@ -138,27 +138,27 @@
 					});
 				}
 			} else {
-				res.send(403, generateError(300, "Invalid user access token provided"));
+				res.send(403, generateError(300, 'Invalid user access token provided'));
 			}
 		});
-	});
+	});*/
 
 	app.get('/api/projects', function(req, res) {
-		var username = req.headers["access-token"],
-			data = req.body;//.param("data", null);
+		var username = req.headers['access-token'],
+			data = req.body;//.param('data', null);
 
 		async.waterfall([
 			function(callback){
 				var decryptedUserName;
 				if(username){
 					try{
-						decryptedUserName = username;//security.decrypt(req.headers["access-token"]);
+						decryptedUserName = username;//security.decrypt(req.headers['access-token']);
 						callback(null, decryptedUserName);
 					} catch (e){
-						callback(generateError(300, "Invalid user access token provided"));
+						callback(generateError(300, 'Invalid user access token provided'));
 					}
 				} else {
-					callback(generateError(300, "Invalid user access token provided"));
+					callback(generateError(300, 'Invalid user access token provided'));
 				}
 			},
 			function(decryptedUserName, callback){
@@ -167,12 +167,12 @@
 				});
 			},
 			function(decryptedUserName, conn, callback){
-				conn.collection("projects", function(err, coll){
+				conn.collection('projects', function(err, coll){
 					callback(err ? generateError(303, err.message) : err, decryptedUserName, coll);
 				});
 			},
 			function(decryptedUserName, coll, callback){
-				coll.find({"user_id": decryptedUserName}).toArray(function(err, projects) {
+				coll.find({'user_id': decryptedUserName}).toArray(function(err, projects) {
 					callback(err ? generateError(305, err.message) : err, projects);
 				});
 			}
@@ -185,22 +185,22 @@
 		});
 	});
 
-	app.post('/api/project', function(req, res) {
-		var username = req.headers["access-token"],
-			data = req.body;//.param("data", null);
+	app.post('/project', function(req, res) {
+		var username = req.headers['access-token'],
+			data = req.body;//.param('data', null);
 
 		async.waterfall([
 			function(callback){
 				var decryptedUserName;
 				if(username){
 					try{
-						decryptedUserName = username;//security.decrypt(req.headers["access-token"]);
+						decryptedUserName = username;//security.decrypt(req.headers['access-token']);
 						callback(null, decryptedUserName);
 					} catch (e){
-						callback(generateError(300, "Invalid user access token provided"));
+						callback(generateError(300, 'Invalid user access token provided'));
 					}
 				} else {
-					callback(generateError(300, "Invalid user access token provided"));
+					callback(generateError(300, 'Invalid user access token provided'));
 				}
 			},
 			function(decryptedUserName, callback){
@@ -209,20 +209,20 @@
 				});
 			},
 			function(decryptedUserName, conn, callback){
-				conn.collection("projects", function(err, coll){
+				conn.collection('projects', function(err, coll){
 					callback(err ? generateError(303, err.message) : err, decryptedUserName, coll);
 				});
 			},
 			function(decryptedUserName, coll, callback){
 				//var parsedData = JSON.parse(data);
 
-				coll.findOne({"_id": data.id}, function(err, project) {
+				coll.findOne({'_id': data.id}, function(err, project) {
 					var jsonData;
 					if(!project){
 						coll.insert({
 							_id: guid(),
 							user_id: decryptedUserName,
-							name: data.name.replace(/\s/g, ""),
+							name: data.name.replace(/\s/g, ''),
 							display_name: data.name,
 							description: data.description
 						}, function(err){
@@ -238,7 +238,7 @@
 							});
 
 						} catch(e){
-							callback(generateError(304, "Invalid data provided"));
+							callback(generateError(304, 'Invalid data provided'));
 						}
 					}
 				});
@@ -248,27 +248,27 @@
 				res.send(500, err);
 			} else {
 				res.send({
-					status: "success"
+					status: 'success'
 				});
 			}
 		});
 	});
 
 	app.get('/project/:id', function(req, res) {
-		var username = req.headers["access-token"];
+		var username = req.headers['access-token'];
 
 		async.waterfall([
 			function(callback){
 				var decryptedUserName;
 				if(username){
 					try{
-						decryptedUserName = username;//security.decrypt(req.headers["access-token"]);
+						decryptedUserName = username;//security.decrypt(req.headers['access-token']);
 						callback(null, decryptedUserName);
 					} catch (e){
-						callback(generateError(300, "Invalid user access token provided"));
+						callback(generateError(300, 'Invalid user access token provided'));
 					}
 				} else {
-					callback(generateError(300, "Invalid user access token provided"));
+					callback(generateError(300, 'Invalid user access token provided'));
 				}
 			},
 			function(decryptedUserName, callback){
@@ -277,14 +277,14 @@
 				});
 			},
 			function(decryptedUserName, conn, callback){
-				conn.collection("projects", function(err, coll){
+				conn.collection('projects', function(err, coll){
 					callback(err ? generateError(303, err.message) : err, decryptedUserName, coll);
 				});
 			},
 			function(decryptedUserName, coll, callback){
-				coll.findOne({"_id": req.params.id}, function(err, project) {
+				coll.findOne({'_id': req.params.id}, function(err, project) {
 					if(!project){
-						callback(generateError(304, "Requested project doesn't exist"));
+						callback(generateError(304, 'Requested project doesn't exist'));
 					} else {
 						callback(null, project);
 					}

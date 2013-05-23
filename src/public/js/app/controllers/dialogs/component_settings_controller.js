@@ -1,5 +1,5 @@
-define(["angular", "app"], function (angular, app) {
-	"use strict";
+define(['angular', 'app'], function (angular, app) {
+	'use strict';
 
 	return function($rootScope, $scope, $http, $q, dialog, config, component_service, project_service, component){
 		var save = function(settings){
@@ -20,7 +20,7 @@ define(["angular", "app"], function (angular, app) {
 			var project = project_service.getCurrentProject(),
 				dataSources = [{
 					id: -1,
-					label: "--- none ---"
+					label: '--- none ---'
 				}];
 
 			if(project.sources.predefined.length > 0){
@@ -34,14 +34,14 @@ define(["angular", "app"], function (angular, app) {
 			component.properties.data_source.options = dataSources;
 		}
 
-		["styles", "properties"].forEach(function(propertyBagKey){
+		['styles', 'properties'].forEach(function(propertyBagKey){
 			var propertyBag = $scope.component[propertyBagKey];
 
 			if(propertyBag){
 				Object.keys(propertyBag).forEach(function(propertyKey){
 					var property = propertyBag[propertyKey];
 
-					if(property.configurable || typeof property.configurable === "undefined"){
+					if(property.configurable || typeof property.configurable === 'undefined'){
 						$scope.settings.push({
 							key: propertyBagKey,
 
@@ -74,16 +74,16 @@ define(["angular", "app"], function (angular, app) {
 			}
 
 			$scope.settings.push({
-				key: "properties",
-				id: "bindings",
+				key: 'properties',
+				id: 'bindings',
 
 				entity:{
-					type: "binding",
-					label: "Data Bindings",
+					type: 'binding',
+					label: 'Data Bindings',
 
 					fields: [{
 						id: -1,
-						label: "--- none ---"
+						label: '--- none ---'
 					}].concat($scope.settings.map(function(setting){
 						return {
 							id: setting.id,
@@ -93,7 +93,7 @@ define(["angular", "app"], function (angular, app) {
 
 					data_fields: [{
 						id: -1,
-						label: "--- none ---"
+						label: '--- none ---'
 					}].concat(project_service.getCurrentProject().sources.predefined[1].fields.map(function(field, index){
 						return {
 							id: index,
@@ -110,7 +110,7 @@ define(["angular", "app"], function (angular, app) {
 		}
 
 		$scope.close = function(result, settings){
-			if(result === "cancel"){
+			if(result === 'cancel'){
 				dialog.close();
 			} else {
 				save(settings);
@@ -118,9 +118,9 @@ define(["angular", "app"], function (angular, app) {
 			}
 		};
 
-		$scope.title = "Settings";
+		$scope.title = 'Settings';
 
-		/*$scope.message = "This is the content of the message box";*/
+		/*$scope.message = 'This is the content of the message box';*/
 		$scope.buttons = [{
 			result:'cancel',
 			label: 'Cancel'

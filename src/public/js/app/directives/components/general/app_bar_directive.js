@@ -1,9 +1,11 @@
-define(["angular", "app"], function(angular, app){
-	app.directive("mkAppBarComponent", function(){
+define(['angular', 'app'], function(angular, app){
+	'use strict';
+
+	app.directive('mkAppBarComponent', function(){
 		return {
-			restrict: "E",
+			restrict: 'E',
 			compile: function compile(template) {
-			/*	template.addClass("app-bar-component");*/
+			/*	template.addClass('app-bar-component');*/
 
 				return function (scope, element) {
 					var preventDefault = function(e){
@@ -13,7 +15,7 @@ define(["angular", "app"], function(angular, app){
 							return false;
 						},
 						onDragEnter = function(e){
-							e.currentTarget.classList.add("drag-enter");
+							e.currentTarget.classList.add('drag-enter');
 
 							return preventDefault(e);
 						},
@@ -26,7 +28,7 @@ define(["angular", "app"], function(angular, app){
 							return false;
 						},
 						onDragLeave = function(e){
-							e.currentTarget.classList.remove("drag-enter");
+							e.currentTarget.classList.remove('drag-enter');
 
 							return preventDefault(e);
 						},
@@ -35,36 +37,36 @@ define(["angular", "app"], function(angular, app){
 
 							scope.inactive = true;
 
-							target.addClass("initialized");
-							target.removeClass("drag-enter");
+							target.addClass('initialized');
+							target.removeClass('drag-enter');
 
-							target.unbind("dragenter", onDragEnter);
-							target.unbind("dragover", onDragOver);
-							target.unbind("dragleave", onDragLeave);
-							target.unbind("drop", onDrop);
+							target.unbind('dragenter', onDragEnter);
+							target.unbind('dragover', onDragOver);
+							target.unbind('dragleave', onDragLeave);
+							target.unbind('drop', onDrop);
 
 							return preventDefault(e);
 						}, onParentDragEnter = function(e, args){
-							if(!scope.inactive && args.meta && args.meta.type === "mk-app-bar-component"){
-								element.addClass("drop-target");
+							if(!scope.inactive && args.meta && args.meta.type === 'mk-app-bar-component'){
+								element.addClass('drop-target');
 							}
 						}, onParentDragLeave = function(e, args){
-							if(!scope.inactive && args.meta && args.meta.type === "mk-app-bar-component"){
-								element.removeClass("drop-target");
+							if(!scope.inactive && args.meta && args.meta.type === 'mk-app-bar-component'){
+								element.removeClass('drop-target');
 							}
 						};
 
 					// let's subscribe for parent events
-					scope.$on("drag:enter", onParentDragEnter);
+					scope.$on('drag:enter', onParentDragEnter);
 
-					scope.$on("drag:leave", onParentDragLeave);
+					scope.$on('drag:leave', onParentDragLeave);
 
-					element.bind("dragenter", onDragEnter);
-					element.bind("dragover", onDragOver);
-					element.bind("dragleave", onDragLeave);
-					element.bind("drop", onDrop);
+					element.bind('dragenter', onDragEnter);
+					element.bind('dragover', onDragOver);
+					element.bind('dragleave', onDragLeave);
+					element.bind('drop', onDrop);
 
-					scope.component.styles.background_color.value = "#000";
+					scope.component.styles.background_color.value = '#000';
 				};
 			}
 		};

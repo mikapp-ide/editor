@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-	grunt.registerTask("index", "Generate index.html depending on configuration", function(environment) {
+	grunt.registerTask('index', 'Generate index.html depending on configuration', function(environment) {
 		var config = grunt.config('index')[environment],
 			tmpl = grunt.file.read(config.src);
 

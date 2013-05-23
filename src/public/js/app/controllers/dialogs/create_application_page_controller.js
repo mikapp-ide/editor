@@ -1,5 +1,5 @@
-define(["angular", "app"], function (angular, app) {
-	"use strict";
+define(['angular', 'app'], function (angular, app) {
+	'use strict';
 
 	var CreateApplicationPageController = function($rootScope, $scope, $http, dialog, config, project){
 		var save = function(model){
@@ -7,21 +7,21 @@ define(["angular", "app"], function (angular, app) {
 				name: model.name,
 				components: [{
 					meta:{
-						type: "mk-app-bar-component"
+						type: 'mk-app-bar-component'
 					},
 					placeholder: true
 				},{
 					meta:{
-						type: "mk-rectangle-component",
+						type: 'mk-rectangle-component',
 						support:{
 							resizing: false,
 							children: true
 						}
 					},
-					classes: "content-area"
+					classes: 'content-area'
 				},{
 					meta:{
-						type: "mk-app-bar-component"
+						type: 'mk-app-bar-component'
 					},
 					placeholder: true
 				}]
@@ -31,19 +31,19 @@ define(["angular", "app"], function (angular, app) {
 		$scope.project = project;
 
 		$scope.close = function(result, model){
-			if(result === "save"){
+			if(result === 'save'){
 				save(model);
 			}
 			dialog.close();
 		};
 
-		$scope.title = "Create Page";
+		$scope.title = 'Create Page';
 
 		$scope.model = {
-			name: "New Page"
+			name: 'New Page'
 		};
 
-		/*$scope.message = "This is the content of the message box";*/
+		/*$scope.message = 'This is the content of the message box';*/
 		$scope.buttons = [{
 			result:'cancel',
 			label: 'Cancel'

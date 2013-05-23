@@ -51,7 +51,7 @@ define(function () {
 				var basePrototype = baseClass.prototype;
 				constructor.prototype = Object.create(basePrototype);
 
-				Object.defineProperty(constructor.prototype, "constructor", { value:constructor, writable:true, configurable:true, enumerable:true });
+				Object.defineProperty(constructor.prototype, 'constructor', { value:constructor, writable:true, configurable:true, enumerable:true });
 				if (instanceMembers) {
 					initializeProperties(constructor.prototype, instanceMembers);
 				}

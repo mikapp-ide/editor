@@ -1,29 +1,29 @@
-define(["angular", "app"], function (angular, app) {
-	"use strict";
+define(['angular', 'app'], function (angular, app) {
+	'use strict';
 
 	var CreatePredefinedDataSourceController = function($rootScope, $scope, $http, $dialog, dialog, config, project){
-		$scope.title = "Create DataSource";
+		$scope.title = 'Create DataSource';
 
 		$scope.data_types = [{
-			id: "string",
-			label: "String"
+			id: 'string',
+			label: 'String'
 		}, {
-			id: "number",
-			label: "Number"
+			id: 'number',
+			label: 'Number'
 		}, {
-			id: "image",
-			label: "Image"
+			id: 'image',
+			label: 'Image'
 		}, {
-			id: "date",
-			label: "Date"
+			id: 'date',
+			label: 'Date'
 		}];
 
 		$scope.data_source = {
 			id: project.sources.predefined.length,
-			name: "New DataSource",
+			name: 'New DataSource',
 			fields: [{
-				name: "",
-				type: "string"
+				name: '',
+				type: 'string'
 			}],
 			items:[]
 		};
@@ -63,13 +63,13 @@ define(["angular", "app"], function (angular, app) {
 		};
 
 		$scope.close = function(result, model){
-			if(result === "cancel_create_source"){
+			if(result === 'cancel_create_source'){
 				dialog.close();
-			} else if(result === "apply_create_source"){
-				$scope.switchMode("view_source_items");
-			} else if(result === "cancel_view_source_items"){
-				$scope.switchMode("create_source");
-			} else if(result === "apply_view_source_items"){
+			} else if(result === 'apply_create_source'){
+				$scope.switchMode('view_source_items');
+			} else if(result === 'cancel_view_source_items'){
+				$scope.switchMode('create_source');
+			} else if(result === 'apply_view_source_items'){
 				if(!$scope.project.sources){
 					$scope.project.sources = {
 						predefined: [],
@@ -81,28 +81,28 @@ define(["angular", "app"], function (angular, app) {
 				$scope.project.sources.predefined.push(angular.copy($scope.data_source));
 
 				dialog.close();
-			} else if(result === "cancel_create_source_item"){
-				$scope.switchMode("view_source_items");
-			} else if(result === "apply_create_source_item"){
+			} else if(result === 'cancel_create_source_item'){
+				$scope.switchMode('view_source_items');
+			} else if(result === 'apply_create_source_item'){
 				$scope.data_source.items.push(angular.copy($scope.newItem));
 
-				$scope.switchMode("view_source_items");
+				$scope.switchMode('view_source_items');
 			}
 		};
 
-		$scope.switchMode("create_source");
+		$scope.switchMode('create_source');
 
 		$scope.newItem = {};
 
 		$scope.addNewField = function(){
 			$scope.data_source.fields.push({
-				name: "",
-				type: "string"
+				name: '',
+				type: 'string'
 			});
 		};
 
 		$scope.addNewItem = function(){
-			$scope.switchMode("create_source_item");
+			$scope.switchMode('create_source_item');
 		};
 	};
 

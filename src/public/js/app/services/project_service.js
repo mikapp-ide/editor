@@ -1,43 +1,44 @@
-define(["angular", "app"], function(angular, app){
+define(['angular', 'app'], function(angular, app){
+	'use strict';
 
-	app.factory("project_service", ["$http", "config", function($http, config){
+	app.factory('project_service', ['$http', 'config', function($http, config){
 		return {
 
 			_project: null,
 
 			loadProject: function(id){
-				$http.defaults.headers.common["access-token"]="user_token";
+				$http.defaults.headers.common['access-token']='user_token';
 
-				return $http.get(config.services.data + "/project/" + id).then(function(data){
+				return $http.get(config.services.data + '/project/' + id).then(function(data){
 					this._project = {
 						id: data._id,
 						name: data.name,
 
 						pages:[{
-							name: "Welcome Page",
+							name: 'Welcome Page',
 							components: [{
 								meta:{
-									type: "mk-app-bar-component"
+									type: 'mk-app-bar-component'
 								},
 								placeholder: true
 							},{
 								meta:{
-									type: "mk-rectangle-component",
+									type: 'mk-rectangle-component',
 									support:{
 										resizing: false,
 										children: true
 									}
 								},
-								classes: "content-area"
+								classes: 'content-area'
 
 							/*	children:[{
 									meta:{
-										type: "mk-grid-view-component"
+										type: 'mk-grid-view-component'
 									}
 								}]*/
 							},{
 								meta:{
-									type: "mk-app-bar-component"
+									type: 'mk-app-bar-component'
 								},
 								placeholder: true
 							}]
@@ -46,11 +47,11 @@ define(["angular", "app"], function(angular, app){
 						sources: {
 							predefined:[{
 								id: 0,
-								name: "Pictures",
+								name: 'Pictures',
 
 								fields:[{
-									name: "Name",
-									type: "string"
+									name: 'Name',
+									type: 'string'
 								}]
 							}]
 						}

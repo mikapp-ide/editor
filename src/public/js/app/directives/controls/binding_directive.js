@@ -1,12 +1,14 @@
-define(["angular", "app"], function(angular, app){
-	app.directive("mkBindingControl", ["$compile", function($compile){
+define(['angular', 'app'], function(angular, app){
+	'use strict';
+
+	app.directive('mkBindingControl', ['$compile', function($compile){
 		return {
 			restrict: 'E',
 
 			scope: {
-				controlModel: "=model",
-				fields: "=",
-				dataFields:"=data"
+				controlModel: '=model',
+				fields: '=',
+				dataFields:'=data'
 			},
 
 			template:   '<div class="data-binding-control">' +
@@ -26,11 +28,11 @@ define(["angular", "app"], function(angular, app){
 						data_field: -1
 					});
 				};
-				/*element.bind("change", function(e){
+				/*element.bind('change', function(e){
 					var reader = new FileReader();
 					reader.onload = function(e) {
 						scope.$apply(function(){
-							scope.inputModel = "url(" + e.target.result + ")";
+							scope.inputModel = 'url(' + e.target.result + ')';
 						});
 					};
 					reader.readAsDataURL(e.currentTarget.files[0]);

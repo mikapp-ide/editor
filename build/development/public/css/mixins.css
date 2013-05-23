@@ -1,0 +1,74 @@
+/* Flex box (The newest or spec-based property should be in the END!!!)*/
+.flex-box-old-spec {
+  /* IE >= 10 */
+
+  display: -ms-flexbox;
+  /* Old WebKit */
+
+  display: -webkit-box;
+}
+.flex-box {
+  /* IE >= 10 */
+
+  display: -ms-flexbox;
+  /* Old WebKit */
+
+  display: -webkit-box;
+  /* Firefox >= 18*/
+
+  display: -moz-flex;
+  /* New Webkit*/
+
+  display: -webkit-flex;
+  /* spec */
+
+  display: flex;
+}
+/* values: horizontal | vertical | inline-axis | block-axis | inherit */
+/* values: row | row-reverse | column | column-reverse */
+/* main Axis */
+/* values: start | center | end | justify */
+/* values: flex-start | flex-end | center | space-between | space-around */
+/* Cross axis */
+/* values: start | center | end | baseline | stretch */
+/* values: flex-start | flex-end | center | baseline | stretch */
+/* values: flex-start | flex-end | center | baseline | stretch */
+.flex-box-centered {
+  /* IE >= 10 */
+
+  display: -ms-flexbox;
+  /* Old WebKit */
+
+  display: -webkit-box;
+  /* Firefox >= 18*/
+
+  display: -moz-flex;
+  /* New Webkit*/
+
+  display: -webkit-flex;
+  /* spec */
+
+  display: flex;
+  -ms-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  flex-pack: center;
+  box-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  /* Deprecated */
+
+  -ms-box-align: center;
+  -ms-flex-align: center;
+  flex-align: center;
+  box-align: center;
+  -moz-align-items: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+/* End of Flex box*/

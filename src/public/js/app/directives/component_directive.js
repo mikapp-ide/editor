@@ -1,21 +1,23 @@
-define(["angular", "app", "app/controllers/dialogs/component_settings_controller"], function(angular, app, component_settings_controller){
-	app.directive("mkComponent", ["$dialog", "$timeout", "$compile", "component_service", function($dialog, $timeout, $compile, componentService){
+define(['angular', 'app', 'app/controllers/dialogs/component_settings_controller'], function(angular, app, component_settings_controller){
+	'use strict';
+
+	app.directive('mkComponent', ['$dialog', '$timeout', '$compile', 'component_service', function($dialog, $timeout, $compile, componentService){
 		return {
 			scope: {
-				component: "=mkComponent"
+				component: '=mkComponent'
 			},
 
-			template: "<div class='component' ng-dblclick='showSettings($event)'>",
+			template: '<div class="component" ng-dblclick="showSettings($event)">',
 
-			controller: "ComponentController",
+			controller: 'ComponentController',
 
 			replace: true,
 
 			compile: function compile(template) {
-				/*template.addClass("component");
+				/*template.addClass('component');
 
-				var settingsHandle = angular.element("<div ng-click='showSettings()'>");
-				settingsHandle.addClass("component-settings-gear mk-icon mk-icon-cog");
+				var settingsHandle = angular.element('<div ng-click='showSettings()'>');
+				settingsHandle.addClass('component-settings-gear mk-icon mk-icon-cog');
 
 				template.append(settingsHandle);*/
 
@@ -101,18 +103,18 @@ define(["angular", "app", "app/controllers/dialogs/component_settings_controller
 										newHeight = mouse_y - offset.top;
 
 									scope.$apply(function(){
-										scope.component.styles.width.value = newWidth + "px";
-										scope.component.styles.height.value = newHeight + "px";
+										scope.component.styles.width.value = newWidth + 'px';
+										scope.component.styles.height.value = newHeight + 'px';
 									});
 
-									/*elementNode.style.width = newWidth + "px";
-										elementNode.style.height = newHeight + "px"; */
+									/*elementNode.style.width = newWidth + 'px';
+										elementNode.style.height = newHeight + 'px'; */
 
-									window.console.log("width:" + newWidth + " height:" + newHeight);
+									window.console.log('width:' + newWidth + ' height:' + newHeight);
 
 									/*
 									MARGIN
-									var editorElement = document.querySelector(".editor-content"),
+									var editorElement = document.querySelector('.editor-content'),
 
 									componentElement = element[0],
 									componentContainerElement = componentElement.parentNode,
@@ -126,34 +128,34 @@ define(["angular", "app", "app/controllers/dialogs/component_settings_controller
 									newRightMargin = parent_left_bottom_x - mouse_x,
 									newBottomMargin = parent_left_bottom_y - mouse_y;
 
-									componentElement.style.marginRight =*//* componentElement.style.marginLeft =*//* newRightMargin + "px";
-									componentElement.style.marginBottom = *//*componentElement.style.marginTop = *//*newBottomMargin + "px";
+									componentElement.style.marginRight =*//* componentElement.style.marginLeft =*//* newRightMargin + 'px';
+									componentElement.style.marginBottom = *//*componentElement.style.marginTop = *//*newBottomMargin + 'px';
 
-									window.console.log("margin-right:" + newRightMargin + " margin-bottom:" + newBottomMargin);*/
+									window.console.log('margin-right:' + newRightMargin + ' margin-bottom:' + newBottomMargin);*/
 								},
 								onMouseUp = function(e){
 									mouseDowned = false;
 
-									document.body.classList.remove("resizing");
+									document.body.classList.remove('resizing');
 
-									document.removeEventListener("mouseup", onMouseUp, false);
-									document.removeEventListener("mousemove", onMouseMove, false);
+									document.removeEventListener('mouseup', onMouseUp, false);
+									document.removeEventListener('mousemove', onMouseMove, false);
 								};
 
 							if(!scope.component.fixed){
-								var resizeHandle = angular.element("<div>");
-								resizeHandle.addClass("component-resize-handle");
+								var resizeHandle = angular.element('<div>');
+								resizeHandle.addClass('component-resize-handle');
 
 								element.append(resizeHandle);
 
-								resizeHandle.bind("mousedown", function(e){
+								resizeHandle.bind('mousedown', function(e){
 
 									mouseDowned = true;
 
-									document.body.classList.add("resizing");
+									document.body.classList.add('resizing');
 
-									document.addEventListener("mouseup", onMouseUp, false);
-									document.addEventListener("mousemove", onMouseMove, false);
+									document.addEventListener('mouseup', onMouseUp, false);
+									document.addEventListener('mousemove', onMouseMove, false);
 
 									e.preventDefault();
 									e.stopPropagation();
@@ -167,7 +169,7 @@ define(["angular", "app", "app/controllers/dialogs/component_settings_controller
 						element.addClass(scope.component.meta.type);
 
 						// construct component markup
-						componentMarkup = ["<", scope.component.meta.type, " class='inner-component", scope.component.placeholder ? "" : " initialized", "' style='"];
+						componentMarkup = ['<', scope.component.meta.type, ' class="inner-component', scope.component.placeholder ? '' : ' initialized', '" style="'];
 
 						componentConfig = componentService.getComponentConfig(scope.component.meta.type);
 
@@ -186,28 +188,28 @@ define(["angular", "app", "app/controllers/dialogs/component_settings_controller
 								mappedStyleKey = componentService.mapCssSetting(styleKey);
 
 								if(mappedStyleKey){
-									componentMarkup.push(mappedStyleKey + ":{{component.styles." + styleKey + ".value}}" + (style.postfix || "") + ";");
+									componentMarkup.push(mappedStyleKey + ':{{component.styles.' + styleKey + '.value}}' + (style.postfix || '') + ';');
 								}
 							});
 						}
 
-						componentMarkup.push("'>");
+						componentMarkup.push('">');
 
 						if(scope.component.meta.support && scope.component.meta.support.children){
-							componentMarkup.push("<div ng-repeat='child in component.children' mk-component='child'></div>");
+							componentMarkup.push('<div ng-repeat="child in component.children" mk-component="child"></div>');
 						}
 
-						componentMarkup.push("</" + scope.component.meta.type + ">");
+						componentMarkup.push('</' + scope.component.meta.type + '>');
 
-						window.console.log("component: " + componentMarkup.join(""));
+						window.console.log('component: ' + componentMarkup.join(''));
 
-						childComponent = $compile(componentMarkup.join(""))(scope);
+						childComponent = $compile(componentMarkup.join(''))(scope);
 
 						element.append(childComponent);
 					}
 
-					/*element.bind("click", function(e){
-						if(e.target.classList.contains("component-settings-gear")){
+					/*element.bind('click', function(e){
+						if(e.target.classList.contains('component-settings-gear')){
 							$timeout(function(){
 								var dialog = $dialog.dialog({
 									templateUrl: '/js/templates/dialogs/component_settings.html',

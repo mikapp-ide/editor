@@ -1,5 +1,5 @@
 ﻿define(function () {
-	"use strict";
+	'use strict';
 
 	var parameterPlaceholderRegEx = /\{(\S*?)\}/g;
 

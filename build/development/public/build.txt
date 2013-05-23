@@ -6,7 +6,7 @@ js/libs/requirejs/require.js
 js/bootstrap.js
 ----------------
 js/libs/angular.js
-js/libs/ui-bootstrap-0.2.0.js
+js/libs/ui-bootstrap.min.js
 js/app.js
 js/app/controllers/dialogs/create_project_controller.js
 js/app/controllers/pages/projects_controller.js

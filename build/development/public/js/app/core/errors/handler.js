@@ -1,9 +1,9 @@
-define(["app/utils/class", "app/core/errors/base-error"], function (ClassUtils, BaseError) {
+define(['app/utils/class', 'app/core/errors/base-error'], function (ClassUtils, BaseError) {
 	
 
 	var errorCodes = BaseError.Codes,
-		genericErrorTitle = "Aw, snap!",
-		genericErrorMessage = "Something has gone wrong with your request. Please try again in a few seconds.",
+		genericErrorTitle = 'Aw, snap!',
+		genericErrorMessage = 'Something has gone wrong with your request. Please try again in a few seconds.',
 		apiErrorCodes = {
 			SignUp_BadRequest: 100,
 			SignUp_UserExists: 101,
@@ -33,14 +33,14 @@ define(["app/utils/class", "app/core/errors/base-error"], function (ClassUtils, 
 			if (errorCodes.isSignUpError(error.originalError.code)) {
 				isHandled = true;
 				this._helpers.win.showPrompt(
-					"Unable to Sign Up",
-					"There was a problem trying to Sign Up. Please try again later."
+					'Unable to Sign Up',
+					'There was a problem trying to Sign Up. Please try again later.'
 				);
 			} else if (errorCodes.isSignInError(error.originalError.code)) {
 				isHandled = true;
 				this._helpers.win.showPrompt(
-					"Unable to Sign In",
-					"There was a problem trying to Sign In. Please try again later."
+					'Unable to Sign In',
+					'There was a problem trying to Sign In. Please try again later.'
 				);
 			}
 
@@ -67,7 +67,7 @@ define(["app/utils/class", "app/core/errors/base-error"], function (ClassUtils, 
 					isHandled = true;
 				}
 
-			} else if(error && error.name === "NotFoundError"){
+			} else if(error && error.name === 'NotFoundError'){
 				// TEMP DIRTY HACK, to avoid List\Flipview layout exceptions on fast navigation between pages
 				isHandled = true;
 			}
@@ -90,14 +90,14 @@ define(["app/utils/class", "app/core/errors/base-error"], function (ClassUtils, 
 		},
 
 		isDevelopmentMode: function(){
-			return this._config.mode === "development";
+			return this._config.mode === 'development';
 		},
 
 		getDetailedUnhandledErrorMessage: function(e){
 			var message;
 
 			if(this.isDevelopmentMode()){
-				if(typeof e === "string"){
+				if(typeof e === 'string'){
 					message = e;
 				} else {
 					message = (BaseError.isBaseError(e) && e.originalError
