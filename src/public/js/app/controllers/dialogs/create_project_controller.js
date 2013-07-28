@@ -1,20 +1,17 @@
-define(['angular', 'app'], function (angular, app) {
+define(function () {
 	'use strict';
 
-	var CreateProjectController = function($rootScope, $scope, $http, dialog, config){
-		var saveProject = function(project){
-			$http.defaults.headers.common['access-token']='user_token';
+	return ['$rootScope', '$scope','dialog', 'ProjectService',
+		function($rootScope, $scope, dialog, projectService){
+
+		var saveProject = function(project) {
 			$rootScope.$broadcast('show:loading', [{
 				field: 'one'
 			}]);
-
-			$http.post(config.services.data + '/project', {
-				id: '',
-				name: project.name,
-				description: project.description
-			}).success(function(e){
-				dialog.close();
-			});
+			projectService.create(project.name, project.description).
+				success(function(){
+					dialog.close();
+				});
 		};
 
 		$scope.close = function(result, model){
@@ -41,8 +38,5 @@ define(['angular', 'app'], function (angular, app) {
 			label: 'Save',
 			cssClass: 'btn-primary'
 		}];
-	};
-
-
-	return CreateProjectController;
+	}];
 });

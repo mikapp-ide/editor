@@ -3,7 +3,7 @@ require.config({
 	paths: {
 		angular: 'libs/angular',
 		'ui-bootstrap': 'libs/ui-bootstrap.min',
-		/*underscore: 'libs/lodash.min',*/
+		underscore: 'libs/lodash.min',
 		rText: 'libs/requirejs/plugins/text',
 		ri18n: 'libs/requirejs/plugins/i18n'
 	},
@@ -17,36 +17,9 @@ require.config({
 	}
 });
 
-require([
-	'angular',
-	'app',
-
-	'app/controllers/pages/projects_controller',
-	'app/controllers/pages/project_details_controller',
-
-	'app/controllers/components/component_controller',
-	'app/controllers/components/lists/grid_view_component_controller',
-
-	'app/services/config_service',
-	'app/services/component_service',
-	'app/services/project_service',
-
-	'app/directives/component_directive',
-	'app/directives/draggable_directive',
-	'app/directives/drop_target_directive',
-
-	'app/directives/components/general/app_bar_directive',
-	'app/directives/components/general/rectangle_directive',
-	'app/directives/components/general/text_directive',
-	'app/directives/components/general/image_directive',
-	'app/directives/components/general/button_directive',
-
-	'app/directives/components/lists/grid_view_directive',
-
-	'app/directives/components/location/map_directive',
-
-	'app/directives/controls/input_file_directive',
-	'app/directives/controls/binding_directive'
+require(['angular', 'app', 'app/services/registration',
+	'app/controllers/registration',
+	'app/directives/registration'
 ], function (angular, app) {
 	'use strict';
 

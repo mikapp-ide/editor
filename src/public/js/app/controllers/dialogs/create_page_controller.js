@@ -1,36 +1,41 @@
 define(['angular', 'app'], function (angular, app) {
 	'use strict';
 
-	var CreatePageController = function($rootScope, $scope, $http, dialog, config){
-		var saveProject = function(project){
-			$http.defaults.headers.common['access-token']='user_token';
-			$rootScope.$broadcast('show:loading', [{
-				field: 'one'
-			}]);
-
-			$http.post(config.services.data + '/project', {
-				id: '',
-				name: project.name,
-				description: project.description
-			}).success(function(e){
-				dialog.close();
+	return ['$scope', 'dialog', 'project', function($scope, dialog, project){
+		var save = function(model){
+			$scope.project.pages.push({
+				name: model.name,
+				components: [{
+					type: 'mk-appbar',
+					placeholder: true
+				},{
+					type: 'mk-rectangle',
+					support:{
+						resizing: false,
+						children: true
+					},
+					classes: 'content-area'
+				},{
+					type: 'mk-appbar',
+					placeholder: true
+				}]
 			});
 		};
 
+		$scope.project = project;
+
 		$scope.close = function(result, model){
-			if(result === 'cancel'){
-				dialog.close();
-			} else {
-				saveProject(model);
+			if(result === 'save'){
+				save(model);
 			}
+			dialog.close();
 		};
+
+		$scope.title = 'Create Page';
 
 		$scope.model = {
-			name: 'New Project',
-			description: 'This is my awesome project!'
+			name: 'New Page'
 		};
-
-		$scope.title = 'Create new project';
 
 		/*$scope.message = 'This is the content of the message box';*/
 		$scope.buttons = [{
@@ -41,8 +46,5 @@ define(['angular', 'app'], function (angular, app) {
 			label: 'Save',
 			cssClass: 'btn-primary'
 		}];
-	};
-
-
-	return CreatePageController;
+	}];
 });

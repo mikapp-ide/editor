@@ -1,54 +1,76 @@
-define([
-	'angular',
-	'app',
-	'app/controllers/dialogs/create_application_page_controller',
-	'app/controllers/dialogs/create_predefined_data_source_controller'
-], function (angular, app, create_application_page_controller, create_predefined_data_source_controller) {
+define(['angular'], function(angular) {
 	'use strict';
 
-	return app.controller(
-		'ProjectDetailsController',
+	return ['$scope', '$dialog', '$routeParams', 'configuration',
+		'ComponentService', 'ProjectService',
+		function ($scope, $dialog, $routeParams, config, componentService,
+			projectService) {
 
-		['$rootScope', '$scope', '$location', '$dialog', '$routeParams', 'config', 'component_service', 'project_service',
+			/*$scope.$on('component-selected', function(event, parameters) {
+				var component = parameters;
 
-		function ($rootScope, $scope, $location, $dialog, $routeParams, config, componentService, projectService) {
+				$scope.styles = component.styles.map(function(styleKey) {
+					var styleConfig = componentService.getStyleConfig(styleKey);
 
-			projectService.loadProject($routeParams.id).then(function(project){
+					// here we should check whether component has dedicated css
+					// class and get values from there
+					var values = $scope.project.styleSheet.rules;
+
+					return styleConfig;
+				});
+			});*/
+
+			projectService.get($routeParams.id).then(function(project) {
 				$scope.project = project;
 
 				$scope.activePage = $scope.project.pages[0];
 
-				$scope.downloadLink = config.services.compile + '/api/compile/' + $scope.project.id;
+				$scope.downloadLink = config.services.compile +
+					'/api/compile/' + $scope.project.id;
 			});
 
-			$scope.toolBox = componentService.getComponents();
+			$scope.toolBox = componentService.getGroups();
 
-			$scope.addApplicationPage = function(){
+			/*$scope.showJSON = function(){
+				//window.console.log(angular.toJson($scope.project));
+
+				$scope.project.userClasses.push({
+					selector: '.mk-rectangle-component',
+					styles: {
+						'border': '10px solid blue'
+					}
+				});
+			};*/
+
+		/*	$scope.addApplicationPage = function() {
 				$dialog.dialog({
-					templateUrl: '/js/templates/dialogs/create_application_page.ng',
-					controller: create_application_page_controller,
+					templateUrl: config.templates.dialogs +
+						'create_application_page.ng',
+					controller: 'CreatePageController',
 					resolve: {
 						project: function(){
 							return $scope.project;
 						}
 					}
 				}).open();
-			};
+			};*/
 
-			$scope.openPage = function(page){
+		/*	$scope.openPage = function(page) {
 				$scope.activePage = page;
-			};
+			};*/
 
-			$scope.addPredefinedDataSource = function(){
+		/*	$scope.addPredefinedDataSource = function() {
 				$dialog.dialog({
-					templateUrl: '/js/templates/dialogs/create_predefined_data_source.ng',
-					controller: create_predefined_data_source_controller,
+					templateUrl: config.templates.dialogs +
+						'create_predefined_data_source.ng',
+					controller: 'CreateDataSourceController',
 					resolve: {
 						project: function(){
 							return $scope.project;
 						}
 					}
 				}).open();
-			};
-		}]);
+			};*/
+		}
+	];
 });

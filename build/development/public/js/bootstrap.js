@@ -16563,6 +16563,134 @@ angular.module('ui.bootstrap.tabs', [])
     scope:{
       heading:'@',
 	  classes: '@'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	    
     },
     link: function(scope, element, attrs, tabsCtrl) {
       var getSelected, setSelected;
@@ -16837,1030 +16965,913 @@ define("ui-bootstrap", function(){});
 define('app',['angular', 'ui-bootstrap'], function (angular) {
 	
 
-	return angular.module('mikapp', ['ui.bootstrap']);
-});
+	// Mock data for the temp project.
 
-
-define('app/controllers/dialogs/create_project_controller',['angular', 'app'], function (angular, app) {
-	
-
-	var CreateProjectController = function($rootScope, $scope, $http, dialog, config){
-		var saveProject = function(project){
-			$http.defaults.headers.common['access-token']='user_token';
-			$rootScope.$broadcast('show:loading', [{
-				field: 'one'
-			}]);
-
-			$http.post(config.services.data + '/project', {
-				id: '',
-				name: project.name,
-				description: project.description
-			}).success(function(e){
-				dialog.close();
-			});
-		};
-
-		$scope.close = function(result, model){
-			if(result === 'cancel'){
-				dialog.close();
-			} else {
-				saveProject(model);
-			}
-		};
-
-		$scope.model = {
-			name: 'New Project',
-			description: 'This is my awesome project!'
-		};
-
-		$scope.title = 'Create new project';
-
-		/*$scope.message = 'This is the content of the message box';*/
-		$scope.buttons = [{
-			result:'cancel',
-			label: 'Cancel'
-		}, {
-			result:'save',
-			label: 'Save',
-			cssClass: 'btn-primary'
-		}];
-	};
-
-
-	return CreateProjectController;
-});
-define('app/controllers/pages/projects_controller',['angular', 'app', 'app/controllers/dialogs/create_project_controller'], function (angular, app, create_project_controller) {
-	
-
-	return app.controller('ProjectsController', ['$rootScope', '$scope', '$location', '$dialog', '$http', 'config', function ($rootScope, $scope, $location, $dialog, $http, config) {
-
-		$rootScope.$on('show:loading', function(e, args){
-			/*debugger;
-			alert('loading');*/
+	var app = angular.module('mikapp', ['ui.bootstrap']).
+		constant('configuration', {
+			services: {
+				data: '/api',
+				compile: 'http://mika.compile'
+			},
+			templates: {
+				dialogs: '/js/templates/dialogs/',
+				pages: '/js/templates/pages'
+			},
+			debug: true
 		});
 
-		$scope.createProject = function(){
-			$dialog.dialog({
-				templateUrl: 'js/templates/dialogs/create_project.ng',
-				controller: create_project_controller
-			}).open();
-		};
-
-		$http.defaults.headers.common['access-token']='user_token';
-		$http.get(config.services.data + '/projects').success(function(data){
-			$scope.projects = data.map(function(project){
-				return {
-					id: project._id,
-					name: project.name
-				};
-			});
-		});
-	}]);
+	return app;
 });
-define('app/controllers/dialogs/create_application_page_controller',['angular', 'app'], function (angular, app) {
+
+
+/**
+ * @license
+ * Lo-Dash 1.3.1 (Custom Build) lodash.com/license
+ * Build: `lodash modern -o ./dist/lodash.js`
+ * Underscore.js 1.4.4 underscorejs.org/LICENSE
+ */
+;!function(n){function t(n,t,e){e=(e||0)-1;for(var r=n.length;++e<r;)if(n[e]===t)return e;return-1}function e(n,e){var r=typeof e;if(n=n.k,"boolean"==r||e==h)return n[e];"number"!=r&&"string"!=r&&(r="object");var u="number"==r?e:j+e;return n=n[r]||(n[r]={}),"object"==r?n[u]&&-1<t(n[u],e)?0:-1:n[u]?0:-1}function r(n){var t=this.k,e=typeof n;if("boolean"==e||n==h)t[n]=y;else{"number"!=e&&"string"!=e&&(e="object");var r="number"==e?n:j+n,u=t[e]||(t[e]={});"object"==e?(u[r]||(u[r]=[])).push(n)==this.b.length&&(t[e]=b):u[r]=y
+}}function u(n){return n.charCodeAt(0)}function a(n,t){var e=n.m,r=t.m;if(n=n.l,t=t.l,n!==t){if(n>t||typeof n=="undefined")return 1;if(n<t||typeof t=="undefined")return-1}return e<r?-1:1}function o(n){var t=-1,e=n.length,u=l();u["false"]=u["null"]=u["true"]=u.undefined=b;var a=l();for(a.b=n,a.k=u,a.push=r;++t<e;)a.push(n[t]);return u.object===false?(p(a),h):a}function i(n){return"\\"+Q[n]}function f(){return m.pop()||[]}function l(){return d.pop()||{b:h,k:h,l:h,"false":b,m:0,leading:b,maxWait:0,"null":b,number:h,object:h,push:h,string:h,trailing:b,"true":b,undefined:b,n:h}
+}function c(n){n.length=0,m.length<C&&m.push(n)}function p(n){var t=n.k;t&&p(t),n.b=n.k=n.l=n.object=n.number=n.string=n.n=h,d.length<C&&d.push(n)}function s(n,t,e){t||(t=0),typeof e=="undefined"&&(e=n?n.length:0);var r=-1;e=e-t||0;for(var u=Array(0>e?0:e);++r<e;)u[r]=n[t+r];return u}function v(r){function m(n){if(!n||ve.call(n)!=V)return b;var t=n.valueOf,e=typeof t=="function"&&(e=fe(t))&&fe(e);return e?n==e||fe(n)==e:it(n)}function d(n,t,e){if(!n||!L[typeof n])return n;t=t&&typeof e=="undefined"?t:tt.createCallback(t,e);
+	for(var r=-1,u=L[typeof n]&&Se(n),a=u?u.length:0;++r<a&&(e=u[r],!(t(n[e],e,n)===false)););return n}function C(n,t,e){var r;if(!n||!L[typeof n])return n;t=t&&typeof e=="undefined"?t:tt.createCallback(t,e);for(r in n)if(t(n[r],r,n)===false)break;return n}function Q(n,t,e){var r,u=n,a=u;if(!u)return a;for(var o=arguments,i=0,f=typeof e=="number"?2:o.length;++i<f;)if((u=o[i])&&L[typeof u])for(var l=-1,c=L[typeof u]&&Se(u),p=c?c.length:0;++l<p;)r=c[l],"undefined"==typeof a[r]&&(a[r]=u[r]);return a}function X(n,t,e){var r,u=n,a=u;
+	if(!u)return a;var o=arguments,i=0,f=typeof e=="number"?2:o.length;if(3<f&&"function"==typeof o[f-2])var l=tt.createCallback(o[--f-1],o[f--],2);else 2<f&&"function"==typeof o[f-1]&&(l=o[--f]);for(;++i<f;)if((u=o[i])&&L[typeof u])for(var c=-1,p=L[typeof u]&&Se(u),s=p?p.length:0;++c<s;)r=p[c],a[r]=l?l(a[r],u[r]):u[r];return a}function Z(n){var t,e=[];if(!n||!L[typeof n])return e;for(t in n)le.call(n,t)&&e.push(t);return e}function tt(n){return n&&typeof n=="object"&&!Ee(n)&&le.call(n,"__wrapped__")?n:new et(n)
+}function et(n){this.__wrapped__=n}function rt(n,t,e,r){function u(){var r=arguments,l=o?this:t;return a||(n=t[i]),e.length&&(r=r.length?(r=Ce.call(r),f?r.concat(e):e.concat(r)):e),this instanceof u?(l=gt(n.prototype)?ye(n.prototype):{},r=n.apply(l,r),gt(r)?r:l):n.apply(l,r)}var a=vt(n),o=!e,i=t;if(o){var f=r;e=t}else if(!a){if(!r)throw new Yt;t=n}return u}function ut(n){return Ie[n]}function at(){var n=(n=tt.indexOf)===$t?t:n;return n}function ot(n){return function(t,e,r,u){return typeof e!="boolean"&&e!=h&&(u=r,r=u&&u[e]===t?g:e,e=b),r!=h&&(r=tt.createCallback(r,u)),n(t,e,r,u)
+}}function it(n){var t,e;return n&&ve.call(n)==V&&(t=n.constructor,!vt(t)||t instanceof t)?(C(n,function(n,t){e=t}),e===g||le.call(n,e)):b}function ft(n){return Ae[n]}function lt(n,t,e,r,u,a){var o=n;if(typeof t!="boolean"&&t!=h&&(r=e,e=t,t=b),typeof e=="function"){if(e=typeof r=="undefined"?e:tt.createCallback(e,r,1),o=e(o),typeof o!="undefined")return o;o=n}if(r=gt(o)){var i=ve.call(o);if(!J[i])return o;var l=Ee(o)}if(!r||!t)return r?l?s(o):X({},o):o;switch(r=xe[i],i){case P:case K:return new r(+o);
+	case U:case H:return new r(o);case G:return r(o.source,A.exec(o))}i=!u,u||(u=f()),a||(a=f());for(var p=u.length;p--;)if(u[p]==n)return a[p];return o=l?r(o.length):{},l&&(le.call(n,"index")&&(o.index=n.index),le.call(n,"input")&&(o.input=n.input)),u.push(n),a.push(o),(l?wt:d)(n,function(n,r){o[r]=lt(n,t,e,g,u,a)}),i&&(c(u),c(a)),o}function ct(n){var t=[];return C(n,function(n,e){vt(n)&&t.push(e)}),t.sort()}function pt(n){for(var t=-1,e=Se(n),r=e.length,u={};++t<r;){var a=e[t];u[n[a]]=a}return u}function st(n,t,e,r,u,a){var o=e===k;
+	if(typeof e=="function"&&!o){e=tt.createCallback(e,r,2);var i=e(n,t);if(typeof i!="undefined")return!!i}if(n===t)return 0!==n||1/n==1/t;var l=typeof n,p=typeof t;if(n===n&&(!n||"function"!=l&&"object"!=l)&&(!t||"function"!=p&&"object"!=p))return b;if(n==h||t==h)return n===t;if(p=ve.call(n),l=ve.call(t),p==z&&(p=V),l==z&&(l=V),p!=l)return b;switch(p){case P:case K:return+n==+t;case U:return n!=+n?t!=+t:0==n?1/n==1/t:n==+t;case G:case H:return n==Xt(t)}if(l=p==W,!l){if(le.call(n,"__wrapped__")||le.call(t,"__wrapped__"))return st(n.__wrapped__||n,t.__wrapped__||t,e,r,u,a);
+		if(p!=V)return b;var p=n.constructor,s=t.constructor;if(p!=s&&(!vt(p)||!(p instanceof p&&vt(s)&&s instanceof s)))return b}for(s=!u,u||(u=f()),a||(a=f()),p=u.length;p--;)if(u[p]==n)return a[p]==t;var v=0,i=y;if(u.push(n),a.push(t),l){if(p=n.length,v=t.length,i=v==n.length,!i&&!o)return i;for(;v--;)if(l=p,s=t[v],o)for(;l--&&!(i=st(n[l],s,e,r,u,a)););else if(!(i=st(n[v],s,e,r,u,a)))break;return i}return C(t,function(t,o,f){return le.call(f,o)?(v++,i=le.call(n,o)&&st(n[o],t,e,r,u,a)):void 0}),i&&!o&&C(n,function(n,t,e){return le.call(e,t)?i=-1<--v:void 0
+	}),s&&(c(u),c(a)),i}function vt(n){return typeof n=="function"}function gt(n){return!(!n||!L[typeof n])}function yt(n){return typeof n=="number"||ve.call(n)==U}function ht(n){return typeof n=="string"||ve.call(n)==H}function bt(n,t,e){var r=arguments,u=0,a=2;if(!gt(n))return n;if(e===k)var o=r[3],i=r[4],l=r[5];else{var p=y,i=f(),l=f();typeof e!="number"&&(a=r.length),3<a&&"function"==typeof r[a-2]?o=tt.createCallback(r[--a-1],r[a--],2):2<a&&"function"==typeof r[a-1]&&(o=r[--a])}for(;++u<a;)(Ee(r[u])?wt:d)(r[u],function(t,e){var r,u,a=t,f=n[e];
+	if(t&&((u=Ee(t))||m(t))){for(a=i.length;a--;)if(r=i[a]==t){f=l[a];break}if(!r){var c;o&&(a=o(f,t),c=typeof a!="undefined")&&(f=a),c||(f=u?Ee(f)?f:[]:m(f)?f:{}),i.push(t),l.push(f),c||(f=bt(f,t,k,o,i,l))}}else o&&(a=o(f,t),typeof a=="undefined"&&(a=t)),typeof a!="undefined"&&(f=a);n[e]=f});return p&&(c(i),c(l)),n}function mt(n){for(var t=-1,e=Se(n),r=e.length,u=Mt(r);++t<r;)u[t]=n[e[t]];return u}function dt(n,t,e){var r=-1,u=at(),a=n?n.length:0,o=b;return e=(0>e?_e(0,a+e):e)||0,a&&typeof a=="number"?o=-1<(ht(n)?n.indexOf(t,e):u(n,t,e)):d(n,function(n){return++r<e?void 0:!(o=n===t)
+}),o}function _t(n,t,e){var r=y;t=tt.createCallback(t,e),e=-1;var u=n?n.length:0;if(typeof u=="number")for(;++e<u&&(r=!!t(n[e],e,n)););else d(n,function(n,e,u){return r=!!t(n,e,u)});return r}function kt(n,t,e){var r=[];t=tt.createCallback(t,e),e=-1;var u=n?n.length:0;if(typeof u=="number")for(;++e<u;){var a=n[e];t(a,e,n)&&r.push(a)}else d(n,function(n,e,u){t(n,e,u)&&r.push(n)});return r}function jt(n,t,e){t=tt.createCallback(t,e),e=-1;var r=n?n.length:0;if(typeof r!="number"){var u;return d(n,function(n,e,r){return t(n,e,r)?(u=n,b):void 0
+}),u}for(;++e<r;){var a=n[e];if(t(a,e,n))return a}}function wt(n,t,e){var r=-1,u=n?n.length:0;if(t=t&&typeof e=="undefined"?t:tt.createCallback(t,e),typeof u=="number")for(;++r<u&&t(n[r],r,n)!==false;);else d(n,t);return n}function Ct(n,t,e){var r=-1,u=n?n.length:0;if(t=tt.createCallback(t,e),typeof u=="number")for(var a=Mt(u);++r<u;)a[r]=t(n[r],r,n);else a=[],d(n,function(n,e,u){a[++r]=t(n,e,u)});return a}function xt(n,t,e){var r=-1/0,a=r;if(!t&&Ee(n)){e=-1;for(var o=n.length;++e<o;){var i=n[e];i>a&&(a=i)
+}}else t=!t&&ht(n)?u:tt.createCallback(t,e),wt(n,function(n,e,u){e=t(n,e,u),e>r&&(r=e,a=n)});return a}function Ot(n,t){var e=-1,r=n?n.length:0;if(typeof r=="number")for(var u=Mt(r);++e<r;)u[e]=n[e][t];return u||Ct(n,t)}function Et(n,t,e,r){if(!n)return e;var u=3>arguments.length;t=tt.createCallback(t,r,4);var a=-1,o=n.length;if(typeof o=="number")for(u&&(e=n[++a]);++a<o;)e=t(e,n[a],a,n);else d(n,function(n,r,a){e=u?(u=b,n):t(e,n,r,a)});return e}function St(n,t,e,r){var u=n?n.length:0,a=3>arguments.length;
+	if(typeof u!="number")var o=Se(n),u=o.length;return t=tt.createCallback(t,r,4),wt(n,function(r,i,f){i=o?o[--u]:--u,e=a?(a=b,n[i]):t(e,n[i],i,f)}),e}function It(n,t,e){var r;t=tt.createCallback(t,e),e=-1;var u=n?n.length:0;if(typeof u=="number")for(;++e<u&&!(r=t(n[e],e,n)););else d(n,function(n,e,u){return!(r=t(n,e,u))});return!!r}function At(n){var r=-1,u=at(),a=n?n.length:0,i=ae.apply(Zt,Ce.call(arguments,1)),f=[],l=a>=w&&u===t;if(l){var c=o(i);c?(u=e,i=c):l=b}for(;++r<a;)c=n[r],0>u(i,c)&&f.push(c);
+	return l&&p(i),f}function Nt(n,t,e){if(n){var r=0,u=n.length;if(typeof t!="number"&&t!=h){var a=-1;for(t=tt.createCallback(t,e);++a<u&&t(n[a],a,n);)r++}else if(r=t,r==h||e)return n[0];return s(n,0,ke(_e(0,r),u))}}function $t(n,e,r){if(typeof r=="number"){var u=n?n.length:0;r=0>r?_e(0,u+r):r||0}else if(r)return r=Ft(n,e),n[r]===e?r:-1;return n?t(n,e,r):-1}function Bt(n,t,e){if(typeof t!="number"&&t!=h){var r=0,u=-1,a=n?n.length:0;for(t=tt.createCallback(t,e);++u<a&&t(n[u],u,n);)r++}else r=t==h||e?1:_e(0,t);
+	return s(n,r)}function Ft(n,t,e,r){var u=0,a=n?n.length:u;for(e=e?tt.createCallback(e,r,1):Wt,t=e(t);u<a;)r=u+a>>>1,e(n[r])<t?u=r+1:a=r;return u}function Rt(n){for(var t=-1,e=n?xt(Ot(n,"length")):0,r=Mt(0>e?0:e);++t<e;)r[t]=Ot(n,t);return r}function Tt(n,t){for(var e=-1,r=n?n.length:0,u={};++e<r;){var a=n[e];t?u[a]=t[e]:u[a[0]]=a[1]}return u}function qt(n,t){return Oe.fastBind||ge&&2<arguments.length?ge.call.apply(ge,arguments):rt(n,t,Ce.call(arguments,2))}function Dt(n,t,e){function r(){ue(s),ue(v),l=0,s=v=h
+}function u(){var t=g&&(!m||1<l);r(),t&&(p!==false&&(c=new Vt),i=n.apply(f,o))}function a(){r(),(g||p!==t)&&(c=new Vt,i=n.apply(f,o))}var o,i,f,l=0,c=0,p=b,s=h,v=h,g=y;if(t=_e(0,t||0),e===y)var m=y,g=b;else gt(e)&&(m=e.leading,p="maxWait"in e&&_e(t,e.maxWait||0),g="trailing"in e?e.trailing:g);return function(){if(o=arguments,f=this,l++,ue(v),p===false)m&&2>l&&(i=n.apply(f,o));else{var e=new Vt;!s&&!m&&(c=e);var r=p-(e-c);0<r?s||(s=se(a,r)):(ue(s),s=h,c=e,i=n.apply(f,o))}return t!==p&&(v=se(u,t)),i}}function zt(n){var t=Ce.call(arguments,1);
+	return se(function(){n.apply(g,t)},1)}function Wt(n){return n}function Pt(n){wt(ct(n),function(t){var e=tt[t]=n[t];tt.prototype[t]=function(){var n=this.__wrapped__,t=[n];return ce.apply(t,arguments),t=e.apply(tt,t),n&&typeof n=="object"&&n===t?this:new et(t)}})}function Kt(){return this.__wrapped__}r=r?nt.defaults(n.Object(),r,nt.pick(n,D)):n;var Mt=r.Array,Ut=r.Boolean,Vt=r.Date,Gt=r.Function,Ht=r.Math,Jt=r.Number,Lt=r.Object,Qt=r.RegExp,Xt=r.String,Yt=r.TypeError,Zt=[],ne=Lt.prototype,te=r._,ee=Qt("^"+Xt(ne.valueOf).replace(/[.*+?^${}()|[\]\\]/g,"\\$&").replace(/valueOf|for [^\]]+/g,".+?")+"$"),re=Ht.ceil,ue=r.clearTimeout,ae=Zt.concat,oe=Ht.floor,ie=Gt.prototype.toString,fe=ee.test(fe=Lt.getPrototypeOf)&&fe,le=ne.hasOwnProperty,ce=Zt.push,pe=r.setImmediate,se=r.setTimeout,ve=ne.toString,ge=ee.test(ge=ve.bind)&&ge,ye=ee.test(ye=Lt.create)&&ye,he=ee.test(he=Mt.isArray)&&he,be=r.isFinite,me=r.isNaN,de=ee.test(de=Lt.keys)&&de,_e=Ht.max,ke=Ht.min,je=r.parseInt,we=Ht.random,Ce=Zt.slice,Ht=ee.test(r.attachEvent),Ht=ge&&!/\n|true/.test(ge+Ht),xe={};
+	xe[W]=Mt,xe[P]=Ut,xe[K]=Vt,xe[M]=Gt,xe[V]=Lt,xe[U]=Jt,xe[G]=Qt,xe[H]=Xt,et.prototype=tt.prototype;var Oe=tt.support={};Oe.fastBind=ge&&!Ht,tt.templateSettings={escape:/<%-([\s\S]+?)%>/g,evaluate:/<%([\s\S]+?)%>/g,interpolate:N,variable:"",imports:{_:tt}};var Ee=he,Se=de?function(n){return gt(n)?de(n):[]}:Z,Ie={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"},Ae=pt(Ie),Ut=ot(function $e(n,t,e){for(var r=-1,u=n?n.length:0,a=[];++r<u;){var o=n[r];e&&(o=e(o,r,n)),Ee(o)?ce.apply(a,t?o:$e(o)):a.push(o)
+	}return a}),Ne=ot(function(n,r,u){var a=-1,i=at(),l=n?n.length:0,s=[],v=!r&&l>=w&&i===t,g=u||v?f():s;if(v){var y=o(g);y?(i=e,g=y):(v=b,g=u?g:(c(g),s))}for(;++a<l;){var y=n[a],h=u?u(y,a,n):y;(r?!a||g[g.length-1]!==h:0>i(g,h))&&((u||v)&&g.push(h),s.push(y))}return v?(c(g.b),p(g)):u&&c(g),s});return Ht&&Y&&typeof pe=="function"&&(zt=qt(pe,r)),pe=8==je(B+"08")?je:function(n,t){return je(ht(n)?n.replace(F,""):n,t||0)},tt.after=function(n,t){return 1>n?t():function(){return 1>--n?t.apply(this,arguments):void 0
+	}},tt.assign=X,tt.at=function(n){for(var t=-1,e=ae.apply(Zt,Ce.call(arguments,1)),r=e.length,u=Mt(r);++t<r;)u[t]=n[e[t]];return u},tt.bind=qt,tt.bindAll=function(n){for(var t=1<arguments.length?ae.apply(Zt,Ce.call(arguments,1)):ct(n),e=-1,r=t.length;++e<r;){var u=t[e];n[u]=qt(n[u],n)}return n},tt.bindKey=function(n,t){return rt(n,t,Ce.call(arguments,2),k)},tt.compact=function(n){for(var t=-1,e=n?n.length:0,r=[];++t<e;){var u=n[t];u&&r.push(u)}return r},tt.compose=function(){var n=arguments;return function(){for(var t=arguments,e=n.length;e--;)t=[n[e].apply(this,t)];
+		return t[0]}},tt.countBy=function(n,t,e){var r={};return t=tt.createCallback(t,e),wt(n,function(n,e,u){e=Xt(t(n,e,u)),le.call(r,e)?r[e]++:r[e]=1}),r},tt.createCallback=function(n,t,e){if(n==h)return Wt;var r=typeof n;if("function"!=r){if("object"!=r)return function(t){return t[n]};var u=Se(n);return function(t){for(var e=u.length,r=b;e--&&(r=st(t[u[e]],n[u[e]],k)););return r}}return typeof t=="undefined"||$&&!$.test(ie.call(n))?n:1===e?function(e){return n.call(t,e)}:2===e?function(e,r){return n.call(t,e,r)
+	}:4===e?function(e,r,u,a){return n.call(t,e,r,u,a)}:function(e,r,u){return n.call(t,e,r,u)}},tt.debounce=Dt,tt.defaults=Q,tt.defer=zt,tt.delay=function(n,t){var e=Ce.call(arguments,2);return se(function(){n.apply(g,e)},t)},tt.difference=At,tt.filter=kt,tt.flatten=Ut,tt.forEach=wt,tt.forIn=C,tt.forOwn=d,tt.functions=ct,tt.groupBy=function(n,t,e){var r={};return t=tt.createCallback(t,e),wt(n,function(n,e,u){e=Xt(t(n,e,u)),(le.call(r,e)?r[e]:r[e]=[]).push(n)}),r},tt.initial=function(n,t,e){if(!n)return[];
+		var r=0,u=n.length;if(typeof t!="number"&&t!=h){var a=u;for(t=tt.createCallback(t,e);a--&&t(n[a],a,n);)r++}else r=t==h||e?1:t||r;return s(n,0,ke(_e(0,u-r),u))},tt.intersection=function(n){for(var r=arguments,u=r.length,a=-1,i=f(),l=-1,s=at(),v=n?n.length:0,g=[],y=f();++a<u;){var h=r[a];i[a]=s===t&&(h?h.length:0)>=w&&o(a?r[a]:y)}n:for(;++l<v;){var b=i[0],h=n[l];if(0>(b?e(b,h):s(y,h))){for(a=u,(b||y).push(h);--a;)if(b=i[a],0>(b?e(b,h):s(r[a],h)))continue n;g.push(h)}}for(;u--;)(b=i[u])&&p(b);return c(i),c(y),g
+	},tt.invert=pt,tt.invoke=function(n,t){var e=Ce.call(arguments,2),r=-1,u=typeof t=="function",a=n?n.length:0,o=Mt(typeof a=="number"?a:0);return wt(n,function(n){o[++r]=(u?t:n[t]).apply(n,e)}),o},tt.keys=Se,tt.map=Ct,tt.max=xt,tt.memoize=function(n,t){function e(){var r=e.cache,u=j+(t?t.apply(this,arguments):arguments[0]);return le.call(r,u)?r[u]:r[u]=n.apply(this,arguments)}return e.cache={},e},tt.merge=bt,tt.min=function(n,t,e){var r=1/0,a=r;if(!t&&Ee(n)){e=-1;for(var o=n.length;++e<o;){var i=n[e];
+		i<a&&(a=i)}}else t=!t&&ht(n)?u:tt.createCallback(t,e),wt(n,function(n,e,u){e=t(n,e,u),e<r&&(r=e,a=n)});return a},tt.omit=function(n,t,e){var r=at(),u=typeof t=="function",a={};if(u)t=tt.createCallback(t,e);else var o=ae.apply(Zt,Ce.call(arguments,1));return C(n,function(n,e,i){(u?!t(n,e,i):0>r(o,e))&&(a[e]=n)}),a},tt.once=function(n){var t,e;return function(){return t?e:(t=y,e=n.apply(this,arguments),n=h,e)}},tt.pairs=function(n){for(var t=-1,e=Se(n),r=e.length,u=Mt(r);++t<r;){var a=e[t];u[t]=[a,n[a]]
+	}return u},tt.partial=function(n){return rt(n,Ce.call(arguments,1))},tt.partialRight=function(n){return rt(n,Ce.call(arguments,1),h,k)},tt.pick=function(n,t,e){var r={};if(typeof t!="function")for(var u=-1,a=ae.apply(Zt,Ce.call(arguments,1)),o=gt(n)?a.length:0;++u<o;){var i=a[u];i in n&&(r[i]=n[i])}else t=tt.createCallback(t,e),C(n,function(n,e,u){t(n,e,u)&&(r[e]=n)});return r},tt.pluck=Ot,tt.range=function(n,t,e){n=+n||0,e=+e||1,t==h&&(t=n,n=0);var r=-1;t=_e(0,re((t-n)/e));for(var u=Mt(t);++r<t;)u[r]=n,n+=e;
+		return u},tt.reject=function(n,t,e){return t=tt.createCallback(t,e),kt(n,function(n,e,r){return!t(n,e,r)})},tt.rest=Bt,tt.shuffle=function(n){var t=-1,e=n?n.length:0,r=Mt(typeof e=="number"?e:0);return wt(n,function(n){var e=oe(we()*(++t+1));r[t]=r[e],r[e]=n}),r},tt.sortBy=function(n,t,e){var r=-1,u=n?n.length:0,o=Mt(typeof u=="number"?u:0);for(t=tt.createCallback(t,e),wt(n,function(n,e,u){var a=o[++r]=l();a.l=t(n,e,u),a.m=r,a.n=n}),u=o.length,o.sort(a);u--;)n=o[u],o[u]=n.n,p(n);return o},tt.tap=function(n,t){return t(n),n
+	},tt.throttle=function(n,t,e){var r=y,u=y;return e===false?r=b:gt(e)&&(r="leading"in e?e.leading:r,u="trailing"in e?e.trailing:u),e=l(),e.leading=r,e.maxWait=t,e.trailing=u,n=Dt(n,t,e),p(e),n},tt.times=function(n,t,e){n=-1<(n=+n)?n:0;var r=-1,u=Mt(n);for(t=tt.createCallback(t,e,1);++r<n;)u[r]=t(r);return u},tt.toArray=function(n){return n&&typeof n.length=="number"?s(n):mt(n)},tt.transform=function(n,t,e,r){var u=Ee(n);return t=tt.createCallback(t,r,4),e==h&&(u?e=[]:(r=n&&n.constructor,e=gt(r&&r.prototype)?ye(r&&r.prototype):{})),(u?wt:d)(n,function(n,r,u){return t(e,n,r,u)
+	}),e},tt.union=function(n){return Ee(n)||(arguments[0]=n?Ce.call(n):Zt),Ne(ae.apply(Zt,arguments))},tt.uniq=Ne,tt.unzip=Rt,tt.values=mt,tt.where=kt,tt.without=function(n){return At(n,Ce.call(arguments,1))},tt.wrap=function(n,t){return function(){var e=[n];return ce.apply(e,arguments),t.apply(this,e)}},tt.zip=function(n){return n?Rt(arguments):[]},tt.zipObject=Tt,tt.collect=Ct,tt.drop=Bt,tt.each=wt,tt.extend=X,tt.methods=ct,tt.object=Tt,tt.select=kt,tt.tail=Bt,tt.unique=Ne,Pt(tt),tt.chain=tt,tt.prototype.chain=function(){return this
+	},tt.clone=lt,tt.cloneDeep=function(n,t,e){return lt(n,y,t,e)},tt.contains=dt,tt.escape=function(n){return n==h?"":Xt(n).replace(T,ut)},tt.every=_t,tt.find=jt,tt.findIndex=function(n,t,e){var r=-1,u=n?n.length:0;for(t=tt.createCallback(t,e);++r<u;)if(t(n[r],r,n))return r;return-1},tt.findKey=function(n,t,e){var r;return t=tt.createCallback(t,e),d(n,function(n,e,u){return t(n,e,u)?(r=e,b):void 0}),r},tt.has=function(n,t){return n?le.call(n,t):b},tt.identity=Wt,tt.indexOf=$t,tt.isArguments=function(n){return ve.call(n)==z
+	},tt.isArray=Ee,tt.isBoolean=function(n){return n===y||n===false||ve.call(n)==P},tt.isDate=function(n){return n?typeof n=="object"&&ve.call(n)==K:b},tt.isElement=function(n){return n?1===n.nodeType:b},tt.isEmpty=function(n){var t=y;if(!n)return t;var e=ve.call(n),r=n.length;return e==W||e==H||e==z||e==V&&typeof r=="number"&&vt(n.splice)?!r:(d(n,function(){return t=b}),t)},tt.isEqual=st,tt.isFinite=function(n){return be(n)&&!me(parseFloat(n))},tt.isFunction=vt,tt.isNaN=function(n){return yt(n)&&n!=+n
+	},tt.isNull=function(n){return n===h},tt.isNumber=yt,tt.isObject=gt,tt.isPlainObject=m,tt.isRegExp=function(n){return n?typeof n=="object"&&ve.call(n)==G:b},tt.isString=ht,tt.isUndefined=function(n){return typeof n=="undefined"},tt.lastIndexOf=function(n,t,e){var r=n?n.length:0;for(typeof e=="number"&&(r=(0>e?_e(0,r+e):ke(e,r-1))+1);r--;)if(n[r]===t)return r;return-1},tt.mixin=Pt,tt.noConflict=function(){return r._=te,this},tt.parseInt=pe,tt.random=function(n,t){n==h&&t==h&&(t=1),n=+n||0,t==h?(t=n,n=0):t=+t||0;
+		var e=we();return n%1||t%1?n+ke(e*(t-n+parseFloat("1e-"+((e+"").length-1))),t):n+oe(e*(t-n+1))},tt.reduce=Et,tt.reduceRight=St,tt.result=function(n,t){var e=n?n[t]:g;return vt(e)?n[t]():e},tt.runInContext=v,tt.size=function(n){var t=n?n.length:0;return typeof t=="number"?t:Se(n).length},tt.some=It,tt.sortedIndex=Ft,tt.template=function(n,t,e){var r=tt.templateSettings;n||(n=""),e=Q({},e,r);var u,a=Q({},e.imports,r.imports),r=Se(a),a=mt(a),o=0,f=e.interpolate||R,l="__p+='",f=Qt((e.escape||R).source+"|"+f.source+"|"+(f===N?I:R).source+"|"+(e.evaluate||R).source+"|$","g");
+		n.replace(f,function(t,e,r,a,f,c){return r||(r=a),l+=n.slice(o,c).replace(q,i),e&&(l+="'+__e("+e+")+'"),f&&(u=y,l+="';"+f+";__p+='"),r&&(l+="'+((__t=("+r+"))==null?'':__t)+'"),o=c+t.length,t}),l+="';\n",f=e=e.variable,f||(e="obj",l="with("+e+"){"+l+"}"),l=(u?l.replace(x,""):l).replace(O,"$1").replace(E,"$1;"),l="function("+e+"){"+(f?"":e+"||("+e+"={});")+"var __t,__p='',__e=_.escape"+(u?",__j=Array.prototype.join;function print(){__p+=__j.call(arguments,'')}":";")+l+"return __p}";try{var c=Gt(r,"return "+l).apply(g,a)
+		}catch(p){throw p.source=l,p}return t?c(t):(c.source=l,c)},tt.unescape=function(n){return n==h?"":Xt(n).replace(S,ft)},tt.uniqueId=function(n){var t=++_;return Xt(n==h?"":n)+t},tt.all=_t,tt.any=It,tt.detect=jt,tt.findWhere=jt,tt.foldl=Et,tt.foldr=St,tt.include=dt,tt.inject=Et,d(tt,function(n,t){tt.prototype[t]||(tt.prototype[t]=function(){var t=[this.__wrapped__];return ce.apply(t,arguments),n.apply(tt,t)})}),tt.first=Nt,tt.last=function(n,t,e){if(n){var r=0,u=n.length;if(typeof t!="number"&&t!=h){var a=u;
+		for(t=tt.createCallback(t,e);a--&&t(n[a],a,n);)r++}else if(r=t,r==h||e)return n[u-1];return s(n,_e(0,u-r))}},tt.take=Nt,tt.head=Nt,d(tt,function(n,t){tt.prototype[t]||(tt.prototype[t]=function(t,e){var r=n(this.__wrapped__,t,e);return t==h||e&&typeof t!="function"?r:new et(r)})}),tt.VERSION="1.3.1",tt.prototype.toString=function(){return Xt(this.__wrapped__)},tt.prototype.value=Kt,tt.prototype.valueOf=Kt,wt(["join","pop","shift"],function(n){var t=Zt[n];tt.prototype[n]=function(){return t.apply(this.__wrapped__,arguments)
+	}}),wt(["push","reverse","sort","unshift"],function(n){var t=Zt[n];tt.prototype[n]=function(){return t.apply(this.__wrapped__,arguments),this}}),wt(["concat","slice","splice"],function(n){var t=Zt[n];tt.prototype[n]=function(){return new et(t.apply(this.__wrapped__,arguments))}}),tt}var g,y=!0,h=null,b=!1,m=[],d=[],_=0,k={},j=+new Date+"",w=75,C=40,x=/\b__p\+='';/g,O=/\b(__p\+=)''\+/g,E=/(__e\(.*?\)|\b__t\))\+'';/g,S=/&(?:amp|lt|gt|quot|#39);/g,I=/\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g,A=/\w*$/,N=/<%=([\s\S]+?)%>/g,$=($=/\bthis\b/)&&$.test(v)&&$,B=" \t\x0B\f\xa0\ufeff\n\r\u2028\u2029\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000",F=RegExp("^["+B+"]*0+(?=.$)"),R=/($^)/,T=/[&<>"']/g,q=/['\n\r\t\u2028\u2029\\]/g,D="Array Boolean Date Function Math Number Object RegExp String _ attachEvent clearTimeout isFinite isNaN parseInt setImmediate setTimeout".split(" "),z="[object Arguments]",W="[object Array]",P="[object Boolean]",K="[object Date]",M="[object Function]",U="[object Number]",V="[object Object]",G="[object RegExp]",H="[object String]",J={};
+	J[M]=b,J[z]=J[W]=J[P]=J[K]=J[U]=J[V]=J[G]=J[H]=y;var L={"boolean":b,"function":y,object:y,number:b,string:b,undefined:b},Q={"\\":"\\","'":"'","\n":"n","\r":"r","\t":"t","\u2028":"u2028","\u2029":"u2029"},X=L[typeof exports]&&exports,Y=L[typeof module]&&module&&module.exports==X&&module,Z=L[typeof global]&&global;!Z||Z.global!==Z&&Z.window!==Z||(n=Z);var nt=v();typeof define=="function"&&typeof define.amd=="object"&&define.amd?(n._=nt, define('underscore',[],function(){return nt})):X&&!X.nodeType?Y?(Y.exports=nt)._=nt:X._=nt:n._=nt
+}(this);
+define('app/models/component_type',[],function() {
 	
 
-	var CreateApplicationPageController = function($rootScope, $scope, $http, dialog, config, project){
-		var save = function(model){
-			$scope.project.pages.push({
-				name: model.name,
-				components: [{
-					meta:{
-						type: 'mk-app-bar-component'
-					},
-					placeholder: true
-				},{
-					meta:{
-						type: 'mk-rectangle-component',
-						support:{
-							resizing: false,
-							children: true
-						}
-					},
-					classes: 'content-area'
-				},{
-					meta:{
-						type: 'mk-app-bar-component'
-					},
-					placeholder: true
-				}]
-			});
-		};
+	/**
+	 * Component model.
+	 * @name mikapp.editor.models.ComponentType
+	 * @param {string} id Component type id.
+	 * @param {string} title Component type title.
+	 * @param {string} groupId Component group id.
+	 * @param {Array.<string>=} opt_styles Component supported CSS
+	 *      styles.
+	 * @param {Object.<string, boolean>=} opt_supports Component supported
+	 *      features.
+	 * @constructor
+	 */
+	var Model = function(id, title, groupId, opt_styles, opt_supports) {
+		/**
+		 * Component type id.
+		 * @type {string}
+		 */
+		this.id = id;
 
-		$scope.project = project;
+		/**
+		 * Component title.
+		 * @type {string}
+		 */
+		this.title = title;
 
-		$scope.close = function(result, model){
-			if(result === 'save'){
-				save(model);
-			}
-			dialog.close();
-		};
+		/**
+		 * Component group id.
+		 * @type {string}
+		 */
+		this.groupId = groupId;
 
-		$scope.title = 'Create Page';
+		/**
+		 * Component styles.
+		 * @type {Array.<string>}
+		 */
+		this.styles = opt_styles || null;
 
-		$scope.model = {
-			name: 'New Page'
-		};
-
-		/*$scope.message = 'This is the content of the message box';*/
-		$scope.buttons = [{
-			result:'cancel',
-			label: 'Cancel'
-		}, {
-			result:'save',
-			label: 'Save',
-			cssClass: 'btn-primary'
-		}];
+		/**
+		 * Component supported features.
+		 * @type {Object.<string, boolean>}
+		 */
+		this.supports = opt_supports || null;
 	};
 
-	return CreateApplicationPageController;
+	/**
+	 * Checks if current component supports resizing.
+	 * @returns {boolean}
+	 */
+	Model.prototype.supportResizing = function() {
+		return this.isFeatureSupported_('resizing');
+	};
+
+	/**
+	 * Checks if current component supports specified feature.
+	 * @param {string} feature Feature name to check.
+	 * @returns {boolean}
+	 * @private
+	 */
+	Model.prototype.isFeatureSupported_ = function(feature) {
+		var featureSupported = this.supports && this.supports[feature];
+
+		return typeof featureSupported === 'boolean' && featureSupported;
+	};
+
+	/**
+	 * Types of style editor.
+	 * @enum {string}
+	 */
+	Model.EditorType = {
+		TEXT: 'text',
+		NUMBER: 'number',
+		SELECT: 'select',
+		COLOR: 'color'
+	};
+
+	return Model;
 });
-define('app/controllers/dialogs/create_predefined_data_source_controller',['angular', 'app'], function (angular, app) {
-	
+define(
+	'app/services/component_service',['angular', 'underscore', 'app/models/component_type'],
+	function(angular, _, ComponentType) {
+		
 
-	var CreatePredefinedDataSourceController = function($rootScope, $scope, $http, $dialog, dialog, config, project){
-		$scope.title = 'Create DataSource';
-
-		$scope.data_types = [{
-			id: 'string',
-			label: 'String'
-		}, {
-			id: 'number',
-			label: 'Number'
-		}, {
-			id: 'image',
-			label: 'Image'
-		}, {
-			id: 'date',
-			label: 'Date'
-		}];
-
-		$scope.data_source = {
-			id: project.sources.predefined.length,
-			name: 'New DataSource',
-			fields: [{
-				name: '',
-				type: 'string'
-			}],
-			items:[]
-		};
-
-		var mode_buttons = {
-			create_source:[{
-				result:'cancel_create_source',
-				label: 'Cancel'
-			}, {
-				result:'apply_create_source',
-				label: 'Continue',
-				cssClass: 'btn-primary'
-			}],
-			view_source_items:[{
-				result:'cancel_view_source_items',
-				label: 'Cancel'
-			}, {
-				result:'apply_view_source_items',
-				label: 'Save',
-				cssClass: 'btn-primary'
-			}],
-			create_source_item:[{
-				result:'cancel_create_source_item',
-				label: 'Cancel'
-			}, {
-				result:'apply_create_source_item',
-				label: 'Save',
-				cssClass: 'btn-primary'
-			}]
-		};
-
-		$scope.project = project;
-
-		$scope.switchMode = function(mode){
-			$scope.mode = mode;
-			$scope.buttons = mode_buttons[mode];
-		};
-
-		$scope.close = function(result, model){
-			if(result === 'cancel_create_source'){
-				dialog.close();
-			} else if(result === 'apply_create_source'){
-				$scope.switchMode('view_source_items');
-			} else if(result === 'cancel_view_source_items'){
-				$scope.switchMode('create_source');
-			} else if(result === 'apply_view_source_items'){
-				if(!$scope.project.sources){
-					$scope.project.sources = {
-						predefined: [],
-						dynamic:[],
-						feeds:[]
-					};
+		// TODO(azasypkin): Remove that constant data with component service
+		// call.
+		var componentTypes = [
+			new ComponentType(
+				'mk-appbar',
+				'Application Bar',
+				'general'
+			),
+			new ComponentType(
+				'mk-rectangle',
+				'Rectangle',
+				'general',
+				['color', 'background-color', 'border', 'content-orientation'],
+				{
+					resizing: true,
+					children: true
 				}
+			),
+			new ComponentType(
+				'mk-button',
+				'Button',
+				'general',
+				['color', 'background-color', 'border'],
+				{
+					resizing: true
+				}
+			),
+			new ComponentType(
+				'mk-text',
+				'Text',
+				'general',
+				['color', 'background-color', 'border', 'font-size']
+			),
+			new ComponentType(
+				'mk-gridview',
+				'GridView',
+				'lists',
+				{
+					resizing: true
+				}
+			)
+		];
 
-				$scope.project.sources.predefined.push(angular.copy($scope.data_source));
+		// group components by groupId
+		var groupedComponentTypes = _.groupBy(componentTypes, function(type) {
+			return type.groupId;
+		});
 
-				dialog.close();
-			} else if(result === 'cancel_create_source_item'){
-				$scope.switchMode('view_source_items');
-			} else if(result === 'apply_create_source_item'){
-				$scope.data_source.items.push(angular.copy($scope.newItem));
+		var componentGroups = [{
+			id: 'general',
+			title: 'General',
+			componentTypes: groupedComponentTypes.general
+		}, {
+			id: 'lists',
+			title: 'Lists',
+			componentTypes: groupedComponentTypes.lists
+		}];
 
-				$scope.switchMode('view_source_items');
+		/**
+		 * Types of component events.
+		 * @enum {string}
+		 */
+		var ComponentEvent = {
+			CLICK: 'click',
+			DOUBLE_CLICK: 'double_click',
+			HOVER: 'hover'
+		};
+
+		/**
+		 * Types of component event actions.
+		 * @enum {string}
+		 */
+		var ComponentEventAction = {
+			/**
+			 * Navigates to the particular page.
+			 */
+			NAVIGATE: 'navigate',
+			DOUBLE_CLICK: 'double_click',
+			HOVER: 'hover'
+		};
+
+		/**
+		 * Component available style mappings.
+		 * @type {Object.<string, {
+		 *     label: string,
+		 *     type: mikapp.editor.models.ComponentType.EditorType,
+		 *     css: (string|undefined),
+		 *     values: (Array.<{id: string, label: string}>|undefined)
+		 * }}
+		 */
+		var styleToCssMapping = {
+			'color': {
+				label: 'Color',
+				type: ComponentType.EditorType.COLOR
+			},
+			'background-color': {
+				label: 'Background color',
+				type: ComponentType.EditorType.COLOR
+			},
+			'font-size': {
+				label: 'Font size, px',
+				type: ComponentType.EditorType.NUMBER
+			},
+			'content-orientation': {
+				label: 'Content Orientation',
+				type: ComponentType.EditorType.SELECT,
+				css: '-webkit-flex-direction',
+				values: [{
+					id: 'row',
+					label: 'Row'
+				}]
 			}
 		};
 
-		$scope.switchMode('create_source');
+		/**
+		 * Component service class.
+		 * @name mikapp.editor.services.ComponentService
+		 * @constructor
+		 */
+		var ComponentService = function() {
+		};
 
-		$scope.newItem = {};
+		/**
+		 * Gets all component groups including type for every component.
+		 * @returns {Array.<{id: string, label: string, components:
+		 *     !Array.<mikapp.editor.models.ComponentType>}>}
+		 */
+		ComponentService.prototype.getGroups = function() {
+			return componentGroups;
+		};
 
-		$scope.addNewField = function(){
-			$scope.data_source.fields.push({
-				name: '',
-				type: 'string'
+		/**
+		 * Gets component group by its id.
+		 * @param {string} id Group id to get.
+		 * @returns {{id: string, label: string, components:
+		 *     !Array.<mikapp.editor.models.ComponentType>}}
+		 */
+		ComponentService.prototype.getGroup = function(id) {
+			var group = _.find(componentGroups, function(group) {
+				return group.id === id;
+			});
+			return group || null;
+		};
+
+		/**
+		 * Gets component type its id.
+		 * @param {string} id Component type id to get.
+		 * @returns {mikapp.editor.models.ComponentType}
+		 */
+		ComponentService.prototype.getType = function(id) {
+			var length = componentTypes.length,
+				item,
+				i;
+
+			// TODO(azasypkin): We should initialize map\hash once we
+			// receive component types from the server to avoid
+			// iterations through entire list every time we need
+			// component type.
+			for (i = 0; i < length; i++) {
+				item = componentTypes[i];
+
+				if (item.id === id) {
+					return item;
+				}
+			}
+
+			return null;
+		};
+
+		/**
+		 * Gets component style config (what properties are configurable).
+		 * @param {string} type Component type.
+		 * @returns {*}
+		 */
+		ComponentService.prototype.getStyleConfig = function(type) {
+			if (styleToCssMapping.hasOwnProperty(type)) {
+				return styleToCssMapping[type];
+			}
+			return null;
+		};
+
+		return ComponentService;
+	}
+);
+define('app/models/stylesheet_rule',[],function() {
+	
+
+	/**
+	 * Stylesheet rule model.
+	 * @name mikapp.editor.models.StylesheetRule
+	 * @param {string} selector Rule CSS selector.
+	 * @param {!Object.<string, string>} styles Css styles
+	 * @constructor
+	 */
+	var Model = function(selector, styles) {
+		/**
+		 * Stylesheet rule selector.
+		 * @type {string}
+		 */
+		this.selector = selector;
+
+		/**
+		 * CSS styles.
+		 * @type {!Object.<string, string>}
+		 */
+		this.styles = styles;
+	};
+
+	/**
+	 * Deseriazes model instance from raw server data.
+	 * @param {!Object} data
+	 * @returns {mikapp.editor.models.StylesheetRule}
+	 */
+	Model.deserialize = function(data) {
+		return new Model(data.selector, data.styles);
+	};
+
+	return Model;
+});
+define('app/models/stylesheet',['app/models/stylesheet_rule'], function(Stylesheet) {
+	
+
+	/**
+	 * Stylesheet model.
+	 * @name mikapp.editor.models.Stylesheet
+	 * @param {string} id Stylesheet id.
+	 * @param {string=} opt_media Stylesheet media constraint.
+	 * @param {Array.<mikapp.editor.models.StylesheetRule>=} opt_rules
+	 *      Stylesheet CSS rules.
+	 * @constructor
+	 */
+	var Model = function(id, opt_media, opt_rules) {
+		/**
+		 * Stylesheet id.
+		 * @type {string}
+		 */
+		this.id = id;
+
+		/**
+		 * Stylesheet media constraint.
+		 * @type {string}
+		 */
+		this.media = opt_media || 'screen';
+
+		/**
+		 * Stylesheet css rules.
+		 * @type {Array.<mikapp.editor.models.StylesheetRule>}
+		 */
+		this.rules = opt_rules || null;
+	};
+
+	/**
+	 * Returns rule by specified selector or null if nothing found.
+	 * @param {string} selector Selector to find rule by.
+	 */
+	Model.prototype.getRule = function(selector) {
+		var foundRule = null,
+			ruleCount = this.rules ? this.rules.length : 0,
+			rule,
+			i;
+
+		for (i = 0; i < ruleCount; i++) {
+			rule = this.rules[i];
+
+			if (rule.selector === selector) {
+				foundRule = rule;
+				break;
+			}
+		}
+
+		return foundRule;
+	};
+
+	/**
+	 * Deseriazes model instance from raw server data.
+	 * @param {!Object} data
+	 * @returns {mikapp.editor.models.Stylesheet}
+	 */
+	Model.deserialize = function(data) {
+		return new Model(data.id, data.media, data.rules ?
+			data.rules.map(function(rule) {
+				return Stylesheet.deserialize(rule);
+			}) : null);
+	};
+
+	return Model;
+});
+define('app/models/component',[],function() {
+	
+
+	/**
+	 * Component model.
+	 * @name mikapp.editor.models.Component
+	 * @param {!mikapp.editor.models.ComponentType} type Component type.
+	 * @param {Array.<mikapp.editor.models.Component>=} opt_children Component
+	 *      children array.
+	 * @param {string=} opt_cssClass Component dedicated CSS class.
+	 * @constructor
+	 */
+	var Model = function(type, opt_children, opt_cssClass) {
+		/**
+		 * Component type.
+		 * @type {!mikapp.editor.models.ComponentType}
+		 */
+		this.type = type;
+
+		/**
+		 * Component children array.
+		 * @type {Array.<mikapp.editor.models.Component>}
+		 */
+		this.children = opt_children || null;
+
+		/**
+		 * Component CSS class.
+		 * @type {?string}
+		 */
+		this.cssClass = opt_cssClass || null;
+
+		// TODO(azasypkin): Here we can pass different supports and styles to
+		// override default one defined inside component type.
+	};
+
+	/**
+	 * Deseriazes model instance from raw server data.
+	 * @param {!Object} data Raw server data.
+	 * @param {!{getType: function(string): mikapp.editor.models.ComponentType}}
+	 *      typeProvider Component type provider.
+	 * @returns {mikapp.editor.models.Component}
+	 */
+	Model.deserialize = function(data, typeProvider) {
+		return new Model(typeProvider.getType(data.typeId), data.children &&
+			data.children.map(function(component) {
+				return Model.deserialize(component, typeProvider);
+			}), data.cssClass);
+	};
+
+	return Model;
+});
+define('app/models/application_page',['app/models/component'], function(Component) {
+	
+
+	/**
+	 * Application page model.
+	 * @name mikapp.editor.models.ApplicationPage
+	 * @param {string} id Page id.
+	 * @param {string} title Page title.
+	 * @param {Array.<mikapp.editor.models.Component>=} opt_components Page
+	 *      component list.
+	 * @constructor
+	 */
+	var Model = function(id, title, opt_components) {
+		/**
+		 * Page id.
+		 * @type {string}
+		 */
+		this.id = id;
+
+		/**
+		 * Page title.
+		 * @type {string}
+		 */
+		this.title = title;
+
+		/**
+		 * Application page components.
+		 * @type {Array.<mikapp.editor.models.Component>}
+		 */
+		this.components = opt_components || null;
+	};
+
+	/**
+	 * Deseriazes model instance from raw server data.
+	 * @param {!Object} data
+	 * @param {!{getType: function(string): mikapp.editor.models.ComponentType}}
+	 *      typeProvider Component type provider.
+	 * @returns {mikapp.editor.models.ApplicationPage}
+	 */
+	Model.deserialize = function(data, typeProvider) {
+		return new Model(data.id, data.title, data.components ?
+			data.components.map(function(component) {
+				return Component.deserialize(component, typeProvider);
+			}) : null);
+	};
+
+	return Model;
+});
+define('app/models/project',['app/models/stylesheet', 'app/models/application_page'],
+	function(Stylesheet, ApplicationPage) {
+		
+
+		/**
+		 * Project model.
+		 * @name mikapp.editor.models.Project
+		 * @param {string} id Project id.
+		 * @param {string} title Project title.
+		 * @param {!mikapp.editor.models.Stylesheet} stylesheet Project
+		 *      stylesheet.
+		 * @param {!Array.<mikapp.editor.models.ApplicationPage>} pages Project
+		 *      application pages.
+		 * @constructor
+		 */
+		var Model = function(id, title, stylesheet, pages) {
+			/**
+			 * Project id.
+			 * @type {string}
+			 */
+			this.id = id;
+
+			/**
+			 * Project title.
+			 * @type {string}
+			 */
+			this.title = title;
+
+			/**
+			 * Page components.
+			 * @type {!mikapp.editor.models.Stylesheet}
+			 */
+			this.stylesheet = stylesheet;
+
+			/**
+			 * Application pages.
+			 * @type {!Array.<mikapp.editor.models.ApplicationPage>}
+			 */
+			this.pages = pages;
+		};
+
+		/**
+		 * Deseriazes model instance from raw server data.
+		 * @param {!Object} data
+		 * @param {!{getType: function(string):
+		 *      mikapp.editor.models.ComponentType}} typeProvider Component type
+		 *      provider.
+		 * @returns {mikapp.editor.models.Project}
+		 */
+		Model.deserialize = function(data, typeProvider) {
+			return new Model(data.id, data.title, data.stylesheet ?
+				Stylesheet.deserialize(data.stylesheet) :
+				new Stylesheet(data.id + '-stylesheet'), data.pages ?
+				data.pages.map(function(page) {
+					return ApplicationPage.deserialize(page, typeProvider);
+				}) : []);
+		};
+
+		return Model;
+	}
+);
+define('app/services/project_service',['app/models/project'],
+	function(Project){
+		
+
+		/**
+		 * Project service class.
+		 * @name mikapp.editor.services.ProjectService
+		 * @param {!angular.$http} $http Angular http service.
+		 * @param {!angular.$q} $q Angular promise service.
+		 * @param {!Object} config Application config.
+		 * @param {!mikapp.editor.services.ComponentService} componentService
+		 * @constructor
+		 */
+		var ProjectService = function($http, $q, config, componentService) {
+
+			this.$http_ = $http;
+			this.$q_ = $q;
+			this.config_ = config;
+
+			/**
+			 * Component service instance.
+			 * @type {mikapp.editor.services.ComponentService}
+			 * @private
+			 */
+			this.componentService_ = componentService;
+
+
+			/**
+			 * Currently selected project.
+			 * @type {mikapp.editor.models.Project}
+			 * @private
+			 */
+			this.project_ = null;
+		};
+
+		/**
+		 * Enumerates all projects.
+		 * @returns {!angular.$q.<Array.<mikapp.editor.models.Project>>}
+		 */
+		ProjectService.prototype.list = function() {
+			var componentService = this.componentService_;
+			return this.makeRequest_('projects').then(function(data) {
+				return data && data.length > 0 ? data.map(function(project) {
+					return Project.deserialize(project, componentService);
+				}) : [];
 			});
 		};
 
-		$scope.addNewItem = function(){
-			$scope.switchMode('create_source_item');
+		/**
+		 * Creates new project.
+		 * @param {string} name Project name.
+		 * @param {string} description Project description.
+		 * @returns {!angular.$q.<mikapp.editor.models.Project>}
+		 */
+		ProjectService.prototype.create = function(name, description) {
+			return this.makeRequest_('project', 'POST', {
+				id: '',
+				name: name,
+				description: description
+			}).then(function(data) {
+				return data ? Project.deserialize(data) : null;
+			});
 		};
-	};
 
-	return CreatePredefinedDataSourceController;
-});
-define('app/controllers/pages/project_details_controller',[
-	'angular',
+		/**
+		 * Gets project by id.
+		 * @param {string} id Project id.
+		 * @returns {angular.$q.<mikapp.editor.models.Project>}
+		 */
+		ProjectService.prototype.get = function(id) {
+			var componentService = this.componentService_;
+			return this.makeRequest_('project/' + id).then(function(data){
+				this._project = data ?
+					Project.deserialize(data, componentService) : null;
+
+				return this._project;
+			}.bind(this));
+		};
+
+		/**
+		 * Gets current project.
+		 * @returns {mikapp.editor.models.Project}
+		 */
+		ProjectService.prototype.getCurrent = function() {
+			return this.project_;
+		};
+
+		/**
+		 * Returns full service URL.
+		 * @param {string} path
+		 * @private
+		 */
+		ProjectService.prototype.getUrl_ = function(path){
+			return this.config_.services.data + '/' + path;
+		};
+
+		/**
+		 * Makes actual HTTP request.
+		 * @param {string} path Path to request.
+		 * @param {string=} method HTTP metod to use.
+		 * @param {*=} data Data to path along with request.
+		 * @returns {!angular.$q}
+		 * @private
+		 */
+		ProjectService.prototype.makeRequest_ = function(path, method, data) {
+			this.$http_.defaults.headers.common['access-token'] =
+				'user_token';
+
+			// TODO(azasypkin) Remove as soon as server is ready.
+			if (this.config_.debug) {
+				var deferred = this.$q_.defer();
+
+				deferred.resolve(path === 'projects' ?
+					[this.getPredefinedProject_()] :
+					this.getPredefinedProject_());
+
+				return deferred.promise;
+			}
+			return this.$http_[(method || 'GET').toLowerCase()](
+				this.getUrl_(path), data).then(function(response) {
+					return response.data;
+				});
+		};
+
+		/**
+		 * Temporal method that returns mock server data.
+		 * @returns {{id: string, title: string, stylesheet: {id: string, rules:
+		 *      Array}, pages: Array}}
+		 * @private
+		 */
+		ProjectService.prototype.getPredefinedProject_ = function() {
+			return {
+				id: 'az-1',
+				title: 'Hello World',
+				stylesheet: {
+					id: 'az-1-stylesheet',
+					rules: [{
+						selector: '.mk-rectangle-1',
+						styles: {
+							'background-color': 'red',
+							'font': '25px Arial'
+						}
+					}, {
+						selector: '.top-appbar-1',
+						styles: {
+							'background-color': 'blue'
+						}
+					}, {
+						selector: '.mk-rectangle-component',
+						styles: {
+							'background-color': 'red'
+						}
+					}, {
+						selector: '.az-mk-button-1',
+						styles: {
+							'background-color': 'green'
+						}
+					}]
+				},
+				pages: [{
+					id: 'welcome-page',
+					title: 'Welcome Page',
+					components: [{
+						typeId: 'mk-appbar'
+					}, {
+						typeId: 'mk-rectangle',
+						children: [{
+							typeId: 'mk-button',
+							cssClass: 'az-mk-button-1'
+						}]
+					}]
+				}]
+			};
+		};
+
+		/*sources: {
+			predefined:[{
+				id: 0,
+				name: 'Pictures',
+
+				fields:[{
+					name: 'Name',
+					type: 'string'
+				}]
+			}]
+		}*/
+
+		return ['$http', '$q', 'configuration', 'ComponentService',
+			ProjectService];
+	}
+);
+define('app/services/registration',[
 	'app',
-	'app/controllers/dialogs/create_application_page_controller',
-	'app/controllers/dialogs/create_predefined_data_source_controller'
-], function (angular, app, create_application_page_controller, create_predefined_data_source_controller) {
+	'app/services/component_service',
+	'app/services/project_service'
+], function(app, ComponentService, ProjectService) {
 	
 
-	return app.controller(
-		'ProjectDetailsController',
+	app.
+		service('ComponentService', ComponentService).
+		service('ProjectService', ProjectService);
+});
+define('app/controllers/pages/projects_controller',[],function () {
+	
 
-		['$rootScope', '$scope', '$location', '$dialog', '$routeParams', 'config', 'component_service', 'project_service',
+	return ['$rootScope', '$scope', '$dialog', 'ProjectService',
+		function ($rootScope, $scope, $dialog, projectService) {
 
-		function ($rootScope, $scope, $location, $dialog, $routeParams, config, componentService, projectService) {
+			/*$rootScope.$on('show:loading', function(e, args){
+				debugger;
+				alert('loading');
+			});*/
 
-			projectService.loadProject($routeParams.id).then(function(project){
+			$scope.create = function(){
+				$dialog.dialog({
+					templateUrl: 'js/templates/dialogs/create_project.ng',
+					controller: 'CreateProjectController'
+				}).open();
+			};
+
+			projectService.list().then(function(projects){
+				$scope.projects = projects;
+			});
+		}
+	];
+});
+define('app/controllers/pages/project_details_controller',['angular'], function(angular) {
+	
+
+	return ['$scope', '$dialog', '$routeParams', 'configuration',
+		'ComponentService', 'ProjectService',
+		function ($scope, $dialog, $routeParams, config, componentService,
+			projectService) {
+
+			/*$scope.$on('component-selected', function(event, parameters) {
+				var component = parameters;
+
+				$scope.styles = component.styles.map(function(styleKey) {
+					var styleConfig = componentService.getStyleConfig(styleKey);
+
+					// here we should check whether component has dedicated css
+					// class and get values from there
+					var values = $scope.project.styleSheet.rules;
+
+					return styleConfig;
+				});
+			});*/
+
+			projectService.get($routeParams.id).then(function(project) {
 				$scope.project = project;
 
 				$scope.activePage = $scope.project.pages[0];
 
-				$scope.downloadLink = config.services.compile + '/api/compile/' + $scope.project.id;
+				$scope.downloadLink = config.services.compile +
+					'/api/compile/' + $scope.project.id;
 			});
 
-			$scope.toolBox = componentService.getComponents();
+			$scope.toolBox = componentService.getGroups();
 
-			$scope.addApplicationPage = function(){
+			/*$scope.showJSON = function(){
+				//window.console.log(angular.toJson($scope.project));
+
+				$scope.project.userClasses.push({
+					selector: '.mk-rectangle-component',
+					styles: {
+						'border': '10px solid blue'
+					}
+				});
+			};*/
+
+		/*	$scope.addApplicationPage = function() {
 				$dialog.dialog({
-					templateUrl: '/js/templates/dialogs/create_application_page.ng',
-					controller: create_application_page_controller,
+					templateUrl: config.templates.dialogs +
+						'create_application_page.ng',
+					controller: 'CreatePageController',
 					resolve: {
 						project: function(){
 							return $scope.project;
 						}
 					}
 				}).open();
-			};
+			};*/
 
-			$scope.openPage = function(page){
+		/*	$scope.openPage = function(page) {
 				$scope.activePage = page;
-			};
+			};*/
 
-			$scope.addPredefinedDataSource = function(){
+		/*	$scope.addPredefinedDataSource = function() {
 				$dialog.dialog({
-					templateUrl: '/js/templates/dialogs/create_predefined_data_source.ng',
-					controller: create_predefined_data_source_controller,
+					templateUrl: config.templates.dialogs +
+						'create_predefined_data_source.ng',
+					controller: 'CreateDataSourceController',
 					resolve: {
 						project: function(){
 							return $scope.project;
 						}
 					}
 				}).open();
-			};
-		}]);
-});
-define('app/controllers/components/component_controller',[
-	'angular',
-	'app'
-], function (angular, app) {
-	
-
-	var setProperties = function(component, properties){
-		if(properties){
-			if(properties.css){
-				properties.css.forEach(function(cssProperty){
-					if(component.css.hasOwnProperty(cssProperty.id)){
-						component.css[cssProperty.id] = cssProperty.value;
-					}
-				});
-			}
+			};*/
 		}
-	};
-
-	return app.controller('ComponentController', ['$rootScope', '$scope', function ($rootScope, $scope) {
-		$scope.component.setProperties = function(properties){
-			return setProperties(this, properties);
-		};
-
-		var defineEntity = function(storeKey, name, type, label, configurable, value){
-			var store = $scope.component[storeKey] || {};
-
-			store[name] = {
-				type: type,
-				label: label,
-				configurable: configurable,
-				value: value
-			};
-
-			$scope.component[storeKey] = store;
-		};
-
-		$scope.defineProperty = function(name, type, label, configurable, value){
-			defineEntity('properties', name, type, label, configurable, value);
-		};
-
-		$scope.defineStyle = function(name, type, label, configurable, value){
-			defineEntity('styles', name, type, label, configurable, value);
-		};
-	}]);
+	];
 });
-define('app/controllers/components/lists/grid_view_component_controller',[
-	'angular',
-	'app'
-], function (angular, app) {
+define('app/controllers/dialogs/component_settings_controller',['angular'], function (angular) {
 	
 
-	return app.controller('GridViewComponentController', ['$scope', 'project_service', function ($scope, projectService) {
-		/*var project = projectService.getCurrentProject(),
-			dataSources = [{
-				id: -1,
-				label: '--- none ---'
-			}];*/
+	return ['$scope', 'dialog', 'ProjectService', 'component',
+		function($scope, dialog, projectService, component) {
 
-		$scope.component.properties = {};
-/*
-
-		if(project.sources.predefined.length > 0){
-			project.sources.predefined.forEach(function(dataSource){
-				dataSources.push({
-					id: dataSource.id,
-					label: dataSource.name
-				});
-			});
-		}
-*/
-
-		$scope.component.properties.data_source = {
-			type: 'select',
-			label: 'Data Source',
-			value: -1,
-
-			options: []
-		};
-
-		$scope.component.item_template = {
-			components: []
-		};
-
-		$scope.item_template_component = {
-			meta:{
-				type: 'mk-rectangle-component'
-			},
-
-			properties: {
-				bindings:[]
-			}
-		};
-	}]);
-});
-define('app/services/config_service',['angular', 'app'], function(angular, app){
-	app.factory('config', function(){
-		return {
-			services: {
-				data: '/api',
-				compile: 'http://mika.compile'
-			}
-		};
-	});
-});
-define('app/services/component_service',['angular', 'app'], function(angular, app){
-	var cssMapping = {
-		background_color: 'background-color',
-		background_image: 'background-image',
-		color: 'color',
-		font_size: 'font-size',
-		font_family: 'font-family',
-		content_orientation: '-webkit-flex-direction',
-		content_main_axis_alignment: '-webkit-justify-content',
-		content_cross_axis_alignment: '-webkit-align-items',
-		width: 'width',
-		height: 'height'
-	};
-
-	var componentGroups = [{
-		id: 'mk-general-component-group',
-		label: 'General',
-
-		items: [{
-			meta: {
-				type: 'mk-app-bar-component',
-				label: 'Application Bar'
-			}
-		}, {
-			meta: {
-				type: 'mk-rectangle-component',
-				label: 'Rectangle',
-				support:{
-					children: true,
-					resizing: true
-				}
-			}
-		}, {
-			meta: {
-				type: 'mk-button-component',
-				label: 'Button',
-				support:{
-					text: true,
-					resizing: true
-				}
-			},
-			styles: {
-				font_size: {
-					value: 20
-				}
-			},
-			properties: {
-				text: {
-					type: 'text',
-					label: 'Text',
-					value: 'Sample Button',
-					configurable: true
-				},
-				action: {
-					label: 'Action',
-					type: 'select',
-					value: 'lato',
-					options: [{
-						id: 'arial',
-						label: 'Arial'
-					}, {
-						id: 'croissant one',
-						label: 'Croissant One'
-					}, {
-						id: 'helvetica neue',
-						label: 'Helvetica Neue'
-					}, {
-						id: 'lato',
-						label: 'Lato'
-					}]
-				}
-			}
-		}, {
-			meta: {
-				type: 'mk-text-component',
-				label: 'Text',
-				support:{
-					text: true
-				}
-			},
-			properties: {
-				text: {
-					type: 'text',
-					label: 'Text',
-					value: 'Sample Text',
-					configurable: true
-				}
-			}
-		}, {
-			meta: {
-				type: 'mk-image-component',
-				label: 'Image',
-				support:{
-					resizing: true
-				}
-			},
-
-			styles: {
-				background_image: {
-					type: 'file',
-					label: 'Image',
-					value: '',
-					configurable: true
-				}
-			}
-		}, {
-			meta: {
-				type: 'mk-input-component',
-				label: 'Input'
-			}
-		}, {
-			meta:{
-				type: 'mk-checkbox-component',
-				label: 'Checkbox'
-			}
-		}, {
-			meta:{
-				type: 'mk-select-component',
-				label: 'Select'
-			}
-		}, {
-			meta:{
-				type: 'mk-calendar-component',
-				label: 'Calendar'
-			}
-		}]
-	}, {
-		id: 'mk-lists-component-group',
-		label: 'Lists',
-
-		items: [{
-			meta:{
-				type: 'mk-list-view-component',
-				label: 'List View'
-			}
-		}, {
-			meta:{
-				type: 'mk-grid-view-component',
-				label: 'Grid View',
-
-				support:{
-					resizing: true
-				}
-			}
-		}, {
-			meta:{
-				type: 'mk-tree-view-component',
-				label: 'Tree View'
-			}
-		}, {
-			meta:{
-				type: 'mk-flip-view-component',
-				label: 'Flip View'
-			}
-		}]
-	}, {
-		id: 'mk-location-component-group',
-		label: 'Location',
-
-		items: [{
-			meta:{
-				type: 'mk-map-component',
-				label: 'Map',
-
-				support: {
-					resizing: true
-				}
-			},
-
-			styles: {
-				background_image: {
-					configurable: false
-				}
-			}
-		}, {
-			meta:{
-				type: 'mk-location-component',
-				label: 'Location Picker'
-			}
-		}]
-	}, {
-		id: 'mk-contracts-component-group',
-		label: 'Contracts',
-
-		items: [{
-			meta:{
-				type: 'mk-map-component',
-				label: 'Map'
-			}
-		}]
-	}, {
-		id: 'mk-social-component-group',
-		label: 'Social',
-
-		items: [{
-			meta:{
-				type: 'mk-map-component',
-				label: 'Map'
-			}
-		}]
-	}];
-
-	app.factory('component_service', function(){
-		return {
-			_getComponentsByGroupId: function(groupId){
-				var i, length, group;
-
-				for(i = 0, length = componentGroups.length; i < length; i++){
-					group = componentGroups[i];
-
-					if(group.id === groupId){
-						return group.items;
-					}
-				}
-
-				return null;
-			},
-
-			_getComponentById: function(componentId){
-				var groupIndex, itemIndex, groupCount, itemCount, group, item;
-				for(groupIndex = 0, groupCount = componentGroups.length; groupIndex < groupCount; groupIndex++){
-					group = componentGroups[groupIndex];
-
-					for(itemIndex = 0, itemCount = group.items.length; itemIndex < itemCount; itemIndex++){
-						item = group.items[itemIndex];
-
-						if(item.meta.type === componentId){
-							return item;
-						}
-					}
-				}
-
-				return null;
-			},
-
-			_extend: function(source, target){
-				if(target){
-					return angular.extend(source, target);
-				}
-
-				return source;
-			},
-
-			getComponents: function(groupId){
-				if(typeof groupId === 'undefined'){
-					return componentGroups;
-				} else {
-					return this._getComponentsByGroupId(groupId);
-				}
-			},
-
-			getComponentConfig: function(id){
-				var properties = angular.copy(this._getComponentById(id));
-
-				if(!properties.styles){
-					properties.styles = {};
-				}
-
-				properties.styles.background_color = this._extend({
-					label: 'Background Color',
-					type: 'color',
-					value: 'transparent',
-					order: 100
-				}, properties.styles.background_color);
-
-				if(properties.meta.support){
-					if(properties.meta.support.text){
-
-						properties.styles.font_family = this._extend({
-							label: 'Font',
-							type: 'select',
-							value: 'lato',
-							options: [{
-								id: 'arial',
-								label: 'Arial'
-							}, {
-								id: 'croissant one',
-								label: 'Croissant One'
-							}, {
-								id: 'helvetica neue',
-								label: 'Helvetica Neue'
-							}, {
-								id: 'lato',
-								label: 'Lato'
-							}],
-							order: 101
-						}, properties.styles.font_family);
-
-						properties.styles.color = this._extend({
-							label: 'Font color',
-							type: 'color',
-							value: '#c7c7c7',
-							order: 102
-						}, properties.styles.color);
-
-						properties.styles.font_size = this._extend({
-							label: 'Font size, px',
-							type: 'number',
-							value: 30,
-							postfix: 'px',
-							order: 103
-						}, properties.styles.font_size);
-
-						properties.styles.alignment = {
-							label: 'Alignment',
-							type: 'select',
-							value: 'center',
-							options: [{
-								id: 'left',
-								label: 'Left'
-							},{
-								id:'center',
-								label: 'Center'
-							},{
-								id: 'right',
-								label: 'Right'
-							}]
-						};
-					}
-
-					// if component support resizing then we have to set width and height
-					if(properties.meta.support.resizing){
-						properties.styles.width = {
-							configurable: false
-						};
-
-						properties.styles.height = {
-							configurable: false
-						};
-					}
-
-					if(properties.meta.support.children){
-						properties.styles.content_orientation = {
-							label: 'Content Orientation',
-							type: 'select',
-							value: 'row',
-							options: [{
-								id: 'row',
-								label: 'Row'
-							},{
-								id:'column',
-								label: 'Column'
-							}]
-						};
-
-						properties.styles.content_main_axis_alignment = {
-							label: 'Content Main Axis Alignment',
-							type: 'select',
-							value: 'center',
-							options: [{
-								id: 'flex-start',
-								label: 'Start'
-							},{
-								id:'center',
-								label: 'Center'
-							},{
-								id: 'flex-end',
-								label: 'End'
-							},{
-								id: 'space-between',
-								label: 'Space Between'
-							}]
-						};
-
-						properties.styles.content_cross_axis_alignment = {
-							label: 'Content Cross Axis Alignment',
-							type: 'select',
-							value: 'center',
-							options: [{
-								id: 'flex-start',
-								label: 'Start'
-							},{
-								id:'center',
-								label: 'Center'
-							},{
-								id: 'flex-end',
-								label: 'End'
-							},{
-								id: 'space-between',
-								label: 'Space Between'
-							}]
-						};
-					}
-				}
-
-				return properties;
-			},
-
-			/*getSettings: function(component){
-				var settings = {
-					css: baseSettings.css
-				};b
-
-				if(component){
-
-					if(component.support){
-						if(component.support.text){
-							settings.css.splice(settings.css.length, 0, {
-								id: 'color',
-								label: 'Font color',
-								type: 'color',
-								value: '#c7c7c7'
-							}, {
-								id: 'font_size',
-								label: 'Font size, px',
-								type: 'number',
-								value: 30,
-								postfix: 'px'
-							}, {
-								id: 'alignment',
-								label: 'Alignment',
-								type: 'select',
-								value: 'center',
-								options: [{
-									id: 'left',
-									label: 'Left'
-								},{
-									id:'center',
-									label: 'Center'
-								},{
-									id: 'right',
-									label: 'Right'
-								}]
-							});
-						}
-
-						// if component support resizing then we have to set width and height
-						if(component.support.resizing){
-							settings.css.splice(settings.css.length, 0, {
-								id: 'width',
-								hidden: true
-							}, {
-								id: 'height',
-								hidden: true
-							});
-						}
-
-						if(component.support.children){
-							settings.css.splice(settings.css.length, 0, {
-								id: 'content_orientation',
-								label: 'Content Orientation',
-								type: 'select',
-								value: 'row',
-								options: [{
-									id: 'row',
-									label: 'Row'
-								},{
-									id:'column',
-									label: 'Column'
-								}]
-							}, {
-								id: 'content_main_axis_alignment',
-								label: 'Content Main Axis Alignment',
-								type: 'select',
-								value: 'center',
-								options: [{
-									id: 'flex-start',
-									label: 'Start'
-								},{
-									id:'center',
-									label: 'Center'
-								},{
-									id: 'flex-end',
-									label: 'End'
-								},{
-									id: 'space-between',
-									label: 'Space Between'
-								}]
-							}, {
-								id: 'content_cross_axis_alignment',
-								label: 'Content Cross Axis Alignment',
-								type: 'select',
-								value: 'center',
-								options: [{
-									id: 'flex-start',
-									label: 'Start'
-								},{
-									id:'center',
-									label: 'Center'
-								},{
-									id: 'flex-end',
-									label: 'End'
-								},{
-									id: 'space-between',
-									label: 'Space Between'
-								}]
-							});
-						}
-					}
-					if(component.type === 'mk-text-component'){
-					} else if(component.type === 'mk-rectangle-component'){
-					} else if(component.type === 'mk-image-component'){
-						settings = settings.concat([{
-							id: 'background_image',
-							label: 'Image Source',
-							type: 'file',
-							value: 'Not Modified'
-						}, {
-							id: 'title',
-							label: 'Title',
-							type: 'text',
-							value: ''
-						}])
-					} else if(component.type === 'mk-grid-view-component'){
-						settings = settings.concat([{
-							id: 'source',
-							label: 'Data Source',
-							type: 'select'
-						}])
-					} else if(component.type === 'mk-map-component'){
-						var coordinates = '7.765796,-122.454042';
-
-						settings = settings.concat([{
-							id: 'background_image',
-							label: 'Image Source',
-							type: 'file',
-							value: 'url(http://maps.googleapis.com/maps/api/staticmap?sensor=false'
-								+ '&center=San+Francisco'// + coordinates
-								//+ '&markers=' + 'color:red|' + coordinates
-								+ '&zoom=15'
-								+ '&size=600x300'
-								+ '&key=AIzaSyCgPLXrKGEZhJODvc4DqmN9y2hFg_IFQuE)'
-
-						},{
-							id: 'width',
-							hidden: true
-						}, {
-							id: 'height',
-							hidden: true
-						}])
-					}
-				}
-
-				return settings;
-			},
-*/
-			mapCssSetting: function(propertyName){
-				if(cssMapping.hasOwnProperty(propertyName)){
-					return cssMapping[propertyName];
-				}
-				return null;
-			}
-		};
-	});
-});
-define('app/services/project_service',['angular', 'app'], function(angular, app){
-	
-
-	app.factory('project_service', ['$http', 'config', function($http, config){
-		return {
-
-			_project: null,
-
-			loadProject: function(id){
-				$http.defaults.headers.common['access-token']='user_token';
-
-				return $http.get(config.services.data + '/project/' + id).then(function(data){
-					this._project = {
-						id: data._id,
-						name: data.name,
-
-						pages:[{
-							name: 'Welcome Page',
-							components: [{
-								meta:{
-									type: 'mk-app-bar-component'
-								},
-								placeholder: true
-							},{
-								meta:{
-									type: 'mk-rectangle-component',
-									support:{
-										resizing: false,
-										children: true
-									}
-								},
-								classes: 'content-area'
-
-							/*	children:[{
-									meta:{
-										type: 'mk-grid-view-component'
-									}
-								}]*/
-							},{
-								meta:{
-									type: 'mk-app-bar-component'
-								},
-								placeholder: true
-							}]
-						}],
-
-						sources: {
-							predefined:[{
-								id: 0,
-								name: 'Pictures',
-
-								fields:[{
-									name: 'Name',
-									type: 'string'
-								}]
-							}]
-						}
-					};
-
-					return this._project;
-				}.bind(this));
-			},
-
-			getCurrentProject: function(){
-				return this._project;
-			}
-		};
-	}]);
-});
-define('app/controllers/dialogs/component_settings_controller',['angular', 'app'], function (angular, app) {
-	
-
-	return function($rootScope, $scope, $http, $q, dialog, config, component_service, project_service, component){
 		var save = function(settings){
 			settings.forEach(function(setting){
 				// TODO: Remove this inefficient check
@@ -17876,7 +17887,7 @@ define('app/controllers/dialogs/component_settings_controller',['angular', 'app'
 
 		// check whether component has parent with data source
 		if(component.properties && component.properties.data_source){
-			var project = project_service.getCurrentProject(),
+			var project = projectService.getCurrentProject(),
 				dataSources = [{
 					id: -1,
 					label: '--- none ---'
@@ -17953,7 +17964,7 @@ define('app/controllers/dialogs/component_settings_controller',['angular', 'app'
 					data_fields: [{
 						id: -1,
 						label: '--- none ---'
-					}].concat(project_service.getCurrentProject().sources.predefined[1].fields.map(function(field, index){
+					}].concat(projectService.getCurrentProject().sources.predefined[1].fields.map(function(field, index){
 						return {
 							id: index,
 							label: field.name
@@ -17988,346 +17999,583 @@ define('app/controllers/dialogs/component_settings_controller',['angular', 'app'
 			label: 'Save',
 			cssClass: 'btn-primary'
 		}];
-	};
+	}];
 });
-define('app/directives/component_directive',['angular', 'app', 'app/controllers/dialogs/component_settings_controller'], function(angular, app, component_settings_controller){
+define('app/controllers/dialogs/create_project_controller',[],function () {
 	
 
-	app.directive('mkComponent', ['$dialog', '$timeout', '$compile', 'component_service', function($dialog, $timeout, $compile, componentService){
-		return {
-			scope: {
-				component: '=mkComponent'
-			},
+	return ['$rootScope', '$scope','dialog', 'ProjectService',
+		function($rootScope, $scope, dialog, projectService){
 
-			template: '<div class="component" ng-dblclick="showSettings($event)">',
+		var saveProject = function(project) {
+			$rootScope.$broadcast('show:loading', [{
+				field: 'one'
+			}]);
+			projectService.create(project.name, project.description).
+				success(function(){
+					dialog.close();
+				});
+		};
 
-			controller: 'ComponentController',
+		$scope.close = function(result, model){
+			if(result === 'cancel'){
+				dialog.close();
+			} else {
+				saveProject(model);
+			}
+		};
 
-			replace: true,
+		$scope.model = {
+			name: 'New Project',
+			description: 'This is my awesome project!'
+		};
 
-			compile: function compile(template) {
-				/*template.addClass('component');
+		$scope.title = 'Create new project';
 
-				var settingsHandle = angular.element('<div ng-click='showSettings()'>');
-				settingsHandle.addClass('component-settings-gear mk-icon mk-icon-cog');
+		/*$scope.message = 'This is the content of the message box';*/
+		$scope.buttons = [{
+			result:'cancel',
+			label: 'Cancel'
+		}, {
+			result:'save',
+			label: 'Save',
+			cssClass: 'btn-primary'
+		}];
+	}];
+});
+define('app/controllers/dialogs/create_page_controller',['angular', 'app'], function (angular, app) {
+	
 
-				template.append(settingsHandle);*/
+	return ['$scope', 'dialog', 'project', function($scope, dialog, project){
+		var save = function(model){
+			$scope.project.pages.push({
+				name: model.name,
+				components: [{
+					type: 'mk-appbar',
+					placeholder: true
+				},{
+					type: 'mk-rectangle',
+					support:{
+						resizing: false,
+						children: true
+					},
+					classes: 'content-area'
+				},{
+					type: 'mk-appbar',
+					placeholder: true
+				}]
+			});
+		};
 
-				var getOffset = function (node) {
-					var offset = {
-						left: 0,
-						top: 0
-					};
-					do {
-						if(!isNaN(node.offsetLeft)) {
-							offset.left += node.offsetLeft;
-						}
+		$scope.project = project;
 
-						if(!isNaN(node.offsetTop)) {
-							offset.top += node.offsetTop;
-						}
-					} while( node = node.offsetParent );
-					return offset;
-				};
+		$scope.close = function(result, model){
+			if(result === 'save'){
+				save(model);
+			}
+			dialog.close();
+		};
 
-				return function postLink(scope, element, attrs) {
-					var childComponent,
-						componentMarkup,
-						mappedStyleKey,
-						componentConfig;
+		$scope.title = 'Create Page';
 
-					if(scope.$parent && scope.$parent.component){
-						scope.component.parent = scope.$parent.component;
+		$scope.model = {
+			name: 'New Page'
+		};
+
+		/*$scope.message = 'This is the content of the message box';*/
+		$scope.buttons = [{
+			result:'cancel',
+			label: 'Cancel'
+		}, {
+			result:'save',
+			label: 'Save',
+			cssClass: 'btn-primary'
+		}];
+	}];
+});
+define('app/controllers/dialogs/create_predefined_data_source_controller',['angular'], function (angular) {
+	
+
+	return ['$scope', '$dialog', 'dialog', 'project',
+		function($scope, $dialog, dialog, project){
+			$scope.title = 'Create DataSource';
+
+			$scope.data_types = [{
+				id: 'string',
+				label: 'String'
+			}, {
+				id: 'number',
+				label: 'Number'
+			}, {
+				id: 'image',
+				label: 'Image'
+			}, {
+				id: 'date',
+				label: 'Date'
+			}];
+
+			$scope.data_source = {
+				id: project.sources.predefined.length,
+				name: 'New DataSource',
+				fields: [{
+					name: '',
+					type: 'string'
+				}],
+				items:[]
+			};
+
+			var mode_buttons = {
+				create_source:[{
+					result:'cancel_create_source',
+					label: 'Cancel'
+				}, {
+					result:'apply_create_source',
+					label: 'Continue',
+					cssClass: 'btn-primary'
+				}],
+				view_source_items:[{
+					result:'cancel_view_source_items',
+					label: 'Cancel'
+				}, {
+					result:'apply_view_source_items',
+					label: 'Save',
+					cssClass: 'btn-primary'
+				}],
+				create_source_item:[{
+					result:'cancel_create_source_item',
+					label: 'Cancel'
+				}, {
+					result:'apply_create_source_item',
+					label: 'Save',
+					cssClass: 'btn-primary'
+				}]
+			};
+
+			$scope.project = project;
+
+			$scope.switchMode = function(mode){
+				$scope.mode = mode;
+				$scope.buttons = mode_buttons[mode];
+			};
+
+			$scope.close = function(result, model){
+				if(result === 'cancel_create_source'){
+					dialog.close();
+				} else if(result === 'apply_create_source'){
+					$scope.switchMode('view_source_items');
+				} else if(result === 'cancel_view_source_items'){
+					$scope.switchMode('create_source');
+				} else if(result === 'apply_view_source_items'){
+					if(!$scope.project.sources){
+						$scope.project.sources = {
+							predefined: [],
+							dynamic:[],
+							feeds:[]
+						};
 					}
 
-					scope.showSettings = function(e){
-						e.stopPropagation();
+					$scope.project.sources.predefined.push(angular.copy($scope.data_source));
 
-						var dialog = $dialog.dialog({
-							templateUrl: '/js/templates/dialogs/component_settings.ng',
-							controller: component_settings_controller,
-							resolve: {
-								component: function(){
-									return scope.component;
-								}
+					dialog.close();
+				} else if(result === 'cancel_create_source_item'){
+					$scope.switchMode('view_source_items');
+				} else if(result === 'apply_create_source_item'){
+					$scope.data_source.items.push(angular.copy($scope.newItem));
+
+					$scope.switchMode('view_source_items');
+				}
+			};
+
+			$scope.switchMode('create_source');
+
+			$scope.newItem = {};
+
+			$scope.addNewField = function(){
+				$scope.data_source.fields.push({
+					name: '',
+					type: 'string'
+				});
+			};
+
+			$scope.addNewItem = function(){
+				$scope.switchMode('create_source_item');
+			};
+		}
+	];
+});
+define('app/controllers/components/component_controller',[],function () {
+	
+
+	var setProperties = function(component, properties){
+		if(properties){
+			if(properties.css){
+				properties.css.forEach(function(cssProperty){
+					if(component.css.hasOwnProperty(cssProperty.id)){
+						component.css[cssProperty.id] = cssProperty.value;
+					}
+				});
+			}
+		}
+	};
+
+	return ['$rootScope', '$scope', function ($rootScope, $scope) {
+		$scope.component.setProperties = function(properties){
+			return setProperties(this, properties);
+		};
+
+		var defineEntity = function(storeKey, name, type, label, configurable, value){
+			var store = $scope.component[storeKey] || {};
+
+			store[name] = {
+				type: type,
+				label: label,
+				configurable: configurable,
+				value: value
+			};
+
+			$scope.component[storeKey] = store;
+		};
+
+		$scope.defineProperty = function(name, type, label, configurable, value){
+			defineEntity('properties', name, type, label, configurable, value);
+		};
+
+		$scope.defineStyle = function(name, type, label, configurable, value){
+			defineEntity('styles', name, type, label, configurable, value);
+		};
+	}];
+});
+define('app/controllers/components/lists/grid_view_controller',[],function () {
+	
+
+	return ['$scope', 'ProjectService', function ($scope, projectService) {
+		/*var project = projectService.getCurrentProject(),
+			dataSources = [{
+				id: -1,
+				label: '--- none ---'
+			}];*/
+
+		$scope.component.properties = {};
+/*
+
+		if(project.sources.predefined.length > 0){
+			project.sources.predefined.forEach(function(dataSource){
+				dataSources.push({
+					id: dataSource.id,
+					label: dataSource.name
+				});
+			});
+		}
+*/
+
+		$scope.component.properties.data_source = {
+			type: 'select',
+			label: 'Data Source',
+			value: -1,
+
+			options: []
+		};
+
+		$scope.component.item_template = {
+			components: []
+		};
+
+		$scope.item_template_component = {
+			type: 'mk-rectangle-component',
+
+			properties: {
+				bindings:[]
+			}
+		};
+	}];
+});
+define('app/controllers/registration',[
+	'app',
+
+	'app/controllers/pages/projects_controller',
+	'app/controllers/pages/project_details_controller',
+
+	'app/controllers/dialogs/component_settings_controller',
+	'app/controllers/dialogs/create_project_controller',
+	'app/controllers/dialogs/create_page_controller',
+	'app/controllers/dialogs/create_predefined_data_source_controller',
+
+	'app/controllers/components/component_controller',
+	'app/controllers/components/lists/grid_view_controller'
+], function(app, ProjectsController, ProjectDetailsController,
+		ComponentSettingsController, CreateProjectController,
+		CreatePageController, CreateDataSourceController, ComponentController,
+		GridViewController) {
+	
+
+	app.
+		controller('ProjectsController', ProjectsController).
+		controller('ProjectDetailsController', ProjectDetailsController).
+
+		controller('ComponentSettingsController', ComponentSettingsController).
+		controller('CreateProjectController', CreateProjectController).
+		controller('CreatePageController', CreatePageController).
+		controller('CreateDataSourceController', CreateDataSourceController).
+
+		controller('ComponentController', ComponentController).
+		controller('GridViewController', GridViewController);
+});
+define('app/directives/components/component',['angular'], function(angular){
+	
+
+	return ['$dialog', '$compile', 'ComponentService',
+		function($dialog, $compile, componentService) {
+			return {
+				scope: {
+					component: '=mkComponent'
+				},
+
+				template: '<div class="component" ng-dblclick="showSettings($event)" ng-click="select($event, component)">',
+
+				controller: 'ComponentController',
+
+				replace: true,
+
+				compile: function compile(template) {
+					/*template.addClass('component');
+
+					var settingsHandle = angular.element('<div ng-click='showSettings()'>');
+					settingsHandle.addClass('component-settings-gear mk-icon mk-icon-cog');
+
+					template.append(settingsHandle);*/
+
+					var getOffset = function (node) {
+						var offset = {
+							left: 0,
+							top: 0
+						};
+						do {
+							if(!isNaN(node.offsetLeft)) {
+								offset.left += node.offsetLeft;
 							}
-						});
 
-						dialog.open();
+							if(!isNaN(node.offsetTop)) {
+								offset.top += node.offsetTop;
+							}
+						} while( node = node.offsetParent );
+						return offset;
 					};
 
-					if(scope.component.classes){
-						element.addClass(scope.component.classes);
-					}
+					return function postLink(scope, element, attrs) {
+						var childComponent,
+							componentMarkup,
+							mappedStyleKey,
+							componentConfig;
 
-					if(scope.component.meta.support){
-						if(scope.component.meta.support.resizing){
-							var mouseDowned = false,
-								onMouseMove = function(e){
+						scope.select = function(e, component) {
+							e.stopPropagation();
 
-									/*
-									ROTATE
-									var elementNode = element[0],
+							var selectedClassName = 'component-selected';
 
-									center_x = elementNode.offsetLeft + (elementNode.offsetWidth/2),
-									center_y = elementNode.offsetTop + (elementNode.offsetHeight/2),
+							var selectedComponent = window.document.querySelector(
+								'.' + selectedClassName);
 
-									mouse_x = e.pageX,
-									mouse_y = e.pageY,
+							if (selectedComponent) {
+								selectedComponent.classList.remove(
+									selectedClassName);
+							}
 
-									radians = Math.atan2(mouse_x - center_x, mouse_y - center_y),
-									degree = (radians * (180 / Math.PI) * -1) + 90;
+							element.toggleClass(selectedClassName);
 
-									elementNode.style.webkitTransform = 'rotate('+degree+'deg)';*/
+							scope.$emit('component-selected', component);
+						};
 
-									/* RESIZE */
+						if(scope.$parent && scope.$parent.component){
+							scope.component.parent = scope.$parent.component;
+						}
 
-									var elementNode = element[0],
-										offset = getOffset(elementNode),
+						scope.showSettings = function(e){
+							e.stopPropagation();
 
-									/*  center_x = elementNode.offsetLeft + (elementNode.offsetWidth/2)  + editorElement.offsetLeft,
-										enter_y = elementNode.offsetTop + (elementNode.offsetHeight/2) + editorElement.offsetTop,*/
+							var dialog = $dialog.dialog({
+								templateUrl: '/js/templates/dialogs/component_settings.ng',
+								controller: 'ComponentSettingsController',
+								resolve: {
+									component: function(){
+										return scope.component;
+									}
+								}
+							});
+
+							dialog.open();
+						};
+
+						if(scope.component.classes){
+							element.addClass(scope.component.classes);
+						}
+
+						if(scope.component.support){
+							if(scope.component.support.resizing) {
+								var mouseDowned = false,
+									onMouseMove = function(e){
+
+										/*
+										ROTATE
+										var elementNode = element[0],
+
+										center_x = elementNode.offsetLeft + (elementNode.offsetWidth/2),
+										center_y = elementNode.offsetTop + (elementNode.offsetHeight/2),
 
 										mouse_x = e.pageX,
 										mouse_y = e.pageY,
 
-										newWidth = mouse_x - offset.left,
-										newHeight = mouse_y - offset.top;
+										radians = Math.atan2(mouse_x - center_x, mouse_y - center_y),
+										degree = (radians * (180 / Math.PI) * -1) + 90;
 
-									scope.$apply(function(){
-										scope.component.styles.width.value = newWidth + 'px';
-										scope.component.styles.height.value = newHeight + 'px';
+										elementNode.style.webkitTransform = 'rotate('+degree+'deg)';*/
+
+										/* RESIZE */
+
+										var elementNode = element[0],
+											offset = getOffset(elementNode),
+
+										/*  center_x = elementNode.offsetLeft + (elementNode.offsetWidth/2)  + editorElement.offsetLeft,
+											enter_y = elementNode.offsetTop + (elementNode.offsetHeight/2) + editorElement.offsetTop,*/
+
+											mouse_x = e.pageX,
+											mouse_y = e.pageY,
+
+											newWidth = mouse_x - offset.left,
+											newHeight = mouse_y - offset.top;
+
+										scope.$apply(function(){
+											scope.component.width.value = newWidth + 'px';
+											scope.component.height.value = newHeight + 'px';
+										});
+
+										/*elementNode.style.width = newWidth + 'px';
+											elementNode.style.height = newHeight + 'px'; */
+
+										window.console.log('width:' + newWidth + ' height:' + newHeight);
+
+										/*
+										MARGIN
+										var editorElement = document.querySelector('.editor-content'),
+
+										componentElement = element[0],
+										componentContainerElement = componentElement.parentNode,
+
+										parent_left_bottom_x = componentContainerElement.offsetLeft + componentContainerElement.offsetWidth + editorElement.offsetLeft,
+										parent_left_bottom_y = componentContainerElement.offsetTop + componentContainerElement.offsetHeight + editorElement.offsetTop,
+
+										mouse_x = e.pageX,
+										mouse_y = e.pageY,
+
+										newRightMargin = parent_left_bottom_x - mouse_x,
+										newBottomMargin = parent_left_bottom_y - mouse_y;
+
+										componentElement.style.marginRight =*//* componentElement.style.marginLeft =*//* newRightMargin + 'px';
+										componentElement.style.marginBottom = *//*componentElement.style.marginTop = *//*newBottomMargin + 'px';
+
+										window.console.log('margin-right:' + newRightMargin + ' margin-bottom:' + newBottomMargin);*/
+									},
+									onMouseUp = function(e){
+										mouseDowned = false;
+
+										document.body.classList.remove('resizing');
+
+										document.removeEventListener('mouseup', onMouseUp, false);
+										document.removeEventListener('mousemove', onMouseMove, false);
+									};
+
+								if(!scope.component.fixed){
+									var resizeHandle = angular.element('<div>');
+									resizeHandle.addClass('component-resize-handle');
+
+									element.append(resizeHandle);
+
+									resizeHandle.bind('mousedown', function(e){
+
+										mouseDowned = true;
+
+										document.body.classList.add('resizing');
+
+										document.addEventListener('mouseup', onMouseUp, false);
+										document.addEventListener('mousemove', onMouseMove, false);
+
+										e.preventDefault();
+										e.stopPropagation();
 									});
-
-									/*elementNode.style.width = newWidth + 'px';
-										elementNode.style.height = newHeight + 'px'; */
-
-									window.console.log('width:' + newWidth + ' height:' + newHeight);
-
-									/*
-									MARGIN
-									var editorElement = document.querySelector('.editor-content'),
-
-									componentElement = element[0],
-									componentContainerElement = componentElement.parentNode,
-
-									parent_left_bottom_x = componentContainerElement.offsetLeft + componentContainerElement.offsetWidth + editorElement.offsetLeft,
-									parent_left_bottom_y = componentContainerElement.offsetTop + componentContainerElement.offsetHeight + editorElement.offsetTop,
-
-									mouse_x = e.pageX,
-									mouse_y = e.pageY,
-
-									newRightMargin = parent_left_bottom_x - mouse_x,
-									newBottomMargin = parent_left_bottom_y - mouse_y;
-
-									componentElement.style.marginRight =*//* componentElement.style.marginLeft =*//* newRightMargin + 'px';
-									componentElement.style.marginBottom = *//*componentElement.style.marginTop = *//*newBottomMargin + 'px';
-
-									window.console.log('margin-right:' + newRightMargin + ' margin-bottom:' + newBottomMargin);*/
-								},
-								onMouseUp = function(e){
-									mouseDowned = false;
-
-									document.body.classList.remove('resizing');
-
-									document.removeEventListener('mouseup', onMouseUp, false);
-									document.removeEventListener('mousemove', onMouseMove, false);
-								};
-
-							if(!scope.component.fixed){
-								var resizeHandle = angular.element('<div>');
-								resizeHandle.addClass('component-resize-handle');
-
-								element.append(resizeHandle);
-
-								resizeHandle.bind('mousedown', function(e){
-
-									mouseDowned = true;
-
-									document.body.classList.add('resizing');
-
-									document.addEventListener('mouseup', onMouseUp, false);
-									document.addEventListener('mousemove', onMouseMove, false);
-
-									e.preventDefault();
-									e.stopPropagation();
-								});
+								}
 							}
 						}
-					}
 
-					// if component has specific type, lets compile it
-					if(scope.component.meta.type){
-						element.addClass(scope.component.meta.type);
+						// if component has specific type, lets compile it
+						if(scope.component.type){
+							element.addClass(scope.component.type + '-component');
 
-						// construct component markup
-						componentMarkup = ['<', scope.component.meta.type, ' class="inner-component', scope.component.placeholder ? '' : ' initialized', '" style="'];
+							// construct component markup
+							componentMarkup = ['<', scope.component.type, ' class="inner-component', scope.component.placeholder ? '' : ' initialized"'];
 
-						componentConfig = componentService.getComponentConfig(scope.component.meta.type);
+							componentConfig = componentService.getComponentConfig(scope.component.type);
 
-						Object.keys(componentConfig).forEach(function(configSectionKey){
-							var componentConfigSection = scope.component[configSectionKey];
+							if (scope.component.support && scope.component.support.resizing) {
+								componentMarkup.push(' style="width:{{component.width}};height:{{component.height}}">');
+							} else {
+								componentMarkup.push('>');
+							}
 
-							scope.component[configSectionKey] = componentConfigSection
-								? angular.extend(componentConfig[configSectionKey], componentConfigSection)
-								: componentConfig[configSectionKey];
-						});
+							/*Object.keys(componentConfig).forEach(function(configSectionKey){
+								var componentConfigSection = scope.component[configSectionKey];
 
-						if(scope.component.styles){
-							Object.keys(scope.component.styles).forEach(function(styleKey){
-								var style = scope.component.styles[styleKey];
-
-								mappedStyleKey = componentService.mapCssSetting(styleKey);
-
-								if(mappedStyleKey){
-									componentMarkup.push(mappedStyleKey + ':{{component.styles.' + styleKey + '.value}}' + (style.postfix || '') + ';');
-								}
+								scope.component[configSectionKey] = componentConfigSection
+									? angular.extend(componentConfig[configSectionKey], componentConfigSection)
+									: componentConfig[configSectionKey];
 							});
-						}
+*/
+							/*if(scope.component.styles){
+								Object.keys(scope.component.styles).forEach(function(styleKey){
+									var style = scope.component.styles[styleKey];
 
-						componentMarkup.push('">');
+									mappedStyleKey = componentService.mapCssSetting(styleKey);
 
-						if(scope.component.meta.support && scope.component.meta.support.children){
-							componentMarkup.push('<div ng-repeat="child in component.children" mk-component="child"></div>');
-						}
-
-						componentMarkup.push('</' + scope.component.meta.type + '>');
-
-						window.console.log('component: ' + componentMarkup.join(''));
-
-						childComponent = $compile(componentMarkup.join(''))(scope);
-
-						element.append(childComponent);
-					}
-
-					/*element.bind('click', function(e){
-						if(e.target.classList.contains('component-settings-gear')){
-							$timeout(function(){
-								var dialog = $dialog.dialog({
-									templateUrl: '/js/templates/dialogs/component_settings.html',
-									controller: component_settings_controller
+									if(mappedStyleKey){
+										componentMarkup.push(mappedStyleKey + ':{{component.styles.' + styleKey + '.value}}' + (style.postfix || '') + ';');
+									}
 								});
+							}
+	*/
 
-								dialog.open();
-							});
+							if(scope.component.support && scope.component.support.children){
+								componentMarkup.push('<div ng-repeat="child in component.children" mk-component="child"></div>');
+							}
+
+							componentMarkup.push('</' + scope.component.type + '>');
+
+							window.console.log('component: ' + componentMarkup.join(''));
+
+							childComponent = $compile(componentMarkup.join(''))(scope);
+
+							element.append(childComponent);
 						}
-					});*/
-				};
-			}
-		};
-	}]);
+
+						/*element.bind('click', function(e){
+							if(e.target.classList.contains('component-settings-gear')){
+								$timeout(function(){
+									var dialog = $dialog.dialog({
+										templateUrl: '/js/templates/dialogs/component_settings.html',
+										controller: component_settings_controller
+									});
+
+									dialog.open();
+								});
+							}
+						});*/
+					};
+				}
+			};
+		}
+	];
 });
-define('app/directives/draggable_directive',['angular', 'app'], function(angular, app){
-	app.directive('mkDraggable', ['$rootScope', function($rootScope){
-		return {
-			/*scope: {
-				component: '=ngModel'
-			},*/
-
-			link: function(scope, element, attrs){
-				element.attr('draggable', true);
-
-				attrs.$observe('mkDraggable', function(value){
-					scope.model = scope.$eval(value);
-				});
-
-				element.bind('dragstart', function(e){
-					e.dataTransfer.effectAllowed = 'move';
-
-					document.querySelector('.editor').classList.add('drag-in-progress');
-
-					//as we need access to component that being dragged we need to store it somewhere globally
-					$rootScope.draggingComponent = scope.model.meta;
-				});
-
-				element.bind('dragend', function(e){
-					document.querySelector('.editor').classList.remove('drag-in-progress');
-
-					if($rootScope.draggingComponent && $rootScope.draggingComponent.type === scope.model.meta.type){
-						$rootScope.draggingComponent = null;
-					}
-				});
-
-				/*display_area.addEventListener('dragenter', function(e){
-					e.currentTarget.classList.add('drop-target');
-					//alert(e.dataTransfer.getData('text/plain'));
-					e.stopPropagation();
-				}, false);
-
-				display_area.addEventListener('dragleave', function(e){
-					e.currentTarget.classList.remove('drop-target');
-					e.stopPropagation();
-					//alert(e.dataTransfer.getData('text/plain'));
-				}, false);
-
-				display_area.querySelector('.app-bar').addEventListener('dragenter', function(e){
-					e.currentTarget.classList.add('drop-target');
-					e.stopPropagation();
-					e.preventDefault();
-					return false;
-				}, false);
-
-				display_area.querySelector('.app-bar').addEventListener('dragover', function(e){
-					e.dataTransfer.dropEffect = 'move';
-					e.stopPropagation();
-					e.preventDefault();
-					return false;
-				}, false);
-
-				display_area.querySelector('.app-bar').addEventListener('dragleave', function(e){
-					e.currentTarget.classList.remove('drop-target');
-					e.stopPropagation();
-					e.preventDefault();
-					return false;
-				}, false);
-
-				display_area.querySelector('.app-bar').addEventListener('drop', function(e){
-					e.currentTarget.classList.add('activated');
-					e.stopPropagation();
-					e.preventDefault();
-					return false;
-				}, false);*/
-			}
-		};
-	}]);
-});
-define('app/directives/drop_target_directive',['angular', 'app'], function(angular, app){
-	app.directive('mkDropTarget', ['$rootScope', function($rootScope){
-		return {
-
-			link: function(scope, element){
-
-				element.bind('dragenter', function(e){
-					var contentArea;
-
-					scope.$broadcast('drag:enter', {
-						meta: $rootScope.draggingComponent
-					});
-
-					element.addClass('drag-enter');
-
-					e.stopPropagation();
-				}, false);
-
-				element.bind('dragleave', function(e){
-					var contentArea;
-
-					scope.$broadcast('drag:leave', {
-						meta: $rootScope.draggingComponent
-					});
-
-					element.removeClass('drag-enter');
-
-					e.stopPropagation();
-				}, false);
-			}
-		};
-	}]);
-});
-define('app/directives/components/general/app_bar_directive',['angular', 'app'], function(angular, app){
+define('app/directives/components/general/app_bar',['angular'], function(angular) {
 	
 
-	app.directive('mkAppBarComponent', function(){
+	return function() {
 		return {
 			restrict: 'E',
 			compile: function compile(template) {
@@ -18373,11 +18621,11 @@ define('app/directives/components/general/app_bar_directive',['angular', 'app'],
 
 							return preventDefault(e);
 						}, onParentDragEnter = function(e, args){
-							if(!scope.inactive && args.meta && args.meta.type === 'mk-app-bar-component'){
+							if(!scope.inactive && args.type === 'mk-appbar'){
 								element.addClass('drop-target');
 							}
 						}, onParentDragLeave = function(e, args){
-							if(!scope.inactive && args.meta && args.meta.type === 'mk-app-bar-component'){
+							if(!scope.inactive && args.type === 'mk-appbar'){
 								element.removeClass('drop-target');
 							}
 						};
@@ -18396,106 +18644,137 @@ define('app/directives/components/general/app_bar_directive',['angular', 'app'],
 				};
 			}
 		};
-	});
+	};
 });
-define('app/directives/components/general/rectangle_directive',['angular', 'app'], function(angular, app){
+define('app/directives/components/general/button',[],function(){
 	
 
-	app.directive('mkRectangleComponent', ['$compile', '$rootScope', 'component_service', function($compile, $rootScope, componentService){
+	return function(){
 		return {
 			restrict: 'E',
 
-			compile: function compile(template) {
+			template: '<button contenteditable="true" class="btn-primary">{{component.properties.text.value}}</button>',
 
-				var supportNestedComponent = function(component){
-					return component
-						&& component.type === 'mk-rectangle-component'
-						|| component.type === 'mk-text-component'
-						|| component.type === 'mk-image-component'
-						|| component.type === 'mk-button-component'
-						|| component.type === 'mk-grid-view-component'
-						|| component.type === 'mk-map-component';
-				};
-
-				return function (scope, element) {
-					var preventDefault = function(e){
-							e.stopPropagation();
-							e.preventDefault();
-
-							return false;
-						},
-						onDragEnter = function(e){
-							e.currentTarget.classList.add('drag-enter');
-							return preventDefault(e);
-						},
-						onDragOver = function(e){
-							e.dataTransfer.dropEffect = 'move';
-
-							e.stopPropagation();
-							e.preventDefault();
-
-							return false;
-						},
-						onDragLeave = function(e){
-							e.currentTarget.classList.remove('drag-enter');
-
-							return preventDefault(e);
-						},
-						onDrop = function(e){
-							var target = angular.element(e.currentTarget),
-								newScope = scope.$new(),
-								componentMetadata = $rootScope.draggingComponent;
-
-							newScope.component = componentService.getComponentConfig(componentMetadata.type);
-
-							if(!scope.component.children){
-								scope.component.children = [];
-							}
-
-							scope.$apply(function(){
-								scope.component.children.push(newScope.component);
-							});
-
-							target.removeClass('drag-enter');
-
-					/*		scope.$apply(function(){
-								target.append($compile('<div mk-component='component' {type}></div>'.replace('{type}', component.type))(newScope));
-							});*/
-
-						/*	target.unbind('dragenter', onDragEnter);
-							target.unbind('dragover', onDragOver);
-							target.unbind('dragleave', onDragLeave);
-							target.unbind('drop', onDrop);*/
-
-							return preventDefault(e);
-						}, onParentDragEnter = function(e, args){
-							if(!scope.inactive && supportNestedComponent(args.meta)){
-								element.addClass('drop-target');
-							}
-						}, onParentDragLeave = function(e, args){
-							if(!scope.inactive && supportNestedComponent(args.meta)){
-								element.removeClass('drop-target');
-							}
-						};
-
-					// let's subscribe for parent events
-					scope.$on('drag:enter', onParentDragEnter);
-
-					scope.$on('drag:leave', onParentDragLeave);
-
-					element.bind('dragenter', onDragEnter);
-					element.bind('dragover', onDragOver);
-					element.bind('dragleave', onDragLeave);
-					element.bind('drop', onDrop);
-				};
-			}
+			replace: true
 		};
-	}]);
+	};
 });
-define('app/directives/components/general/text_directive',['angular', 'app'], function(angular, app){
+define('app/directives/components/general/image',[],function(){
 	
 
-	app.directive('mkTextComponent', ['$compile', '$rootScope', function($compile, $rootScope){
+	return function () {
+		return {
+			restrict: 'E',
+
+			link: function(scope, element){
+				element.text('X');
+				/*scope.defineStyle('background_image', 'file', 'Image', true);*/
+			}
+		};
+	};
+});
+define('app/directives/components/general/rectangle',['angular'], function(angular){
+	
+
+	return ['$rootScope', 'ComponentService',
+		function($rootScope, componentService){
+			return {
+				restrict: 'E',
+
+				compile: function compile(template) {
+
+					var supportNestedComponent = function(component){
+						return component
+							&& component.type === 'mk-rectangle'
+							|| component.type === 'mk-text'
+							|| component.type === 'mk-image'
+							|| component.type === 'mk-button'
+							|| component.type === 'mk-gridview'
+							|| component.type === 'mk-map';
+					};
+
+					return function (scope, element) {
+						var preventDefault = function(e){
+								e.stopPropagation();
+								e.preventDefault();
+
+								return false;
+							},
+							onDragEnter = function(e){
+								e.currentTarget.classList.add('drag-enter');
+								return preventDefault(e);
+							},
+							onDragOver = function(e){
+								e.dataTransfer.dropEffect = 'move';
+
+								e.stopPropagation();
+								e.preventDefault();
+
+								return false;
+							},
+							onDragLeave = function(e){
+								e.currentTarget.classList.remove('drag-enter');
+
+								return preventDefault(e);
+							},
+							onDrop = function(e){
+								var target = angular.element(e.currentTarget),
+									newScope = scope.$new(),
+									componentMetadata = $rootScope.draggingComponent;
+
+								newScope.component = componentService.getComponentConfig(componentMetadata.type);
+
+								if(!scope.component.children){
+									scope.component.children = [];
+								}
+
+								scope.$apply(function(){
+									scope.component.children.push(newScope.component);
+								});
+
+								target.removeClass('drag-enter');
+
+						/*		scope.$apply(function(){
+									target.append($compile('<div mk-component='component' {type}></div>'.replace('{type}', component.type))(newScope));
+								});*/
+
+							/*	target.unbind('dragenter', onDragEnter);
+								target.unbind('dragover', onDragOver);
+								target.unbind('dragleave', onDragLeave);
+								target.unbind('drop', onDrop);*/
+
+								return preventDefault(e);
+							}, onParentDragEnter = function(e, args){
+								if(!scope.inactive &&
+									supportNestedComponent(args)) {
+									element.addClass('drop-target');
+								}
+							}, onParentDragLeave = function(e, args){
+								if(!scope.inactive &&
+									supportNestedComponent(args)) {
+									element.removeClass('drop-target');
+								}
+							};
+
+						// let's subscribe for parent events
+						scope.$on('drag:enter', onParentDragEnter);
+
+						scope.$on('drag:leave', onParentDragLeave);
+
+						element.bind('dragenter', onDragEnter);
+						element.bind('dragover', onDragOver);
+						element.bind('dragleave', onDragLeave);
+						element.bind('drop', onDrop);
+					};
+				}
+			};
+		}
+	];
+});
+define('app/directives/components/general/text',[],function(){
+	
+
+	return function(){
 		return {
 			restrict: 'E',
 
@@ -18507,39 +18786,12 @@ define('app/directives/components/general/text_directive',['angular', 'app'], fu
 				/*scope.defineProperty('text', 'text-long', 'Text', true, 'Sample Text');*/
 			}
 		};
-	}]);
+	};
 });
-define('app/directives/components/general/image_directive',['angular', 'app'], function(angular, app){
+define('app/directives/components/lists/gridview',[],function(){
 	
 
-	app.directive('mkImageComponent',  function () {
-		return {
-			restrict: 'E',
-
-			link: function(scope, element){
-				element.text('X');
-				/*scope.defineStyle('background_image', 'file', 'Image', true);*/
-			}
-		};
-	});
-});
-define('app/directives/components/general/button_directive',['angular', 'app'], function(angular, app){
-	
-
-	app.directive('mkButtonComponent', ['$compile', '$rootScope', function($compile, $rootScope){
-		return {
-			restrict: 'E',
-
-			template: '<button contenteditable="true" class="btn-primary">{{component.properties.text.value}}</button>',
-
-			replace: true
-		};
-	}]);
-});
-define('app/directives/components/lists/grid_view_directive',['angular', 'app'], function(angular, app){
-	
-
-	app.directive('mkGridViewComponent', ['$compile', '$rootScope', function($compile, $rootScope){
+	return function(){
 		return {
 			restrict: 'E',
 
@@ -18563,11 +18815,11 @@ define('app/directives/components/lists/grid_view_directive',['angular', 'app'],
 			link: function(scope, element){
 				var supportNestedComponent = function(component){
 					return component
-						&& component.type === 'mk-rectangle-component'
-						|| component.type === 'mk-text-component'
-						|| component.type === 'mk-image-component'
-						|| component.type === 'mk-button-component'
-						|| component.type === 'mk-grid-view-component';
+						&& component.type === 'mk-rectangle'
+						|| component.type === 'mk-text'
+						|| component.type === 'mk-image'
+						|| component.type === 'mk-button'
+						|| component.type === 'mk-gridview';
 				};
 
 				var preventDefault = function(e){
@@ -18616,11 +18868,11 @@ define('app/directives/components/lists/grid_view_directive',['angular', 'app'],
 
 						return preventDefault(e);*/
 					}, onParentDragEnter = function(e, args){
-						if(!scope.inactive && supportNestedComponent(args.meta)){
+						if(!scope.inactive && supportNestedComponent(args)) {
 							element.addClass('drop-target');
 						}
 					}, onParentDragLeave = function(e, args){
-						if(!scope.inactive && supportNestedComponent(args.meta)){
+						if(!scope.inactive && supportNestedComponent(args)) {
 							element.removeClass('drop-target');
 						}
 					};
@@ -18642,12 +18894,12 @@ define('app/directives/components/lists/grid_view_directive',['angular', 'app'],
 				};
 			}*/
 		};
-	}]);
+	};
 });
-define('app/directives/components/location/map_directive',['angular', 'app'], function(angular, app){
+define('app/directives/components/location/map',[],function(){
 	
 
-	app.directive('mkMapComponent', ['$compile', '$rootScope', function($compile, $rootScope){
+	return function(){
 		return {
 			restrict: 'E',
 
@@ -18673,12 +18925,55 @@ define('app/directives/components/location/map_directive',['angular', 'app'], fu
 				};
 			}
 		};
-	}]);
+	};
 });
-define('app/directives/controls/input_file_directive',['angular', 'app'], function(angular, app){
+define('app/directives/controls/binding',[],function(){
 	
 
-	app.directive('mkInputFileControl', ['$compile', '$q', function($compile, $q){
+	return function(){
+		return {
+			restrict: 'E',
+
+			scope: {
+				controlModel: '=model',
+				fields: '=',
+				dataFields:'=data'
+			},
+
+			template:   '<div class="data-binding-control">' +
+							'<div ng-repeat="binding in controlModel" class="composite-field">'+
+								'<select class="bind-target" ng-model="binding.field" ng-options="field.id as field.label for field in fields"></select>' +
+								'<select class="bind-source" ng-model="binding.data_field" ng-options="field.id as field.label for field in dataFields"></select>' +
+							'</div>' +
+							'<a href="#" ng-click="addNewBinding()">+ Add new binding</a>' +
+						'</div>',
+
+			replace: true,
+
+			link: function (scope) {
+				scope.addNewBinding = function(){
+					scope.controlModel.push({
+						field: -1,
+						data_field: -1
+					});
+				};
+				/*element.bind('change', function(e){
+					var reader = new FileReader();
+					reader.onload = function(e) {
+						scope.$apply(function(){
+							scope.inputModel = 'url(' + e.target.result + ')';
+						});
+					};
+					reader.readAsDataURL(e.currentTarget.files[0]);
+				});*/
+			}
+		};
+	};
+});
+define('app/directives/controls/input_file',[],function(){
+	
+
+	return function(){
 		return {
 			restrict: 'E',
 
@@ -18702,57 +18997,220 @@ define('app/directives/controls/input_file_directive',['angular', 'app'], functi
 				});
 			}
 		};
-	}]);
+	};
 });
-define('app/directives/controls/binding_directive',['angular', 'app'], function(angular, app){
+define('app/directives/draggable',[],function() {
 	
 
-	app.directive('mkBindingControl', ['$compile', function($compile){
+	return  ['$rootScope', function($rootScope){
+		return function(scope, element, attrs){
+			element.attr('draggable', true);
+
+			attrs.$observe('mkDraggable', function(value){
+				scope.model = scope.$eval(value);
+			});
+
+			element.bind('dragstart', function(e){
+				if (e && e.dataTransfer) {
+					e.dataTransfer.effectAllowed = 'move';
+				}
+				$rootScope.$broadcast('drag-start', scope.model);
+			});
+
+			element.bind('dragend', function(e){
+				$rootScope.$broadcast('drag-end');
+			});
+
+			/*display_area.addEventListener('dragenter', function(e){
+				e.currentTarget.classList.add('drop-target');
+				//alert(e.dataTransfer.getData('text/plain'));
+				e.stopPropagation();
+			}, false);
+
+			display_area.addEventListener('dragleave', function(e){
+				e.currentTarget.classList.remove('drop-target');
+				e.stopPropagation();
+				//alert(e.dataTransfer.getData('text/plain'));
+			}, false);
+
+			display_area.querySelector('.app-bar').addEventListener('dragenter', function(e){
+				e.currentTarget.classList.add('drop-target');
+				e.stopPropagation();
+				e.preventDefault();
+				return false;
+			}, false);
+
+			display_area.querySelector('.app-bar').addEventListener('dragover', function(e){
+				e.dataTransfer.dropEffect = 'move';
+				e.stopPropagation();
+				e.preventDefault();
+				return false;
+			}, false);
+
+			display_area.querySelector('.app-bar').addEventListener('dragleave', function(e){
+				e.currentTarget.classList.remove('drop-target');
+				e.stopPropagation();
+				e.preventDefault();
+				return false;
+			}, false);
+
+			display_area.querySelector('.app-bar').addEventListener('drop', function(e){
+				e.currentTarget.classList.add('activated');
+				e.stopPropagation();
+				e.preventDefault();
+				return false;
+			}, false);*/
+		};
+	}];
+});
+define('app/directives/editor',[],function() {
+	
+
+	return  [function(){
+		return function(scope, element, attrs){
+			element.attr('draggable', true);
+
+			attrs.$observe('mkDraggable', function(value){
+				scope.model = scope.$eval(value);
+			});
+
+			scope.$on('drag-start', function(e, data) {
+				element.addClass('drag-in-progress');
+
+				scope.componentTypeToDrag = data;
+			});
+
+			scope.$on('drag-end', function() {
+				element.removeClass('drag-in-progress');
+
+				scope.componentTypeToDrag = null;
+			});
+
+			element.bind('dragenter', function(e){
+				element.addClass('drag-enter');
+
+				e.stopPropagation();
+			}, false);
+
+			element.bind('dragleave', function(e){
+				element.removeClass('drag-enter');
+
+				e.stopPropagation();
+			}, false);
+		};
+	}];
+});
+define('app/directives/generated_css',[],function() {
+	
+
+	var createCss = function(styleSheet) {
+		var cssText = '',
+			styleNode;
+
+		// If the stylesheet doesn't exist, create a new node
+		if ((styleNode = document.getElementById(styleSheet.id)) === null) {
+			styleNode = document.createElement('style');
+			styleNode.type = 'text/css';
+			styleNode.media = styleSheet.media || 'screen';
+			document.getElementsByTagName('head')[0].appendChild(styleNode);
+		}
+
+		// generate CSS text
+		styleSheet.rules.forEach(function(rule) {
+			cssText += rule.selector + ' {';
+
+			Object.keys(rule.styles).forEach(function(key) {
+				cssText += key + ': ' +
+					rule.styles[key] + ';\n';
+			});
+
+			cssText += '}\n\n';
+		});
+
+		// Internet Explorer
+		if (styleNode.styleSheet) {
+			try {
+				styleNode.styleSheet.cssText = cssText;
+			} catch (e) {
+				throw new(Error)("Couldn't reassign styleSheet.cssText.");
+			}
+		} else {
+			(function (node) {
+				if (styleNode.childNodes.length > 0) {
+					if (styleNode.firstChild.nodeValue !== node.nodeValue) {
+						styleNode.replaceChild(node, styleNode.firstChild);
+					}
+				} else {
+					styleNode.appendChild(node);
+				}
+			})(document.createTextNode(cssText));
+		}
+	};
+
+	return function() {
 		return {
-			restrict: 'E',
+			restrict: 'A',
 
-			scope: {
-				controlModel: '=model',
-				fields: '=',
-				dataFields:'=data'
-			},
+			link: function(scope, element, attrs) {
 
-			template:   '<div class="data-binding-control">' +
-							'<div ng-repeat="binding in controlModel" class="composite-field">'+
-								'<select class="bind-target" ng-model="binding.field" ng-options="field.id as field.label for field in fields"></select>' +
-								'<select class="bind-source" ng-model="binding.data_field" ng-options="field.id as field.label for field in dataFields"></select>' +
-							'</div>' +
-							'<a href="#" ng-click="addNewBinding()">+ Add new binding</a>' +
-						'</div>',
+				var style = document.createElement('style');
+				style.type = 'text/css';
+				document.getElementsByTagName('head')[0].appendChild(style);
 
-			replace: true,
-
-			link: function (scope, element, attrs) {
-				scope.addNewBinding = function(){
-					scope.controlModel.push({
-						field: -1,
-						data_field: -1
-					});
-				};
-				/*element.bind('change', function(e){
-					var reader = new FileReader();
-					reader.onload = function(e) {
-						scope.$apply(function(){
-							scope.inputModel = 'url(' + e.target.result + ')';
-						});
-					};
-					reader.readAsDataURL(e.currentTarget.files[0]);
-				});*/
+				scope.$watch(attrs.mkGeneratedCss, function(styleSheet) {
+					if (styleSheet && styleSheet.rules.length > 0) {
+						createCss(styleSheet);
+					}
+				}, true);
 			}
 		};
-	}]);
+	};
+});
+define('app/directives/registration',[
+	'app',
+
+	'app/directives/components/component',
+	'app/directives/components/general/app_bar',
+	'app/directives/components/general/button',
+	'app/directives/components/general/image',
+	'app/directives/components/general/rectangle',
+	'app/directives/components/general/text',
+
+	'app/directives/components/lists/gridview',
+
+	'app/directives/components/location/map',
+
+	'app/directives/controls/binding',
+	'app/directives/controls/input_file',
+
+	'app/directives/draggable',
+	'app/directives/editor',
+	'app/directives/generated_css'
+], function(app, Component, AppBar, Button, Image, Rectangle, Text, Gridview,
+	Map, Binding, InputFile, Draggable, Editor, GeneratedCss) {
+	
+
+	app.
+		directive('mkComponent', Component).
+		directive('mkAppbar', AppBar).
+		directive('mkButton', Button).
+		directive('mkImage', Image).
+		directive('mkRectangle', Rectangle).
+		directive('mkText', Text).
+		directive('mkGridview', Gridview).
+		directive('mkMap', Map).
+		directive('mkBinding', Binding).
+		directive('mkInputFile', InputFile).
+		directive('mkDraggable', Draggable).
+		directive('mkEditor', Editor).
+		directive('mkGeneratedCss', GeneratedCss);
 });
 require.config({
 	baseUrl: '/js',
 	paths: {
 		angular: 'libs/angular',
 		'ui-bootstrap': 'libs/ui-bootstrap.min',
-		/*underscore: 'libs/lodash.min',*/
+		underscore: 'libs/lodash.min',
 		rText: 'libs/requirejs/plugins/text',
 		ri18n: 'libs/requirejs/plugins/i18n'
 	},
@@ -18766,36 +19224,9 @@ require.config({
 	}
 });
 
-require([
-	'angular',
-	'app',
-
-	'app/controllers/pages/projects_controller',
-	'app/controllers/pages/project_details_controller',
-
-	'app/controllers/components/component_controller',
-	'app/controllers/components/lists/grid_view_component_controller',
-
-	'app/services/config_service',
-	'app/services/component_service',
-	'app/services/project_service',
-
-	'app/directives/component_directive',
-	'app/directives/draggable_directive',
-	'app/directives/drop_target_directive',
-
-	'app/directives/components/general/app_bar_directive',
-	'app/directives/components/general/rectangle_directive',
-	'app/directives/components/general/text_directive',
-	'app/directives/components/general/image_directive',
-	'app/directives/components/general/button_directive',
-
-	'app/directives/components/lists/grid_view_directive',
-
-	'app/directives/components/location/map_directive',
-
-	'app/directives/controls/input_file_directive',
-	'app/directives/controls/binding_directive'
+require(['angular', 'app', 'app/services/registration',
+	'app/controllers/registration',
+	'app/directives/registration'
 ], function (angular, app) {
 	
 

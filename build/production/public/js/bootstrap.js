@@ -14921,7 +14921,7 @@ define('app/controllers/pages/projects_controller',['angular', 'app', 'app/contr
 			alert('loading');*/
 		});
 
-		$scope.createProject = function(){
+		$scope.create = function(){
 			$dialog.dialog({
 				templateUrl: 'js/templates/dialogs/create_project.ng',
 				controller: create_project_controller
@@ -15122,7 +15122,7 @@ define('app/controllers/pages/project_details_controller',[
 
 		function ($rootScope, $scope, $location, $dialog, $routeParams, config, componentService, projectService) {
 
-			projectService.loadProject($routeParams.id).then(function(project){
+			projectService.get($routeParams.id).then(function(project){
 				$scope.project = project;
 
 				$scope.activePage = $scope.project.pages[0];
@@ -15130,7 +15130,7 @@ define('app/controllers/pages/project_details_controller',[
 				$scope.downloadLink = config.services.compile + '/api/compile/' + $scope.project.id;
 			});
 
-			$scope.toolBox = componentService.getComponents();
+			$scope.toolBox = componentService.getComponentGroups();
 
 			$scope.addApplicationPage = function(){
 				$dialog.dialog({
@@ -15508,7 +15508,7 @@ define('app/services/component_service',['angular', 'app'], function(angular, ap
 				return source;
 			},
 
-			getComponents: function(groupId){
+			getComponentGroups: function(groupId){
 				if(typeof groupId === 'undefined'){
 					return componentGroups;
 				} else {
@@ -15818,7 +15818,7 @@ define('app/services/project_service',['angular', 'app'], function(angular, app)
 
 			_project: null,
 
-			loadProject: function(id){
+			get: function(id){
 				$http.defaults.headers.common['access-token']='user_token';
 
 				return $http.get(config.services.data + '/project/' + id).then(function(data){

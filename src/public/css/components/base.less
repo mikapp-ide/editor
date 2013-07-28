@@ -6,35 +6,75 @@
 @mk-text-color: @font-color;
 
 /* End of Defaults*/
-.component{
-	.flex-box;
 
-	.user-select(none);
-
-	border: 1px solid rgba(255, 255, 255, 0.05);
-
-	position: relative;
-
-	> .inner-component{
-		.flex-item(1);
+.editor-content {
+	.component{
 		.flex-box;
 
-		&.drop-target{
-			border: 1px dashed #fff;
+		.user-select(none);
 
-			pointer-events: all;
+		border: 1px solid rgba(255, 255, 255, 0.05);
+
+		position: relative;
+
+		&.component-selected {
+			border: 1px solid #fff;
 		}
 
-		&.drag-enter {
-			border: 4px solid #fff;
+		> .inner-component{
+			.flex-item(1);
+			.flex-box;
 
-			pointer-events: all;
+			&.drop-target{
+				border: 1px dashed #fff;
+
+				pointer-events: all;
+			}
+
+			&.drag-enter {
+				border: 4px solid #fff;
+
+				pointer-events: all;
+			}
+
+			padding: 10px;
 		}
 
-		padding: 10px;
+		.component-settings-gear{
+			position: absolute;
+			display: none;
+
+			right: 5px;
+			top: 5px;
+
+			font-size: 16px;
+		}
+
+		.component-resize-handle{
+			position: absolute;
+
+			display: none;
+
+			right: 0;
+			bottom: 0;
+
+			width: 0px;
+			height: 0px;
+			border-style: solid;
+			border-width: 0 0 15px 15px;
+			border-color: transparent transparent #3e3e42 transparent;
+
+			cursor: nw-resize;
+		}
+
+		&:hover{
+			> .component-resize-handle{
+				display: block;
+			}
+		}
 	}
 
-	&.mk-app-bar-component{
+	.mk-app-bar-component{
 
 		border: none;
 
@@ -57,7 +97,7 @@
 		}
 	}
 
-	&.mk-rectangle-component{
+	.mk-rectangle-component{
 		.flex-item(0);
 
 		> .inner-component {
@@ -67,7 +107,7 @@
 		}
 	}
 
-	&.mk-image-component{
+	.mk-image-component{
 		.flex-item(0);
 
 		> .inner-component{
@@ -82,7 +122,7 @@
 		}
 	}
 
-	&.mk-map-component{
+	.mk-map-component{
 		.flex-item(0);
 
 		> .inner-component{
@@ -91,11 +131,9 @@
 		}
 	}
 
-	&.mk-text-component{
+	.mk-text-component{
 		display: block;
 		.flex-item(0);
-
-		border: none;
 
 		color: @mk-text-color;
 		background-color: @mk-text-background-color;
@@ -108,10 +146,10 @@
 		}
 	}
 
-	&.mk-button-component{
+	.mk-button-component{
 		/*display: block;
 		.flex-item(0);
-*/
+	*/
 		border: none;
 		color: @mk-text-color;
 		background-color: @mk-text-background-color;
@@ -124,7 +162,7 @@
 		}
 	}
 
-	&.mk-grid-view-component{
+	.mk-grid-view-component{
 
 		> .inner-component{
 			.flex-direction(column);
@@ -150,39 +188,6 @@
 				.flex-item(1);
 				margin: 20px;
 			}
-		}
-	}
-
-	.component-settings-gear{
-		position: absolute;
-		display: none;
-
-		right: 5px;
-		top: 5px;
-
-		font-size: 16px;
-	}
-
-	.component-resize-handle{
-		position: absolute;
-
-		display: none;
-
-		right: 0;
-		bottom: 0;
-
-		width: 0px;
-		height: 0px;
-		border-style: solid;
-		border-width: 0 0 15px 15px;
-		border-color: transparent transparent #3e3e42 transparent;
-
-		cursor: nw-resize;
-	}
-
-	&:hover{
-		> .component-resize-handle{
-			display: block;
 		}
 	}
 }

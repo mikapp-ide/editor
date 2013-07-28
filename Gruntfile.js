@@ -211,6 +211,20 @@ module.exports = function(grunt) {
 				src: '<%= pkg.src %>/public/index.tmpl',
 				dest: '<%= pkg.dest %>/development/public/index.html'
 			}
+		},
+
+		karma: {
+			unit: {
+				configFile: 'test/karma.conf.js'
+			},
+			coverage: {
+				configFile: 'test/karma.coverage.conf.js'
+			}
+		},
+
+		watch: {
+			files: ['src/**/*'],
+			tasks: ['build:development']
 		}
 	});
 
@@ -220,14 +234,15 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
+	grunt.loadNpmTasks('grunt-karma');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	// Production setup
 	grunt.registerTask('build', 'Build task', function(environment) {
 		// set some global flags that all tasks can access
 		grunt.config('environment', environment);
 
-		// run tasks
-		grunt.task.run([
+		var tasks = [
 			'clean:' + environment,
 			'jshint',
 			'copy:' + environment,
@@ -235,8 +250,14 @@ module.exports = function(grunt) {
 			'less:' + environment,
 			'index:' + environment,
 			'clean:post_' + environment
-		]);
+		];
+
+		// run tasks
+		grunt.task.run(tasks);
 	});
+
+	grunt.registerTask('watch-tests', ['karma:unit']);
+	grunt.registerTask('coverage', ['karma:coverage']);
 
 /*
 	// Default task.

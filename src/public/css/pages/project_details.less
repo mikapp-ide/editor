@@ -176,67 +176,91 @@
 			}
 
 			.mk-icon{
-				&.mk-app-bar-component:before{
+				&.mk-appbar-toolbox:before{
 					content: "a";
 				}
-				&.mk-button-component:before {
+				&.mk-button-toolbox:before {
 					content: "b";
 				}
-				&.mk-text-component:before {
+				&.mk-text-toolbox:before {
 					content: "c";
 				}
-				&.mk-image-component:before {
+				&.mk-image-toolbox:before {
 					content: "d";
 				}
-				&.mk-input-component:before {
+				&.mk-input-toolbox:before {
 					content: "e";
 				}
-				&.mk-checkbox-component:before {
+				&.mk-checkbox-toolbox:before {
 					content: "f";
 				}
-				&.mk-select-component:before {
+				&.mk-select-toolbox:before {
 					content: "g";
 				}
-				&.mk-calendar-component:before {
+				&.mk-calendar-toolbox:before {
 					content: "h";
 				}
-				&.mk-page-component:before {
+				&.mk-page-toolbox:before {
 					content: "i";
 				}
-				&.mk-datasource-component:before {
+				&.mk-datasource-toolbox:before {
 					content: "j";
 				}
-				&.mk-toolbox-component:before{
+				&.mk-toolbox-toolbox:before{
 					content: "k";
 				}
-				&.mk-settings-component:before {
+				&.mk-settings-toolbox:before {
 					content: "l";
 				}
-				&.mk-rectangle-component:before {
+				&.mk-rectangle-toolbox:before {
 					content: "m";
 				}
-				&.mk-cog-component:before {
+				&.mk-cog-toolbox:before {
 					content: "n";
 				}
-				&.mk-list-view-component:before {
+				&.mk-listview-toolbox:before {
 					content: "o";
 				}
-				&.mk-grid-view-component:before {
+				&.mk-gridview-toolbox:before {
 					content: "p";
 				}
-				&.mk-tree-view-component:before {
+				&.mk-treeview-toolbox:before {
 					content: "q";
 				}
-				&.mk-flip-view-component:before {
+				&.mk-flipview-toolbox:before {
 					content: "r";
 				}
-				&.mk-map-component:before {
+				&.mk-map-toolbox:before {
 					content: "s";
 				}
-				&.mk-location-component:before {
+				&.mk-location-toolbox:before {
 					content: "t";
 				}
 			}
+		}
+	}
+}
+
+.toolbox {
+	.accordion-inner {
+		padding: 9px 5px 9px 10px;
+	}
+	.pure-form {
+		input[type=text],
+		input[type=number],
+		input[type=color],
+		select {
+			.border-radius(0);
+
+			font-size: 90%;
+			height: 25px;
+			margin: 5px 0;
+			padding: 1px;
+		}
+
+		label {
+			font-size: 90%;
+			margin: 5px 0;
 		}
 	}
 }

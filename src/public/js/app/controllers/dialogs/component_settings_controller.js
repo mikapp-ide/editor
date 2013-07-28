@@ -1,7 +1,9 @@
-define(['angular', 'app'], function (angular, app) {
+define(['angular'], function (angular) {
 	'use strict';
 
-	return function($rootScope, $scope, $http, $q, dialog, config, component_service, project_service, component){
+	return ['$scope', 'dialog', 'ProjectService', 'component',
+		function($scope, dialog, projectService, component) {
+
 		var save = function(settings){
 			settings.forEach(function(setting){
 				// TODO: Remove this inefficient check
@@ -17,7 +19,7 @@ define(['angular', 'app'], function (angular, app) {
 
 		// check whether component has parent with data source
 		if(component.properties && component.properties.data_source){
-			var project = project_service.getCurrentProject(),
+			var project = projectService.getCurrentProject(),
 				dataSources = [{
 					id: -1,
 					label: '--- none ---'
@@ -94,7 +96,7 @@ define(['angular', 'app'], function (angular, app) {
 					data_fields: [{
 						id: -1,
 						label: '--- none ---'
-					}].concat(project_service.getCurrentProject().sources.predefined[1].fields.map(function(field, index){
+					}].concat(projectService.getCurrentProject().sources.predefined[1].fields.map(function(field, index){
 						return {
 							id: index,
 							label: field.name
@@ -129,5 +131,5 @@ define(['angular', 'app'], function (angular, app) {
 			label: 'Save',
 			cssClass: 'btn-primary'
 		}];
-	};
+	}];
 });
