@@ -15,7 +15,8 @@ define(
 				'mk-rectangle',
 				'Rectangle',
 				'general',
-				['color', 'background-color', 'border', 'content-orientation'],
+				['color', 'background-color', 'content-orientation',
+					'font-size'],
 				{
 					resizing: true,
 					children: true
@@ -25,7 +26,7 @@ define(
 				'mk-button',
 				'Button',
 				'general',
-				['color', 'background-color', 'border'],
+				['color', 'background-color'],
 				{
 					resizing: true
 				}
@@ -34,7 +35,7 @@ define(
 				'mk-text',
 				'Text',
 				'general',
-				['color', 'background-color', 'border', 'font-size']
+				['color', 'background-color', 'font-size']
 			),
 			new ComponentType(
 				'mk-gridview',
@@ -110,9 +111,12 @@ define(
 				label: 'Content Orientation',
 				type: ComponentType.EditorType.SELECT,
 				css: '-webkit-flex-direction',
-				values: [{
-					id: 'row',
+				options: [{
+					value: 'row',
 					label: 'Row'
+				}, {
+					value: 'column',
+					label: 'Column'
 				}]
 			}
 		};

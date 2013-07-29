@@ -6,41 +6,38 @@ define(['angular'], function(angular) {
 		function ($scope, $dialog, $routeParams, config, componentService,
 			projectService) {
 
-			/*$scope.$on('component-selected', function(event, parameters) {
-				var component = parameters;
-
-				$scope.styles = component.styles.map(function(styleKey) {
-					var styleConfig = componentService.getStyleConfig(styleKey);
-
-					// here we should check whether component has dedicated css
-					// class and get values from there
-					var values = $scope.project.styleSheet.rules;
-
-					return styleConfig;
-				});
-			});*/
+			$scope.panes = {
+				toolbox: componentService.getGroups(),
+				styles: null,
+				pages: null
+			};
 
 			projectService.get($routeParams.id).then(function(project) {
 				$scope.project = project;
 
+				$scope.panes.pages = project.pages;
 				$scope.activePage = $scope.project.pages[0];
-
-				$scope.downloadLink = config.services.compile +
-					'/api/compile/' + $scope.project.id;
 			});
 
-			$scope.toolBox = componentService.getGroups();
+			$scope.$on('component-selected', function(event, component) {
+				if (component.type.styles) {
+					$scope.panes.styles = component.type.styles.map(
+						function(styleKey) {
+							var styleConfig = componentService.getStyleConfig(
+								styleKey);
 
-			/*$scope.showJSON = function(){
-				//window.console.log(angular.toJson($scope.project));
-
-				$scope.project.userClasses.push({
-					selector: '.mk-rectangle-component',
-					styles: {
-						'border': '10px solid blue'
-					}
-				});
-			};*/
+							return {
+								id: styleKey,
+								label: styleConfig.label,
+								type: styleConfig.type,
+								options: styleConfig.options
+							};
+						}
+					);
+				} else if ($scope.styles) {
+					$scope.styles = null;
+				}
+			});
 
 		/*	$scope.addApplicationPage = function() {
 				$dialog.dialog({

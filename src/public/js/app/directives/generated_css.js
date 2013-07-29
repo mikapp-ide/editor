@@ -14,7 +14,7 @@ define(function() {
 			styleNode = document.createElement('style');
 			styleNode.id = stylesheet.id;
 			styleNode.type = 'text/css';
-			styleNode.media = stylesheet.media || 'screen';
+			styleNode.media = stylesheet.media;
 			document.getElementsByTagName('head')[0].appendChild(styleNode);
 		}
 

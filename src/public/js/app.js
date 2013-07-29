@@ -10,8 +10,10 @@ define(['angular', 'ui-bootstrap'], function (angular) {
 				compile: 'http://mika.compile'
 			},
 			templates: {
+				base: '/js/templates/',
 				dialogs: '/js/templates/dialogs/',
-				pages: '/js/templates/pages'
+				pages: '/js/templates/pages',
+				controls: '/js/templates/controls'
 			},
 			debug: true
 		});

@@ -14,12 +14,13 @@ define([
 
 	'app/directives/controls/binding',
 	'app/directives/controls/input_file',
+	'app/directives/controls/style_editor',
 
 	'app/directives/draggable',
 	'app/directives/editor',
 	'app/directives/generated_css'
 ], function(app, Component, AppBar, Button, Image, Rectangle, Text, Gridview,
-	Map, Binding, InputFile, Draggable, Editor, GeneratedCss) {
+	Map, Binding, InputFile, StyleEditor, Draggable, Editor, GeneratedCss) {
 	'use strict';
 
 	app.
@@ -33,6 +34,7 @@ define([
 		directive('mkMap', Map).
 		directive('mkBinding', Binding).
 		directive('mkInputFile', InputFile).
+		directive('mkStyleEditor', StyleEditor).
 		directive('mkDraggable', Draggable).
 		directive('mkEditor', Editor).
 		directive('mkGeneratedCss', GeneratedCss);

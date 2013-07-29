@@ -161,8 +161,6 @@ define(['app/models/project'],
 					id: 'welcome-page',
 					title: 'Welcome Page',
 					components: [{
-						typeId: 'mk-appbar'
-					}, {
 						typeId: 'mk-rectangle',
 						children: [{
 							typeId: 'mk-button',

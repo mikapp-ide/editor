@@ -13,7 +13,7 @@
 					<section>
 						<h4>Toolbox</h4>
 						<accordion>
-							<accordion-group ng-repeat="group in toolBox" heading="{{group.title}}">
+							<accordion-group ng-repeat="group in panes.toolbox" heading="{{group.title}}">
 								<ul>
 									<li ng-repeat="componentType in group.componentTypes" mk-draggable="componentType">
 										<span class="{{componentType.id}}-toolbox mk-icon"></span>
@@ -29,7 +29,7 @@
 					<accordion>
 						<accordion-group heading="Application Pages">
 							<ul>
-								<li class="list-item" ng-repeat="page in project.pages">
+								<li class="list-item" ng-repeat="page in panes.pages">
 									<a class="mk-icon mk-icon-page" href="#" ng-click="openPage(page)">{{page.title}}</a>
 								</li>
 								<li><a href="#" ng-click="addApplicationPage()">+ Add new page</a> </li>
@@ -44,7 +44,7 @@
 						</accordion-group>
 					</accordion>
 				</section></pane>
-				<pane heading="Data Sources" classes="mk-icon mk-icon-datasource"><section>
+				<!--<pane heading="Data Sources" classes="mk-icon mk-icon-datasource"><section>
 					<h4>Data Sources</h4>
 					<accordion>
 						<accordion-group heading="Predefined sources">
@@ -68,24 +68,16 @@
 							</ul>
 						</accordion-group>
 					</accordion>
-				</section></pane>
+				</section></pane>-->
 				<pane heading="Properties" classes="mk-icon mk-icon-tree-view"><section>
 					<h4>Properties</h4>
 					<accordion>
-						<accordion-group heading="Properties">
+						<!--<accordion-group heading="Properties">
 
-						</accordion-group>
-						<accordion-group heading="Styles">
+						</accordion-group>-->
+						<accordion-group heading="Styles" ng-if="!!panes.styles">
 							<form class="pure-g pure-form">
-								<label for="background_color" class="pure-u-1-2">Background Color</label>
-								<input id="background_color" type="color" class="pure-u-1-2">
-								<label for="content_orientation" class="pure-u-1-2">Content Orientation</label>
-								<select id="content_orientation" class="pure-u-1-2">
-									<option value="0" selected="selected">Row</option>
-									<option value="1">Column</option>
-								</select>
-								<label for="content_orientation" class="pure-u-1-2">Font size, px</label>
-								<input class="pure-u-1-2" type="number">
+								<div ng-repeat="style in panes.styles" mk-style-editor="style"></div>
 							</form>
 						</accordion-group>
 					</accordion>

@@ -1,23 +1,6 @@
 define(['angular'], function(angular){
 	'use strict';
 
-	var getOffset = function (node) {
-		var offset = {
-			left: 0,
-			top: 0
-		};
-		do {
-			if(!isNaN(node.offsetLeft)) {
-				offset.left += node.offsetLeft;
-			}
-
-			if(!isNaN(node.offsetTop)) {
-				offset.top += node.offsetTop;
-			}
-		} while( node = node.offsetParent );
-		return offset;
-	};
-
 	return ['$dialog', '$compile', 'ComponentService',
 		function($dialog, $compile, componentService) {
 			return {

@@ -40,6 +40,8 @@ define(
 
 					expect(styleTag).toBeDefined();
 					expect(styleTag).not.toBeNull();
+					expect(styleTag.media).
+						toEqual(directiveScope.stylesheet.media);
 					expect(styleTag.textContent.indexOf(
 						directiveScope.stylesheet.rules[0].selector)).
 						toBeGreaterThan(-1);
@@ -55,7 +57,7 @@ define(
 					).toBeGreaterThan(-1);
 
 					directiveScope.stylesheet =  new Stylesheet('az-stylesheet',
-						'print', [new StylesheetRule('.class-1', {
+						'screen', [new StylesheetRule('.class-1', {
 							color: 'red'
 						}), new StylesheetRule('p', {
 							'font-size': '12px'
@@ -70,6 +72,9 @@ define(
 
 					expect(styleTag).toBeDefined();
 					expect(styleTag).not.toBeNull();
+					// Here we check that style node wasn't recreated
+					expect(styleTag.media).not.
+						toEqual(directiveScope.stylesheet.media);
 					expect(styleTag.textContent.indexOf(
 						directiveScope.stylesheet.rules[0].selector)).
 						toBeGreaterThan(-1);
@@ -89,6 +94,29 @@ define(
 						toBeGreaterThan(-1);
 					expect(styleTag.textContent.indexOf(
 						directiveScope.stylesheet.rules[2].styles.background)).
+						toBeGreaterThan(-1);
+
+					directiveScope.stylesheet =  new Stylesheet('az-stylesheet',
+						null, [new StylesheetRule('.class-1', {
+							color: 'red'
+						})]);
+
+					styleTag.parentNode.removeChild(styleTag);
+
+					directiveScope.$apply();
+
+					styleTag = document.getElementById(
+						directiveScope.stylesheet.id);
+
+					expect(styleTag).toBeDefined();
+					expect(styleTag).not.toBeNull();
+					expect(styleTag.media).
+						toEqual('screen');
+					expect(styleTag.textContent.indexOf(
+						directiveScope.stylesheet.rules[0].selector)).
+						toBeGreaterThan(-1);
+					expect(styleTag.textContent.indexOf(
+						directiveScope.stylesheet.rules[0].styles.color)).
 						toBeGreaterThan(-1);
 				});
 		});
