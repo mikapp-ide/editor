@@ -17088,6 +17088,14 @@ define('app/models/component_type',[],function() {
 	};
 
 	/**
+	 * Checks if current component supports children.
+	 * @returns {boolean}
+	 */
+	Model.prototype.supportChildren = function() {
+		return this.isFeatureSupported_('children');
+	};
+
+	/**
 	 * Checks if current component supports specified feature.
 	 * @param {string} feature Feature name to check.
 	 * @returns {boolean}
@@ -18323,6 +18331,23 @@ define('app/controllers/registration',[
 define('app/directives/components/component',['angular'], function(angular){
 	
 
+	var getOffset = function (node) {
+		var offset = {
+			left: 0,
+			top: 0
+		};
+		do {
+			if(!isNaN(node.offsetLeft)) {
+				offset.left += node.offsetLeft;
+			}
+
+			if(!isNaN(node.offsetTop)) {
+				offset.top += node.offsetTop;
+			}
+		} while( node = node.offsetParent );
+		return offset;
+	};
+
 	return ['$dialog', '$compile', 'ComponentService',
 		function($dialog, $compile, componentService) {
 			return {
@@ -18330,36 +18355,14 @@ define('app/directives/components/component',['angular'], function(angular){
 					component: '=mkComponent'
 				},
 
-				template: '<div class="component" ng-dblclick="showSettings($event)" ng-click="select($event, component)">',
+				template: '<div class="component" ng-click="select($event, component)">',
 
 				controller: 'ComponentController',
 
 				replace: true,
 
 				compile: function compile(template) {
-					/*template.addClass('component');
 
-					var settingsHandle = angular.element('<div ng-click='showSettings()'>');
-					settingsHandle.addClass('component-settings-gear mk-icon mk-icon-cog');
-
-					template.append(settingsHandle);*/
-
-					var getOffset = function (node) {
-						var offset = {
-							left: 0,
-							top: 0
-						};
-						do {
-							if(!isNaN(node.offsetLeft)) {
-								offset.left += node.offsetLeft;
-							}
-
-							if(!isNaN(node.offsetTop)) {
-								offset.top += node.offsetTop;
-							}
-						} while( node = node.offsetParent );
-						return offset;
-					};
 
 					return function postLink(scope, element, attrs) {
 						var childComponent,
@@ -18385,187 +18388,39 @@ define('app/directives/components/component',['angular'], function(angular){
 							scope.$emit('component-selected', component);
 						};
 
-						if(scope.$parent && scope.$parent.component){
+						/*if(scope.$parent && scope.$parent.component){
 							scope.component.parent = scope.$parent.component;
+						}*/
+
+						if(scope.component.cssClass){
+							element.addClass(scope.component.cssClass);
 						}
 
-						scope.showSettings = function(e){
-							e.stopPropagation();
+						element.addClass(scope.component.type.id +
+							'-component');
 
-							var dialog = $dialog.dialog({
-								templateUrl: '/js/templates/dialogs/component_settings.ng',
-								controller: 'ComponentSettingsController',
-								resolve: {
-									component: function(){
-										return scope.component;
-									}
-								}
-							});
+						// construct component markup
+						componentMarkup = [
+							'<', scope.component.type.id,
+								' class="inner-component"',
+							'>'
+						];
 
-							dialog.open();
-						};
-
-						if(scope.component.classes){
-							element.addClass(scope.component.classes);
+						if(scope.component.type.supportChildren()){
+							componentMarkup.push('<div' +
+								' ng-repeat="child in component.children" ' +
+								'mk-component="child"></div>');
 						}
 
-						if(scope.component.support){
-							if(scope.component.support.resizing) {
-								var mouseDowned = false,
-									onMouseMove = function(e){
+						componentMarkup.push('</' + scope.component.type.id + '>');
 
-										/*
-										ROTATE
-										var elementNode = element[0],
+						window.console.log('component: ' +
+							componentMarkup.join(''));
 
-										center_x = elementNode.offsetLeft + (elementNode.offsetWidth/2),
-										center_y = elementNode.offsetTop + (elementNode.offsetHeight/2),
+						childComponent = $compile(componentMarkup.join(''))(
+							scope);
 
-										mouse_x = e.pageX,
-										mouse_y = e.pageY,
-
-										radians = Math.atan2(mouse_x - center_x, mouse_y - center_y),
-										degree = (radians * (180 / Math.PI) * -1) + 90;
-
-										elementNode.style.webkitTransform = 'rotate('+degree+'deg)';*/
-
-										/* RESIZE */
-
-										var elementNode = element[0],
-											offset = getOffset(elementNode),
-
-										/*  center_x = elementNode.offsetLeft + (elementNode.offsetWidth/2)  + editorElement.offsetLeft,
-											enter_y = elementNode.offsetTop + (elementNode.offsetHeight/2) + editorElement.offsetTop,*/
-
-											mouse_x = e.pageX,
-											mouse_y = e.pageY,
-
-											newWidth = mouse_x - offset.left,
-											newHeight = mouse_y - offset.top;
-
-										scope.$apply(function(){
-											scope.component.width.value = newWidth + 'px';
-											scope.component.height.value = newHeight + 'px';
-										});
-
-										/*elementNode.style.width = newWidth + 'px';
-											elementNode.style.height = newHeight + 'px'; */
-
-										window.console.log('width:' + newWidth + ' height:' + newHeight);
-
-										/*
-										MARGIN
-										var editorElement = document.querySelector('.editor-content'),
-
-										componentElement = element[0],
-										componentContainerElement = componentElement.parentNode,
-
-										parent_left_bottom_x = componentContainerElement.offsetLeft + componentContainerElement.offsetWidth + editorElement.offsetLeft,
-										parent_left_bottom_y = componentContainerElement.offsetTop + componentContainerElement.offsetHeight + editorElement.offsetTop,
-
-										mouse_x = e.pageX,
-										mouse_y = e.pageY,
-
-										newRightMargin = parent_left_bottom_x - mouse_x,
-										newBottomMargin = parent_left_bottom_y - mouse_y;
-
-										componentElement.style.marginRight =*//* componentElement.style.marginLeft =*//* newRightMargin + 'px';
-										componentElement.style.marginBottom = *//*componentElement.style.marginTop = *//*newBottomMargin + 'px';
-
-										window.console.log('margin-right:' + newRightMargin + ' margin-bottom:' + newBottomMargin);*/
-									},
-									onMouseUp = function(e){
-										mouseDowned = false;
-
-										document.body.classList.remove('resizing');
-
-										document.removeEventListener('mouseup', onMouseUp, false);
-										document.removeEventListener('mousemove', onMouseMove, false);
-									};
-
-								if(!scope.component.fixed){
-									var resizeHandle = angular.element('<div>');
-									resizeHandle.addClass('component-resize-handle');
-
-									element.append(resizeHandle);
-
-									resizeHandle.bind('mousedown', function(e){
-
-										mouseDowned = true;
-
-										document.body.classList.add('resizing');
-
-										document.addEventListener('mouseup', onMouseUp, false);
-										document.addEventListener('mousemove', onMouseMove, false);
-
-										e.preventDefault();
-										e.stopPropagation();
-									});
-								}
-							}
-						}
-
-						// if component has specific type, lets compile it
-						if(scope.component.type){
-							element.addClass(scope.component.type + '-component');
-
-							// construct component markup
-							componentMarkup = ['<', scope.component.type, ' class="inner-component', scope.component.placeholder ? '' : ' initialized"'];
-
-							componentConfig = componentService.getComponentConfig(scope.component.type);
-
-							if (scope.component.support && scope.component.support.resizing) {
-								componentMarkup.push(' style="width:{{component.width}};height:{{component.height}}">');
-							} else {
-								componentMarkup.push('>');
-							}
-
-							/*Object.keys(componentConfig).forEach(function(configSectionKey){
-								var componentConfigSection = scope.component[configSectionKey];
-
-								scope.component[configSectionKey] = componentConfigSection
-									? angular.extend(componentConfig[configSectionKey], componentConfigSection)
-									: componentConfig[configSectionKey];
-							});
-*/
-							/*if(scope.component.styles){
-								Object.keys(scope.component.styles).forEach(function(styleKey){
-									var style = scope.component.styles[styleKey];
-
-									mappedStyleKey = componentService.mapCssSetting(styleKey);
-
-									if(mappedStyleKey){
-										componentMarkup.push(mappedStyleKey + ':{{component.styles.' + styleKey + '.value}}' + (style.postfix || '') + ';');
-									}
-								});
-							}
-	*/
-
-							if(scope.component.support && scope.component.support.children){
-								componentMarkup.push('<div ng-repeat="child in component.children" mk-component="child"></div>');
-							}
-
-							componentMarkup.push('</' + scope.component.type + '>');
-
-							window.console.log('component: ' + componentMarkup.join(''));
-
-							childComponent = $compile(componentMarkup.join(''))(scope);
-
-							element.append(childComponent);
-						}
-
-						/*element.bind('click', function(e){
-							if(e.target.classList.contains('component-settings-gear')){
-								$timeout(function(){
-									var dialog = $dialog.dialog({
-										templateUrl: '/js/templates/dialogs/component_settings.html',
-										controller: component_settings_controller
-									});
-
-									dialog.open();
-								});
-							}
-						});*/
+						element.append(childComponent);
 					};
 				}
 			};
@@ -19103,24 +18958,29 @@ define('app/directives/editor',[],function() {
 define('app/directives/generated_css',[],function() {
 	
 
-	var createCss = function(styleSheet) {
+	/**
+	 * Creates user stylesheet.
+	 * @param {mikapp.editor.models.Stylesheet} stylesheet
+	 */
+	var createCss = function(stylesheet) {
 		var cssText = '',
 			styleNode;
 
 		// If the stylesheet doesn't exist, create a new node
-		if ((styleNode = document.getElementById(styleSheet.id)) === null) {
+		if ((styleNode = document.getElementById(stylesheet.id)) === null) {
 			styleNode = document.createElement('style');
+			styleNode.id = stylesheet.id;
 			styleNode.type = 'text/css';
-			styleNode.media = styleSheet.media || 'screen';
+			styleNode.media = stylesheet.media || 'screen';
 			document.getElementsByTagName('head')[0].appendChild(styleNode);
 		}
 
-		// generate CSS text
-		styleSheet.rules.forEach(function(rule) {
-			cssText += rule.selector + ' {';
+		// Generate CSS text
+		stylesheet.rules.forEach(function(rule) {
+			cssText += rule.selector + ' {\n';
 
 			Object.keys(rule.styles).forEach(function(key) {
-				cssText += key + ': ' +
+				cssText += '\t' + key + ': ' +
 					rule.styles[key] + ';\n';
 			});
 
@@ -19132,7 +18992,7 @@ define('app/directives/generated_css',[],function() {
 			try {
 				styleNode.styleSheet.cssText = cssText;
 			} catch (e) {
-				throw new(Error)("Couldn't reassign styleSheet.cssText.");
+				throw new(Error)("Couldn't reassign stylesheet.cssText.");
 			}
 		} else {
 			(function (node) {
@@ -19152,14 +19012,9 @@ define('app/directives/generated_css',[],function() {
 			restrict: 'A',
 
 			link: function(scope, element, attrs) {
-
-				var style = document.createElement('style');
-				style.type = 'text/css';
-				document.getElementsByTagName('head')[0].appendChild(style);
-
-				scope.$watch(attrs.mkGeneratedCss, function(styleSheet) {
-					if (styleSheet && styleSheet.rules.length > 0) {
-						createCss(styleSheet);
+				scope.$watch(attrs.mkGeneratedCss, function(stylesheet) {
+					if (stylesheet && stylesheet.rules.length > 0) {
+						createCss(stylesheet);
 					}
 				}, true);
 			}

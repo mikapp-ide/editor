@@ -54,6 +54,14 @@ define(function() {
 	};
 
 	/**
+	 * Checks if current component supports children.
+	 * @returns {boolean}
+	 */
+	Model.prototype.supportChildren = function() {
+		return this.isFeatureSupported_('children');
+	};
+
+	/**
 	 * Checks if current component supports specified feature.
 	 * @param {string} feature Feature name to check.
 	 * @returns {boolean}

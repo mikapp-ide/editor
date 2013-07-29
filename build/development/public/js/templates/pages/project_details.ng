@@ -92,7 +92,7 @@
 				</section></pane>
 			</tabs>
 		</aside>
-		<section class="editor" mk-editor mk-drop-target>
+		<section class="editor" mk-editor>
 			<div mk-generated-css="project.stylesheet" class="editor-light-gradient">
 				<header>
 					<div class="left-action-panel">

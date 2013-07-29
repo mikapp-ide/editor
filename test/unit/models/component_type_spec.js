@@ -75,6 +75,44 @@ define(
 						toBe(false);
 				}
 			);
+
+			it('supportChildren() should work correctly.',
+				function() {
+					var supports = {
+							children: true
+						},
+						componentType = new ComponentType('type-1',
+							'component-title', 'general', ['color', 'font'],
+							supports);
+
+					expect(componentType.supportChildren()).
+						toEqual(supports.children);
+
+					supports = {
+						children: false
+					};
+					componentType = new ComponentType('type-1',
+						'component-title', 'general', ['color', 'font'],
+						supports);
+					expect(componentType.supportChildren()).
+						toEqual(supports.children);
+
+					supports = {
+						resizing: true
+					};
+					componentType = new ComponentType('type-1',
+						'component-title', 'general', ['color', 'font'],
+						supports);
+					expect(componentType.supportChildren()).
+						toBe(false);
+
+					componentType = new ComponentType('type-1',
+						'component-title', 'general', ['color', 'font']);
+
+					expect(componentType.supportChildren()).
+						toBe(false);
+				}
+			);
 		});
 	}
 );

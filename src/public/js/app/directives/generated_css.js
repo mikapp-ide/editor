@@ -1,24 +1,29 @@
 define(function() {
 	'use strict';
 
-	var createCss = function(styleSheet) {
+	/**
+	 * Creates user stylesheet.
+	 * @param {mikapp.editor.models.Stylesheet} stylesheet
+	 */
+	var createCss = function(stylesheet) {
 		var cssText = '',
 			styleNode;
 
 		// If the stylesheet doesn't exist, create a new node
-		if ((styleNode = document.getElementById(styleSheet.id)) === null) {
+		if ((styleNode = document.getElementById(stylesheet.id)) === null) {
 			styleNode = document.createElement('style');
+			styleNode.id = stylesheet.id;
 			styleNode.type = 'text/css';
-			styleNode.media = styleSheet.media || 'screen';
+			styleNode.media = stylesheet.media || 'screen';
 			document.getElementsByTagName('head')[0].appendChild(styleNode);
 		}
 
-		// generate CSS text
-		styleSheet.rules.forEach(function(rule) {
-			cssText += rule.selector + ' {';
+		// Generate CSS text
+		stylesheet.rules.forEach(function(rule) {
+			cssText += rule.selector + ' {\n';
 
 			Object.keys(rule.styles).forEach(function(key) {
-				cssText += key + ': ' +
+				cssText += '\t' + key + ': ' +
 					rule.styles[key] + ';\n';
 			});
 
@@ -30,7 +35,7 @@ define(function() {
 			try {
 				styleNode.styleSheet.cssText = cssText;
 			} catch (e) {
-				throw new(Error)("Couldn't reassign styleSheet.cssText.");
+				throw new(Error)("Couldn't reassign stylesheet.cssText.");
 			}
 		} else {
 			(function (node) {
@@ -50,14 +55,9 @@ define(function() {
 			restrict: 'A',
 
 			link: function(scope, element, attrs) {
-
-				var style = document.createElement('style');
-				style.type = 'text/css';
-				document.getElementsByTagName('head')[0].appendChild(style);
-
-				scope.$watch(attrs.mkGeneratedCss, function(styleSheet) {
-					if (styleSheet && styleSheet.rules.length > 0) {
-						createCss(styleSheet);
+				scope.$watch(attrs.mkGeneratedCss, function(stylesheet) {
+					if (stylesheet && stylesheet.rules.length > 0) {
+						createCss(stylesheet);
 					}
 				}, true);
 			}

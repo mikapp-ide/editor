@@ -1,7 +1,7 @@
 define(['app', 'angular-mocks'], function() {
 	"use strict";
 
-	describe('mikapp.editor.directives.draggable', function() {
+	describe('mikapp.editor.directives.Draggable', function() {
 		var directive,
 			directiveScope,
 			rootScope;
