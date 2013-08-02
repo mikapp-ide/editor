@@ -135,23 +135,25 @@ define(['app/models/project'],
 				stylesheet: {
 					id: 'az-1-stylesheet',
 					rules: [{
-						selector: '.mk-rectangle-1',
+						selector: 'mk-rectangle-1',
 						styles: {
-							'background-color': 'red',
-							'font': '25px Arial'
+							'background-color': '#cccccc',
+							'font-size': 24,
+							color: '#c09853',
+							'content-orientation': 'row'
 						}
 					}, {
-						selector: '.top-appbar-1',
+						selector: 'top-appbar-1',
 						styles: {
 							'background-color': 'blue'
 						}
 					}, {
-						selector: '.mk-rectangle-component',
+						selector: 'mk-rectangle-component',
 						styles: {
 							'background-color': 'red'
 						}
 					}, {
-						selector: '.az-mk-button-1',
+						selector: 'az-mk-button-1',
 						styles: {
 							'background-color': 'green'
 						}
@@ -165,7 +167,8 @@ define(['app/models/project'],
 						children: [{
 							typeId: 'mk-button',
 							cssClass: 'az-mk-button-1'
-						}]
+						}],
+						cssClass: 'mk-rectangle-1'
 					}]
 				}]
 			};

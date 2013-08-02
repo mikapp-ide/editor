@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 		production_requirejs_options: {
 
 			appDir:'<%= pkg.src %>/public/',
-			baseUrl:'./js/',
+			baseUrl:'js/',
 			dir:'<%= pkg.dest %>/production/public/',
 
 			optimize:'none',
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
 
 		development_requirejs_options: {
 			appDir:'<%= pkg.src %>/public/',
-			baseUrl:'./js/',
+			baseUrl:'js/',
 			dir:'<%= pkg.dest %>/development/public/',
 
 			optimize:'none',
@@ -156,6 +156,9 @@ module.exports = function(grunt) {
 				eqnull: true,
 				browser: true,
 				laxbreak: true,
+				quotmark: 'single',
+				strict: true,
+				maxlen: 80,
 
 				globals:{
 					require: true,
@@ -242,7 +245,8 @@ module.exports = function(grunt) {
 		// set some global flags that all tasks can access
 		grunt.config('environment', environment);
 
-		var tasks = [
+		// run tasks
+		grunt.task.run([
 			'clean:' + environment,
 			'jshint',
 			'copy:' + environment,
@@ -250,10 +254,7 @@ module.exports = function(grunt) {
 			'less:' + environment,
 			'index:' + environment,
 			'clean:post_' + environment
-		];
-
-		// run tasks
-		grunt.task.run(tasks);
+		]);
 	});
 
 	grunt.registerTask('watch-tests', ['karma:unit']);

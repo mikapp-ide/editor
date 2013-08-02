@@ -1,0 +1,10 @@
+<div class="data-binding-control">
+	<div ng-repeat="binding in controlModel" class="composite-field">
+		<select class="bind-target" ng-model="binding.field"
+			ng-options="field.id as field.label for field in fields"></select>
+		<select class="bind-source" ng-model="binding.data_field"
+			ng-options="field.id as field.label for field in dataFields">
+		</select>
+	</div>
+	<a href="#" ng-click="addNewBinding()">+ Add new binding</a>
+</div>

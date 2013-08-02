@@ -69,26 +69,30 @@
 						</accordion-group>
 					</accordion>
 				</section></pane>-->
-				<pane heading="Properties" classes="mk-icon mk-icon-tree-view"><section>
-					<h4>Properties</h4>
-					<accordion>
-						<!--<accordion-group heading="Properties">
+				<pane heading="Properties" classes="mk-icon mk-icon-tree-view">
+					<section>
+						<h4>Properties</h4>
+						<form class="pure-form">
 
-						</accordion-group>-->
-						<accordion-group heading="Styles" ng-if="!!panes.styles">
-							<form class="pure-g pure-form">
-								<div ng-repeat="style in panes.styles" mk-style-editor="style"></div>
-							</form>
-						</accordion-group>
-					</accordion>
-				</section></pane>
+							<div class="component-class-selector">
+								<div mk-style-editor="panes.properties.cssClass"></div>
+								<!--<a href="#" class="save-component-class">+ Save</a>-->
+							</div>
+
+							<div ng-repeat="componentStyle in panes.properties.styles"
+								mk-style-editor="componentStyle"></div>
+						</form>
+					</section>
+				</pane>
 			</tabs>
 		</aside>
 		<section class="editor" mk-editor>
 			<div mk-generated-css="project.stylesheet" class="editor-light-gradient">
 				<header>
 					<div class="left-action-panel">
-						<span class="mk-icon mk-icon-page">{{activePage.title}}</span>
+						<span class="mk-icon mk-icon-page">
+							{{project.pages[activePageIndex].title}}
+						</span>
 					</div>
 
 					<div class="tablet-camera"></div>
@@ -96,7 +100,8 @@
 					<div class="right-action-panel"></div>
 				</header>
 				<section class="editor-content">
-					<div ng-repeat="component in activePage.components" mk-component="component"></div>
+					<div ng-repeat="component in project.pages[activePageIndex].components"
+						mk-component="component"></div>
 				</section>
 
 				<footer>

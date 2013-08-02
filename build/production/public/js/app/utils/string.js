@@ -5,26 +5,31 @@ define(function () {
 
 	return {
 		/**
-		* Replace every occurrence of parameter (in '{parameterName}' format) with the appropriate value from parameters object.
+		* Replace every occurrence of parameter (in '{parameterName}' format)
+		* with the appropriate value from parameters object.
 		* @param {String} stringToFormat String to format.
-		* @param {Object} parameters Object that contains parameterName-parameterValue mapping.
+		* @param {Object} parameters Object that contains parameterName-
+		*   parameterValue mapping.
 		* @returns {String}
 		*/
 		format: function (stringToFormat, parameters) {
 			if (stringToFormat && parameters) {
-				return stringToFormat.replace(parameterPlaceholderRegEx, function (str, key) {
-					if (parameters.hasOwnProperty(key)) {
-						return parameters[key];
+				return stringToFormat.replace(parameterPlaceholderRegEx,
+					function (str, key) {
+						if (parameters.hasOwnProperty(key)) {
+							return parameters[key];
+						}
+						return str;
 					}
-					return str;
-				});
+				);
 			}
 			return stringToFormat;
 		},
 
 		/**
 		 * Generates hash for the string
-		 * @param {String} stringToHash String for which hash should be generated.
+		 * @param {String} stringToHash String for which hash should be
+		 *   generated.
 		 * @returns {Integer}
 		 */
 		hash: function(stringToHash){

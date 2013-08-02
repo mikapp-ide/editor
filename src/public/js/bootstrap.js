@@ -23,7 +23,8 @@ require(['angular', 'app', 'app/services/registration',
 ], function (angular, app) {
 	'use strict';
 
-	app.config(['$routeProvider', '$locationProvider',function ($routeProvider, $locationProvider) {
+	app.config(['$routeProvider', '$locationProvider',function ($routeProvider,
+		$locationProvider) {
 		$locationProvider.html5Mode(true);
 
 		// setting routes

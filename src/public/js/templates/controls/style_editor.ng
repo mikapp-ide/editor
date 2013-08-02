@@ -1,4 +1,4 @@
-<div ng-cloak>
+<div ng-cloak class="pure-g">
 	<label for="{{model.id}}" class="pure-u-1-2">{{model.label}}</label>
 	<select id="{{model.id}}" ng-if="isSelect()"
 		ng-model="model.value" class="pure-u-1-2"

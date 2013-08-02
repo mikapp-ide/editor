@@ -1,0 +1,252 @@
+define(['angular'], function(angular){
+	'use strict';
+
+	return ['$dialog', '$compile', 'ComponentService',
+		function($dialog, $compile, componentService) {
+			return {
+				scope: {
+					component: '=mkComponent'
+				},
+
+				template: '<div class="component" ng-dblclick="showSettings($event)" ng-click="select($event, component)">',
+
+				controller: 'ComponentController',
+
+				replace: true,
+
+				compile: function compile(template) {
+					/*template.addClass('component');
+
+					var settingsHandle = angular.element('<div ng-click='showSettings()'>');
+					settingsHandle.addClass('component-settings-gear mk-icon mk-icon-cog');
+
+					template.append(settingsHandle);*/
+
+					var getOffset = function (node) {
+						var offset = {
+							left: 0,
+							top: 0
+						};
+						do {
+							if(!isNaN(node.offsetLeft)) {
+								offset.left += node.offsetLeft;
+							}
+
+							if(!isNaN(node.offsetTop)) {
+								offset.top += node.offsetTop;
+							}
+						} while( node = node.offsetParent );
+						return offset;
+					};
+
+					return function postLink(scope, element, attrs) {
+						var childComponent,
+							componentMarkup,
+							mappedStyleKey,
+							componentConfig;
+
+						scope.select = function(e, component) {
+							e.stopPropagation();
+
+							var selectedClassName = 'component-selected';
+
+							var selectedComponent = window.document.querySelector(
+								'.' + selectedClassName);
+
+							if (selectedComponent) {
+								selectedComponent.classList.remove(
+									selectedClassName);
+							}
+
+							element.toggleClass(selectedClassName);
+
+							scope.$emit('component-selected', component);
+						};
+
+						if(scope.$parent && scope.$parent.component){
+							scope.component.parent = scope.$parent.component;
+						}
+
+						scope.showSettings = function(e){
+							e.stopPropagation();
+
+							var dialog = $dialog.dialog({
+								templateUrl: '/js/templates/dialogs/component_settings.ng',
+								controller: 'ComponentSettingsController',
+								resolve: {
+									component: function(){
+										return scope.component;
+									}
+								}
+							});
+
+							dialog.open();
+						};
+
+						if(scope.component.classes){
+							element.addClass(scope.component.classes);
+						}
+
+						if(scope.component.support){
+							if(scope.component.support.resizing) {
+								var mouseDowned = false,
+									onMouseMove = function(e){
+
+										/*
+										ROTATE
+										var elementNode = element[0],
+
+										center_x = elementNode.offsetLeft + (elementNode.offsetWidth/2),
+										center_y = elementNode.offsetTop + (elementNode.offsetHeight/2),
+
+										mouse_x = e.pageX,
+										mouse_y = e.pageY,
+
+										radians = Math.atan2(mouse_x - center_x, mouse_y - center_y),
+										degree = (radians * (180 / Math.PI) * -1) + 90;
+
+										elementNode.style.webkitTransform = 'rotate('+degree+'deg)';*/
+
+										/* RESIZE */
+
+										var elementNode = element[0],
+											offset = getOffset(elementNode),
+
+										/*  center_x = elementNode.offsetLeft + (elementNode.offsetWidth/2)  + editorElement.offsetLeft,
+											enter_y = elementNode.offsetTop + (elementNode.offsetHeight/2) + editorElement.offsetTop,*/
+
+											mouse_x = e.pageX,
+											mouse_y = e.pageY,
+
+											newWidth = mouse_x - offset.left,
+											newHeight = mouse_y - offset.top;
+
+										scope.$apply(function(){
+											scope.component.width.value = newWidth + 'px';
+											scope.component.height.value = newHeight + 'px';
+										});
+
+										/*elementNode.style.width = newWidth + 'px';
+											elementNode.style.height = newHeight + 'px'; */
+
+										window.console.log('width:' + newWidth + ' height:' + newHeight);
+
+										/*
+										MARGIN
+										var editorElement = document.querySelector('.editor-content'),
+
+										componentElement = element[0],
+										componentContainerElement = componentElement.parentNode,
+
+										parent_left_bottom_x = componentContainerElement.offsetLeft + componentContainerElement.offsetWidth + editorElement.offsetLeft,
+										parent_left_bottom_y = componentContainerElement.offsetTop + componentContainerElement.offsetHeight + editorElement.offsetTop,
+
+										mouse_x = e.pageX,
+										mouse_y = e.pageY,
+
+										newRightMargin = parent_left_bottom_x - mouse_x,
+										newBottomMargin = parent_left_bottom_y - mouse_y;
+
+										componentElement.style.marginRight =*//* componentElement.style.marginLeft =*//* newRightMargin + 'px';
+										componentElement.style.marginBottom = *//*componentElement.style.marginTop = *//*newBottomMargin + 'px';
+
+										window.console.log('margin-right:' + newRightMargin + ' margin-bottom:' + newBottomMargin);*/
+									},
+									onMouseUp = function(e){
+										mouseDowned = false;
+
+										document.body.classList.remove('resizing');
+
+										document.removeEventListener('mouseup', onMouseUp, false);
+										document.removeEventListener('mousemove', onMouseMove, false);
+									};
+
+								if(!scope.component.fixed){
+									var resizeHandle = angular.element('<div>');
+									resizeHandle.addClass('component-resize-handle');
+
+									element.append(resizeHandle);
+
+									resizeHandle.bind('mousedown', function(e){
+
+										mouseDowned = true;
+
+										document.body.classList.add('resizing');
+
+										document.addEventListener('mouseup', onMouseUp, false);
+										document.addEventListener('mousemove', onMouseMove, false);
+
+										e.preventDefault();
+										e.stopPropagation();
+									});
+								}
+							}
+						}
+
+						// if component has specific type, lets compile it
+						if(scope.component.type){
+							element.addClass(scope.component.type + '-component');
+
+							// construct component markup
+							componentMarkup = ['<', scope.component.type, ' class="inner-component', scope.component.placeholder ? '' : ' initialized"'];
+
+							componentConfig = componentService.getComponentConfig(scope.component.type);
+
+							if (scope.component.support && scope.component.support.resizing) {
+								componentMarkup.push(' style="width:{{component.width}};height:{{component.height}}">');
+							} else {
+								componentMarkup.push('>');
+							}
+
+							/*Object.keys(componentConfig).forEach(function(configSectionKey){
+								var componentConfigSection = scope.component[configSectionKey];
+
+								scope.component[configSectionKey] = componentConfigSection
+									? angular.extend(componentConfig[configSectionKey], componentConfigSection)
+									: componentConfig[configSectionKey];
+							});
+*/
+							/*if(scope.component.styles){
+								Object.keys(scope.component.styles).forEach(function(styleKey){
+									var style = scope.component.styles[styleKey];
+
+									mappedStyleKey = componentService.mapCssSetting(styleKey);
+
+									if(mappedStyleKey){
+										componentMarkup.push(mappedStyleKey + ':{{component.styles.' + styleKey + '.value}}' + (style.postfix || '') + ';');
+									}
+								});
+							}
+	*/
+
+							if(scope.component.support && scope.component.support.children){
+								componentMarkup.push('<div ng-repeat="child in component.children" mk-component="child"></div>');
+							}
+
+							componentMarkup.push('</' + scope.component.type + '>');
+
+							window.console.log('component: ' + componentMarkup.join(''));
+
+							childComponent = $compile(componentMarkup.join(''))(scope);
+
+							element.append(childComponent);
+						}
+
+						/*element.bind('click', function(e){
+							if(e.target.classList.contains('component-settings-gear')){
+								$timeout(function(){
+									var dialog = $dialog.dialog({
+										templateUrl: '/js/templates/dialogs/component_settings.html',
+										controller: component_settings_controller
+									});
+
+									dialog.open();
+								});
+							}
+						});*/
+					};
+				}
+			};
+		}
+	];
+});

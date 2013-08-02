@@ -12,14 +12,17 @@ define(['app/models/component_type'], function(ComponentType) {
 			},
 
 			link: function(scope, element, attrs) {
+
 				scope.type = ComponentType.EditorType;
 
 				scope.isSelect = function() {
-					return scope.model.type === scope.type.SELECT;
+					return scope.model && scope.model.type ===
+						scope.type.SELECT;
 				};
 
 				scope.isBasic = function() {
-					return scope.model.type !== scope.type.SELECT;
+					return scope.model && scope.model.type !==
+						scope.type.SELECT;
 				};
 			}
 		};

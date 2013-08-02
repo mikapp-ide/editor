@@ -1,0 +1,9 @@
+<div ng-cloak class="pure-g">
+	<label for="{{model.id}}" class="pure-u-1-2">{{model.label}}</label>
+	<select id="{{model.id}}" ng-if="isSelect()"
+		ng-model="model.value" class="pure-u-1-2"
+		ng-options="o.value as o.label for o in model.options">
+	</select>
+	<input ng-if="isBasic()" ng-model="model.value"
+		id="{{model.id}}" type="{{model.type}}" class="pure-u-1-2"  />
+</div>

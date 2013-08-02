@@ -11,7 +11,8 @@ define(function () {
 				enumerable = key.charCodeAt(0) !== /*_*/95,
 				member = members[key];
 			if (member && typeof member === 'object') {
-				if (member.value !== undefined || typeof member.get === 'function' || typeof member.set === 'function') {
+				if (member.value !== undefined || typeof member.get ===
+					'function' || typeof member.set === 'function') {
 					if (member.enumerable === undefined) {
 						member.enumerable = enumerable;
 					}
@@ -22,7 +23,12 @@ define(function () {
 			}
 			if (!enumerable) {
 				properties = properties || {};
-				properties[key] = { value:member, enumerable:enumerable, configurable:true, writable:true };
+				properties[key] = {
+					value: member,
+					enumerable: enumerable,
+					configurable: true,
+					writable: true
+				};
 				continue;
 			}
 			target[key] = member;
@@ -45,22 +51,30 @@ define(function () {
 			return constructor;
 		},
 
-		derive: function (baseClass, constructor, instanceMembers, staticMembers) {
+		derive: function (baseClass, constructor, instanceMembers,
+			staticMembers) {
 			if (baseClass) {
 				constructor = constructor || function () { };
 				var basePrototype = baseClass.prototype;
 				constructor.prototype = Object.create(basePrototype);
 
-				Object.defineProperty(constructor.prototype, 'constructor', { value:constructor, writable:true, configurable:true, enumerable:true });
+				Object.defineProperty(constructor.prototype, 'constructor', {
+					value: constructor,
+					writable: true,
+					configurable: true,
+					enumerable: true
+				});
 				if (instanceMembers) {
-					initializeProperties(constructor.prototype, instanceMembers);
+					initializeProperties(constructor.prototype,
+						instanceMembers);
 				}
 				if (staticMembers) {
 					initializeProperties(constructor, staticMembers);
 				}
 				return constructor;
 			} else {
-				return this.define(constructor, instanceMembers, staticMembers);
+				return this.define(constructor, instanceMembers,
+					staticMembers);
 			}
 		},
 

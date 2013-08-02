@@ -7,8 +7,10 @@ define(['angular'], function (angular) {
 		var save = function(settings){
 			settings.forEach(function(setting){
 				// TODO: Remove this inefficient check
-				if(component[setting.key] && component[setting.key][setting.id]){
-					component[setting.key][setting.id].value = setting.entity.value;
+				if(component[setting.key] && component[setting.key]
+					[setting.id]){
+					component[setting.key][setting.id].value =
+						setting.entity.value;
 				}
 			});
 		};
@@ -43,7 +45,8 @@ define(['angular'], function (angular) {
 				Object.keys(propertyBag).forEach(function(propertyKey){
 					var property = propertyBag[propertyKey];
 
-					if(property.configurable || typeof property.configurable === 'undefined'){
+					if(property.configurable || typeof property.configurable ===
+						'undefined'){
 						$scope.settings.push({
 							key: propertyBagKey,
 
@@ -64,7 +67,8 @@ define(['angular'], function (angular) {
 
 		var parent = component;
 		while(parent = parent.parent){
-			if(parent.properties && parent.properties.data_source && parent.properties.data_source.value >= 0){
+			if(parent.properties && parent.properties.data_source &&
+				parent.properties.data_source.value >= 0) {
 				break;
 			}
 		}
@@ -74,6 +78,8 @@ define(['angular'], function (angular) {
 			if(!component.properties){
 				component.properties = {};
 			}
+
+			var sources = projectService.getCurrentProject().sources;
 
 			$scope.settings.push({
 				key: 'properties',
@@ -96,7 +102,8 @@ define(['angular'], function (angular) {
 					data_fields: [{
 						id: -1,
 						label: '--- none ---'
-					}].concat(projectService.getCurrentProject().sources.predefined[1].fields.map(function(field, index){
+					}].concat(sources.predefined[1].fields.map(function(field,
+						index){
 						return {
 							id: index,
 							label: field.name

@@ -34,7 +34,7 @@ define(function() {
 
 		/**
 		 * Component styles.
-		 * @type {Array.<string>}
+		 * @type {Array.<string|number>}
 		 */
 		this.styles = opt_styles || null;
 

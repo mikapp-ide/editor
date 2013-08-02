@@ -18,7 +18,8 @@ define(function () {
 			return setProperties(this, properties);
 		};
 
-		var defineEntity = function(storeKey, name, type, label, configurable, value){
+		var defineEntity = function(storeKey, name, type, label, configurable,
+			value){
 			var store = $scope.component[storeKey] || {};
 
 			store[name] = {
@@ -31,7 +32,8 @@ define(function () {
 			$scope.component[storeKey] = store;
 		};
 
-		$scope.defineProperty = function(name, type, label, configurable, value){
+		$scope.defineProperty = function(name, type, label, configurable,
+			value){
 			defineEntity('properties', name, type, label, configurable, value);
 		};
 

@@ -2,7 +2,9 @@
 	<header class="main">
 		<img src="/img/logo.png" alt="Mikapp"><span>alpha</span>
 		<button class="go-to-dashboard">Dashboard</button>
-		<a href="http://localhost:3333/api/compile/71928b1e-b9e2-10fc-b12f-fe1a3cce2b86" download>Compile and download</a>
+		<a href="http://localhost:3333/api/compile/71928b1e-b9e2-10fc-b12f-fe1a3cce2b86" ng-click="showJSON()" download>
+			Compile and download
+		</a>
 	</header>
 	<section class="workspace">
 		<aside class="toolbox">
@@ -11,11 +13,11 @@
 					<section>
 						<h4>Toolbox</h4>
 						<accordion>
-							<accordion-group ng-repeat="group in toolBox" heading="{{group.label}}">
+							<accordion-group ng-repeat="group in panes.toolbox" heading="{{group.title}}">
 								<ul>
-									<li ng-repeat="component in group.items" mk-draggable="component">
-										<span class="{{component.meta.type}} mk-icon"></span>
-										{{component.meta.label}}
+									<li ng-repeat="componentType in group.componentTypes" mk-draggable="componentType">
+										<span class="{{componentType.id}}-toolbox mk-icon"></span>
+										{{componentType.title}}
 									</li>
 								</ul>
 							</accordion-group>
@@ -27,8 +29,8 @@
 					<accordion>
 						<accordion-group heading="Application Pages">
 							<ul>
-								<li class="list-item" ng-repeat="page in project.pages">
-									<a class="mk-icon mk-icon-page" href="#" ng-click="openPage(page)">{{page.name}}</a>
+								<li class="list-item" ng-repeat="page in panes.pages">
+									<a class="mk-icon mk-icon-page" href="#" ng-click="openPage(page)">{{page.title}}</a>
 								</li>
 								<li><a href="#" ng-click="addApplicationPage()">+ Add new page</a> </li>
 							</ul>
@@ -42,7 +44,7 @@
 						</accordion-group>
 					</accordion>
 				</section></pane>
-				<pane heading="Data Sources" classes="mk-icon mk-icon-datasource"><section>
+				<!--<pane heading="Data Sources" classes="mk-icon mk-icon-datasource"><section>
 					<h4>Data Sources</h4>
 					<accordion>
 						<accordion-group heading="Predefined sources">
@@ -66,14 +68,31 @@
 							</ul>
 						</accordion-group>
 					</accordion>
-				</section></pane>
+				</section></pane>-->
+				<pane heading="Properties" classes="mk-icon mk-icon-tree-view">
+					<section>
+						<h4>Properties</h4>
+						<form class="pure-form">
+
+							<div class="component-class-selector">
+								<div mk-style-editor="panes.properties.cssClass"></div>
+								<!--<a href="#" class="save-component-class">+ Save</a>-->
+							</div>
+
+							<div ng-repeat="componentStyle in panes.properties.styles"
+								mk-style-editor="componentStyle"></div>
+						</form>
+					</section>
+				</pane>
 			</tabs>
 		</aside>
-		<section class="editor" mk-drop-target>
-			<div class="editor-light-gradient">
+		<section class="editor" mk-editor>
+			<div mk-generated-css="project.stylesheet" class="editor-light-gradient">
 				<header>
 					<div class="left-action-panel">
-						<span class="mk-icon mk-icon-page">{{activePage.name}}</span>
+						<span class="mk-icon mk-icon-page">
+							{{project.pages[activePageIndex].title}}
+						</span>
 					</div>
 
 					<div class="tablet-camera"></div>
@@ -81,7 +100,8 @@
 					<div class="right-action-panel"></div>
 				</header>
 				<section class="editor-content">
-					<div ng-repeat="comp in activePage.components" mk-component="comp"></div>
+					<div ng-repeat="component in project.pages[activePageIndex].components"
+						mk-component="component"></div>
 				</section>
 
 				<footer>

@@ -45,23 +45,23 @@ define(['angular'], function(angular){
 							onDrop = function(e){
 								var target = angular.element(e.currentTarget),
 									newScope = scope.$new(),
-									componentMetadata = $rootScope.draggingComponent;
+									componentMetadata =
+										$rootScope.draggingComponent;
 
-								newScope.component = componentService.getComponentConfig(componentMetadata.type);
+								newScope.component =
+									componentService.getComponentConfig(
+										componentMetadata.type);
 
 								if(!scope.component.children){
 									scope.component.children = [];
 								}
 
 								scope.$apply(function(){
-									scope.component.children.push(newScope.component);
+									scope.component.children.push(
+										newScope.component);
 								});
 
 								target.removeClass('drag-enter');
-
-						/*		scope.$apply(function(){
-									target.append($compile('<div mk-component='component' {type}></div>'.replace('{type}', component.type))(newScope));
-								});*/
 
 							/*	target.unbind('dragenter', onDragEnter);
 								target.unbind('dragover', onDragOver);

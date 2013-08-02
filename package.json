@@ -7,8 +7,8 @@
     "type": "git",
     "url": "git@bitbucket.org:azasypkin/mikapp-editor.git"
   },
-  "dest": "./build",
-  "src": "./src",
+  "dest": "build",
+  "src": "src",
   "engines": {
     "node": ">= 0.8.0"
   },
@@ -19,13 +19,13 @@
     "grunt": "~0.4.x",
     "karma": "~0.10",
     "karma-coverage": "*",
-    "grunt-contrib-jshint": "~0.4.x",
-    "grunt-contrib-clean": "~0.4.x",
+    "grunt-contrib-jshint": "~0.6.x",
+    "grunt-contrib-clean": "~0.5.x",
     "grunt-contrib-copy": "~0.4.x",
     "grunt-contrib-requirejs": "~0.4.x",
-    "grunt-contrib-less": "~0.5.x",
-    "grunt-contrib-jasmine": "~0.4.x",
+    "grunt-contrib-less": "~0.6.x",
+    "grunt-contrib-jasmine": "~0.5.x",
     "grunt-contrib-watch": "~0.5.x",
-    "grunt-karma": "*"
+    "grunt-karma": "0.5.x"
   }
 }

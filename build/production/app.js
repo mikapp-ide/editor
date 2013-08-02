@@ -185,7 +185,7 @@
 		});
 	});
 
-	app.post('/project', function(req, res) {
+	app.post('/api/project', function(req, res) {
 		var username = req.headers['access-token'],
 			data = req.body;//.param('data', null);
 
@@ -254,7 +254,7 @@
 		});
 	});
 
-	app.get('/project/:id', function(req, res) {
+	app.get('/api/project/:id', function(req, res) {
 		var username = req.headers['access-token'];
 
 		async.waterfall([
@@ -284,7 +284,7 @@
 			function(decryptedUserName, coll, callback){
 				coll.findOne({'_id': req.params.id}, function(err, project) {
 					if(!project){
-						callback(generateError(304, 'Requested project doesn't exist'));
+						callback(generateError(304, 'Requested project doesn\'t exist'));
 					} else {
 						callback(null, project);
 					}
@@ -298,6 +298,12 @@
 			}
 		});
 	});
+
+	app.use(function(req, res) {
+		res.sendfile('index.html', { root: __dirname+'/public' });
+	});
+
+	console.log('port: ' + port + ', host: ' + host);
 
 	app.listen(port, host);
 })();

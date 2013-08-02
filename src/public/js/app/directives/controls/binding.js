@@ -1,7 +1,7 @@
 define(function(){
 	'use strict';
 
-	return function(){
+	return ['configuration', function(config){
 		return {
 			restrict: 'E',
 
@@ -11,13 +11,7 @@ define(function(){
 				dataFields:'=data'
 			},
 
-			template:   '<div class="data-binding-control">' +
-							'<div ng-repeat="binding in controlModel" class="composite-field">'+
-								'<select class="bind-target" ng-model="binding.field" ng-options="field.id as field.label for field in fields"></select>' +
-								'<select class="bind-source" ng-model="binding.data_field" ng-options="field.id as field.label for field in dataFields"></select>' +
-							'</div>' +
-							'<a href="#" ng-click="addNewBinding()">+ Add new binding</a>' +
-						'</div>',
+			templateUrl: config.templates.base + 'controls/binding.ng',
 
 			replace: true,
 
@@ -39,5 +33,5 @@ define(function(){
 				});*/
 			}
 		};
-	};
+	}];
 });

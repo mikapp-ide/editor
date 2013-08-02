@@ -20,7 +20,7 @@ define(function() {
 
 		// Generate CSS text
 		stylesheet.rules.forEach(function(rule) {
-			cssText += rule.selector + ' {\n';
+			cssText += '.' + rule.selector + ' {\n';
 
 			Object.keys(rule.styles).forEach(function(key) {
 				cssText += '\t' + key + ': ' +
@@ -35,7 +35,7 @@ define(function() {
 			try {
 				styleNode.styleSheet.cssText = cssText;
 			} catch (e) {
-				throw new(Error)("Couldn't reassign stylesheet.cssText.");
+				throw new(Error)('Could not reassign stylesheet.cssText.');
 			}
 		} else {
 			(function (node) {

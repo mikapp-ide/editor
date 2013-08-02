@@ -8,7 +8,8 @@ define(['angular'], function(angular){
 					component: '=mkComponent'
 				},
 
-				template: '<div class="component" ng-click="select($event, component)">',
+				template: '<div class="component" ' +
+					'ng-click="select($event, component)">',
 
 				controller: 'ComponentController',
 
@@ -28,8 +29,9 @@ define(['angular'], function(angular){
 
 							var selectedClassName = 'component-selected';
 
-							var selectedComponent = window.document.querySelector(
-								'.' + selectedClassName);
+							var selectedComponent =
+								window.document.querySelector('.' +
+									selectedClassName);
 
 							if (selectedComponent) {
 								selectedComponent.classList.remove(
@@ -65,7 +67,8 @@ define(['angular'], function(angular){
 								'mk-component="child"></div>');
 						}
 
-						componentMarkup.push('</' + scope.component.type.id + '>');
+						componentMarkup.push('</' + scope.component.type.id +
+							'>');
 
 						window.console.log('component: ' +
 							componentMarkup.join(''));

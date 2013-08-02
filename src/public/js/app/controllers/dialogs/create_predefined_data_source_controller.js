@@ -79,7 +79,8 @@ define(['angular'], function (angular) {
 						};
 					}
 
-					$scope.project.sources.predefined.push(angular.copy($scope.data_source));
+					$scope.project.sources.predefined.push(angular.copy(
+						$scope.data_source));
 
 					dialog.close();
 				} else if(result === 'cancel_create_source_item'){

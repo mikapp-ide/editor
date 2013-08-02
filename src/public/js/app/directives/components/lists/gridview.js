@@ -7,14 +7,20 @@ define(function(){
 
 			template: '<div>' +
 				'<div class="grid-view-row">' +
-					'<div mk-component="item_template_component" class="grid-view-item"></div>' +
-					'<div mk-component="item_template_component" class="grid-view-item"></div>' +
-					'<div mk-component="item_template_component" class="grid-view-item"></div>' +
+					'<div mk-component="item_template_component" ' +
+						'class="grid-view-item"></div>' +
+					'<div mk-component="item_template_component" ' +
+						'class="grid-view-item"></div>' +
+					'<div mk-component="item_template_component" ' +
+						'class="grid-view-item"></div>' +
 				'</div>' +
 				'<div class="grid-view-row">' +
-					'<div mk-component="item_template_component" class="grid-view-item"></div>' +
-					'<div mk-component="item_template_component" class="grid-view-item"></div>' +
-					'<div mk-component="item_template_component" class="grid-view-item"></div>' +
+					'<div mk-component="item_template_component" ' +
+						'class="grid-view-item"></div>' +
+					'<div mk-component="item_template_component" ' +
+						'class="grid-view-item"></div>' +
+					'<div mk-component="item_template_component" ' +
+						'class="grid-view-item"></div>' +
 				'</div>' +
 				'</div>',
 
@@ -66,10 +72,6 @@ define(function(){
 						};
 
 						target.removeClass('drag-enter');
-
-						scope.$apply(function(){
-							target.append($compile('<div mk-component='component' {type}></div>'.replace('{type}', component.type))(newScope));
-						});
 
 						*//*	target.unbind('dragenter', onDragEnter);
 						target.unbind('dragover', onDragOver);

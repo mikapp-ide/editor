@@ -20,45 +20,48 @@ define(function() {
 				$rootScope.$broadcast('drag-end');
 			});
 
-			/*display_area.addEventListener('dragenter', function(e){
-				e.currentTarget.classList.add('drop-target');
-				//alert(e.dataTransfer.getData('text/plain'));
-				e.stopPropagation();
-			}, false);
+	/*display_area.addEventListener('dragenter', function(e){
+		e.currentTarget.classList.add('drop-target');
+		//alert(e.dataTransfer.getData('text/plain'));
+		e.stopPropagation();
+	}, false);
 
-			display_area.addEventListener('dragleave', function(e){
-				e.currentTarget.classList.remove('drop-target');
-				e.stopPropagation();
-				//alert(e.dataTransfer.getData('text/plain'));
-			}, false);
+	display_area.addEventListener('dragleave', function(e){
+		e.currentTarget.classList.remove('drop-target');
+		e.stopPropagation();
+		//alert(e.dataTransfer.getData('text/plain'));
+	}, false);
 
-			display_area.querySelector('.app-bar').addEventListener('dragenter', function(e){
-				e.currentTarget.classList.add('drop-target');
-				e.stopPropagation();
-				e.preventDefault();
-				return false;
-			}, false);
+	display_area.querySelector('.app-bar').addEventListener('dragenter',
+		function(e){
+		e.currentTarget.classList.add('drop-target');
+		e.stopPropagation();
+		e.preventDefault();
+		return false;
+	}, false);
 
-			display_area.querySelector('.app-bar').addEventListener('dragover', function(e){
-				e.dataTransfer.dropEffect = 'move';
-				e.stopPropagation();
-				e.preventDefault();
-				return false;
-			}, false);
+	display_area.querySelector('.app-bar').addEventListener('dragover',
+	function(e){
+		e.dataTransfer.dropEffect = 'move';
+		e.stopPropagation();
+		e.preventDefault();
+		return false;
+	}, false);
 
-			display_area.querySelector('.app-bar').addEventListener('dragleave', function(e){
-				e.currentTarget.classList.remove('drop-target');
-				e.stopPropagation();
-				e.preventDefault();
-				return false;
-			}, false);
+	display_area.querySelector('.app-bar').addEventListener('dragleave',
+	function(e){
+		e.currentTarget.classList.remove('drop-target');
+		e.stopPropagation();
+		e.preventDefault();
+		return false;
+	}, false);
 
-			display_area.querySelector('.app-bar').addEventListener('drop', function(e){
-				e.currentTarget.classList.add('activated');
-				e.stopPropagation();
-				e.preventDefault();
-				return false;
-			}, false);*/
+	display_area.querySelector('.app-bar').addEventListener('drop', function(e){
+		e.currentTarget.classList.add('activated');
+		e.stopPropagation();
+		e.preventDefault();
+		return false;
+	}, false);*/
 		};
 	}];
 });
